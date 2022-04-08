@@ -1,5 +1,5 @@
 import React from "react";
-import {Waypoint} from "../services/models/WaypointWithTransitInfo";
+import {Waypoint} from "../services/models/Waypoint";
 import { DestinationWaypointCard } from "./DestinationWaypointCard";
 
 interface DestinationWaypointsListProps {
@@ -18,7 +18,9 @@ export default function DestinationWaypointsList(props: DestinationWaypointsList
     return (
         <>
             {props.waypoints.map((waypoint) => (
+              <div key={waypoint.id}>
                 <DestinationWaypointCard waypoint={waypoint}/>
+              </div>
             ))}
         </>
     );

@@ -2,7 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { TransitInfoQuery } from "../services/graphql/queries";
 import { TransitInfo } from "../services/models/TransitInfo";
-import { Waypoint } from "../services/models/WaypointWithTransitInfo";
+import { Waypoint } from "../services/models/Waypoint";
 
 interface DestinationWaypointCardProps {
   waypoint: Waypoint;
