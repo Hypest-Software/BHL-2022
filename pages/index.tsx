@@ -30,7 +30,8 @@ const Blog = () => {
     <Layout user={session.user as User}>
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Blog</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Witaj {session.user.name}!</h1>
+          <h3 className="text-gray-900">Twoje punkty: 100</h3>
         </div>
       </header>
       <main className="bg-gray-200 shadow">

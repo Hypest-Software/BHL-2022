@@ -17,6 +17,15 @@ model Post {
   published Boolean @default(false)
 }
 
+model FavoriteWaypoint {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  lat      Float
+  lng      Float
+  author   User?  @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+}
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String
@@ -45,14 +54,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  posts         Post[]
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?            @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  posts            Post[]
+  FavoriteWaypoint FavoriteWaypoint[]
 }
 
 model VerificationToken {
