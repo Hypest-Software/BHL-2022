@@ -1,13 +1,7 @@
-interface TransitInfo {
-  arrival_time: number;
-  departure_time: number;
-  distance: number;
-  duration: number;
-  travel_mode: string;
-}
+import { TransitInfo } from "../services/models/TransitInfo";
 
 interface DestinationCardProps {
-  // transit_info: TransitInfo;
+  transit_info: TransitInfo;
   destination_name: string;
   destination_id: number;
 }
