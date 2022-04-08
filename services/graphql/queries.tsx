@@ -66,21 +66,13 @@ export const TransitInfoQuery = gql`
     }
 `;
 
-// export const WaypointsQuery = gql`
-//     query WaypointsQuery() {
-//         favoriteWaypoints() {
-//             id
-//             name
-//             lat
-//             lng
-//             address
-//             transitInfo {
-//                 arrivalTime
-//                 departureTime
-//                 distance
-//                 duration
-//                 travelMode
-//             }
-//         }
-//     }
-// `;
+export const WaypointsQuery = gql`
+    query WaypointsQuery($authorId: String!) {
+        favoriteWaypoints(authorId: $authorId) {
+            id
+            name
+            lat
+            lng
+        }
+    }
+`;

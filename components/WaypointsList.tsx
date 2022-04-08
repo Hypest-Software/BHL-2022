@@ -1,13 +1,15 @@
 import { Post } from "../services/models/Post";
 import React from "react";
 import { PostCard } from "./PostCard";
+import {Waypoint} from "../services/models/Waypoint";
+import {WaypointCard} from "./WaypointCard";
 
 interface WaypointsListProps {
-  posts: Post[];
+  waypoints: Waypoint[];
 }
 
 export default function WaypointsList(props: WaypointsListProps) {
-  if (props.posts.length == 0) {
+  if (props.waypoints.length == 0) {
     return (
       <div className="text-center">
         <span>No posts to display</span>
@@ -17,22 +19,22 @@ export default function WaypointsList(props: WaypointsListProps) {
 
   return (
     <>
-      {props.posts.map((post) => (
-        <div key={post.id} className="post">
-          <PostCard post={post} />
+      {props.waypoints.map((waypoint) => (
+        <div key={waypoint.id} className="card">
+          <WaypointCard waypoint={waypoint} />
         </div>
       ))}
       <style jsx>{`
-        .post {
+        .card {
           background: white;
           transition: box-shadow 0.1s ease-in;
         }
 
-        .post:hover {
+        .card:hover {
           box-shadow: 1px 1px 3px #aaa;
         }
 
-        .post + .post {
+        .card + .card {
           margin-top: 2rem;
         }
       `}</style>
