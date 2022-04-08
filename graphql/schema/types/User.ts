@@ -16,6 +16,15 @@ export const User = objectType({
           })
           .posts(),
     });
+    t.list.field("rides", {
+      type: "Ride",
+      resolve: (parent, _, ctx) =>
+        ctx.prisma.user
+          .findUnique({
+            where: { id: parent.id },
+          })
+          .rides(),
+    });
   },
 });
 
