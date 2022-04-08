@@ -44,3 +44,24 @@ export const PostQuery = gql`
     }
   }
 `;
+
+export const TransactionQuery = gql`
+  query TransactionQuery($transactionId: String!) {
+    transaction(transactionId: $transactionId) {
+      id
+      type
+      amount
+      createdAt
+    }
+  }
+`;
+export const TransactionsListQuery = gql`
+  query TransactionsListQuery {
+    transactions {
+      id
+      type
+      amount
+      createdAt
+    }
+  }
+`;

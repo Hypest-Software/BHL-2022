@@ -11,6 +11,7 @@ const navigation = [
   { name: "Blog", href: "/" },
   { name: "Drafts", href: "/drafts" },
   { name: "Create post", href: "/create" },
+  { name: "Transactions", href: "/transactions" },
   { name: "Sign up", href: "/signup" },
 ];
 const userNavigation = [
