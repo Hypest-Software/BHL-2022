@@ -52,7 +52,7 @@ const Blog = () => {
           </h1>
           <h3 className="text-gray-900">
             Twoje saldo skarbonki:{" "}
-            {userData.data.user && userData.data.user.balance}zł
+            {userData.data && userData.data.user.balance}zł
           </h3>
         </div>
       </header>
