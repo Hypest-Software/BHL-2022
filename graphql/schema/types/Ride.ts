@@ -10,6 +10,7 @@ export const Ride = objectType({
     t.float("end_lat");
     t.float("end_lng");
     t.float("distance");
+    t.date("time");
     t.string("conveyance");
     t.float("points");
 

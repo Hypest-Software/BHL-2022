@@ -107,6 +107,7 @@ export const RideQuery = gql`
       end_lat
       end_lng
       distance
+      time
       conveyance
       points
 
@@ -131,6 +132,7 @@ export const RidesQuery = gql`
       end_lat
       end_lng
       distance
+      time
       points
       conveyance
     }
