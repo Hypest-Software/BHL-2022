@@ -1,6 +1,6 @@
 import React from "react";
-import {GoogleMap} from "react-google-maps";
-import {Waypoint} from "../services/models/WaypointWithTransitInfo";
+import Map from "./Map";
+import {Waypoint} from "../services/models/Waypoint";
 
 
 interface WaypointCardProps {
@@ -14,13 +14,7 @@ export const WaypointCard = (props: WaypointCardProps) => {
             <div className="card-body">
                 <h2 className="card-title">{props.waypoint.name}</h2>
                 <div className="google-map-code">
-                    <GoogleMap
-                        defaultZoom={8}
-                        defaultCenter={{
-                            lat: props.waypoint.lat, lng: props.waypoint.lng
-                        }}
-                    >
-                    </GoogleMap>
+                    <Map lat={props.waypoint.lat} lng={props.waypoint.lng}/>
                 </div>
                 <div className="card-actions justify-end">
                     <button className="btn btn-secondary">DELETE</button>

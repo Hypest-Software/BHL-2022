@@ -1,5 +1,5 @@
 import { extendType, floatArg, nonNull, objectType, stringArg } from "nexus";
-import { getTransitInfo } from "../../../services/external/DirectionsAPI";
+import { getTransitInfo } from "../../../services/external/GoogleMapsAPI";
 
 export const TransitInfo = objectType({
   name: "TransitInfo",
