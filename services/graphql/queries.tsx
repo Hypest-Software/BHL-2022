@@ -57,8 +57,30 @@ export const UserQuery = gql`
 export const TransitInfoQuery = gql`
     query TransitInfoQuery($waypointId: String!, $originLat: Float!, $originLng: Float!) {
         transitInfo(waypointId: $waypointId, originLat: $originLat, originLng: $originLng) {
-            arrival_time
-            departure_time
+            arrivalTime
+            departureTime
+            distance
+            duration
+            travelMode
         }
     }
 `;
+
+// export const WaypointsQuery = gql`
+//     query WaypointsQuery() {
+//         favoriteWaypoints() {
+//             id
+//             name
+//             lat
+//             lng
+//             address
+//             transitInfo {
+//                 arrivalTime
+//                 departureTime
+//                 distance
+//                 duration
+//                 travelMode
+//             }
+//         }
+//     }
+// `;

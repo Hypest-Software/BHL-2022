@@ -73,7 +73,7 @@ UI.
 
 ![](https://imgur.com/iE6OaBI.png)
 
-**Create post (draft)** (located in [`./pages/create.tsx`](./pages/create.tsx))
+**Create post (draft)** (located in [`./pages/settings.tsx`](./pages/settings.tsx))
 
 ![](https://imgur.com/olCWRNv.png)
 
