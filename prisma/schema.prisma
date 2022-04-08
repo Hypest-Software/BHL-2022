@@ -17,6 +17,15 @@ model Post {
   published Boolean @default(false)
 }
 
+model FavoriteWaypoint {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  lat      Float
+  lng      Float
+  author   User?  @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+}
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String
@@ -50,11 +59,13 @@ model User {
   email         String?       @unique
   emailVerified DateTime?
   image         String?
+  balance          Float              @default(0.0)
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
   rides         Ride[]
   transactions  Transaction[]
+  FavoriteWaypoint FavoriteWaypoint[]
 }
 
 model VerificationToken {

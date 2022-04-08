@@ -14,6 +14,15 @@ const options = {
       clientSecret: process.env.PROVIDER_GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    session: async ({ session, user, token }) => {
+      if (user) {
+        session.user.id = user.id;
+      }
+
+      return Promise.resolve(session);
+    },
+  },
 };
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
