@@ -1,11 +1,10 @@
-import { Author } from "./Author";
-import { TransitInfo } from "./TransitInfo";
+import {Author} from "./Author";
 
-export interface WaypointWithTransitInfo {
-  id: string;
-  name: string;
-  lat: number;
-  lng: number;
-  author: Author;
-  transit: TransitInfo;
+export interface Waypoint {
+    id: string;
+    name: string;
+    lat: number;
+    lng: number;
+    author: Author;
+
 }

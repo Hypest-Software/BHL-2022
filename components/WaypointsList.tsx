@@ -1,6 +1,6 @@
 import React from "react";
 import {WaypointCard} from "./WaypointCard";
-import {Waypoint} from "../services/models/WaypointWithTransitInfo";
+import {Waypoint} from "../services/models/Waypoint";
 
 interface WaypointsListProps {
     waypoints: Waypoint[];

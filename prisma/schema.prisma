@@ -22,6 +22,7 @@ model FavoriteWaypoint {
   name     String
   lat      Float
   lng      Float
+  address  String
   author   User?  @relation(fields: [authorId], references: [id])
   authorId String @db.ObjectId
 }
