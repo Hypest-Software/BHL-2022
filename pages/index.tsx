@@ -5,13 +5,12 @@ import Loading from "../components/Loading";
 import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
 import React, { useEffect } from "react";
-import { FeedQuery, UserQuery } from "../services/graphql/queries";
+import { UserQuery } from "../services/graphql/queries";
 
 const Blog = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
 
-  const feed = useQuery(FeedQuery);
   const [fetchUserData, userData] = useLazyQuery(UserQuery);
 
   useEffect(() => {
@@ -28,10 +27,6 @@ const Blog = () => {
 
   if (!session) {
     return <NotAuthorised />;
-  }
-
-  if (feed.error) {
-    return <div>Error: {feed.error.message}</div>;
   }
 
   if (userData.error) {
