@@ -82,14 +82,14 @@ model Ride {
   conveyance Conveyance
   points     Float
 
-  air_co     Float
-  air_no     Float
-  air_no2    Float
-  air_o3     Float
-  air_so2    Float
-  air_pm2_5  Float
-  air_pm10   Float
-  air_nh3    Float
+  air_co    Float
+  air_no    Float
+  air_no2   Float
+  air_o3    Float
+  air_so2   Float
+  air_pm2_5 Float
+  air_pm10  Float
+  air_nh3   Float
 
   userId String @db.ObjectId
 }
