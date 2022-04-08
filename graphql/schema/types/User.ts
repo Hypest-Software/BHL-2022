@@ -23,7 +23,7 @@ export const User = objectType({
           .findUnique({
             where: { id: parent.id },
           })
-          .rides()
+          .rides(),
     });
   },
 });
@@ -38,7 +38,7 @@ export const UserQueries = extendType({
       },
       resolve: async (_, args, ctx) => {
         return ctx.prisma.user.findUnique({
-          where: {id: args.userId},
+          where: { id: args.userId },
         });
       },
     });

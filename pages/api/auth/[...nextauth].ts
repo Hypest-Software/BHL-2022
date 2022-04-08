@@ -1,28 +1,28 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import {NextApiHandler} from "next";
-import {PrismaClient} from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { NextApiHandler } from "next";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 const options = {
-    adapter: PrismaAdapter(prisma),
-    providers: [
-        GoogleProvider({
-            clientId: process.env.PROVIDER_GOOGLE_CLIENT_ID,
-            clientSecret: process.env.PROVIDER_GOOGLE_CLIENT_SECRET,
-        }),
-    ],
-    callbacks: {
-        session: async ({session, user, token}) => {
-            if(user) {
-                session.user.id = user.id;
-            }
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GoogleProvider({
+      clientId: process.env.PROVIDER_GOOGLE_CLIENT_ID,
+      clientSecret: process.env.PROVIDER_GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+  callbacks: {
+    session: async ({ session, user, token }) => {
+      if (user) {
+        session.user.id = user.id;
+      }
 
-            return Promise.resolve(session)
-        },
-    }
+      return Promise.resolve(session);
+    },
+  },
 };
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);

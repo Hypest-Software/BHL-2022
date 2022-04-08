@@ -58,3 +58,17 @@ export const SignupMutation = gql`
     }
   }
 `;
+
+export const TransactionCreateMutation = gql`
+  mutation TransactionCreateMutation(
+    $type: String!
+    $userId: String!
+    $amount: Float!
+  ) {
+    createTransaction(type: $type, userId: $userId, amount: $amount) {
+      id
+      type
+      amount
+    }
+  }
+`;

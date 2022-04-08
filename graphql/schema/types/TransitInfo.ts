@@ -1,11 +1,11 @@
 import { extendType, floatArg, nonNull, objectType, stringArg } from "nexus";
-import { getTransitInfo } from "../../../services/external/DirectionsAPI";
+import { getTransitInfo } from "../../../services/external/GoogleMapsAPI";
 
 export const TransitInfo = objectType({
   name: "TransitInfo",
   definition(t) {
-    t.int("arrivalTime");
-    t.int("departureTime");
+    t.date("arrivalTime");
+    t.date("departureTime");
     t.int("distance");
     t.int("duration");
     t.string("travelMode");
@@ -15,7 +15,7 @@ export const TransitInfo = objectType({
 export const TransitInfoQueries = extendType({
   type: "Query",
   definition: (t) => {
-    t.list.field("transitInfo", {
+    t.field("transitInfo", {
       type: "TransitInfo",
       args: {
         waypointId: nonNull(stringArg()),
