@@ -62,7 +62,6 @@ export const RideQuery = gql`
       start_lng
       end_lat
       end_lng
-      time
       distance
       conveyance
       points
@@ -78,3 +77,15 @@ export const RideQuery = gql`
     }
   }
 `;
+
+export const RidesQuery = gql`
+  query RidesQuery($userId: String!) {
+    rides(userId: $userId) {
+      id
+      start_lat
+      start_lng
+      end_lat
+      end_lng
+    }
+  }
+`
