@@ -1,8 +1,24 @@
+import {
+  Client,
+  Language,
+  TravelMode,
+} from "@googlemaps/google-maps-services-js";
 import { TransitInfo } from "../models/TransitInfo";
-import axios from "axios";
 
-const DIRECTIONS_API_URL =
-  "https://maps.googleapis.com/maps/api/directions/json";
+const getTravelMode = (mode: string): TravelMode => {
+  switch (mode) {
+    case "walking":
+      return TravelMode.walking;
+    case "bicycling":
+      return TravelMode.bicycling;
+    case "transit":
+      return TravelMode.transit;
+    case "driving":
+      return TravelMode.driving;
+    default:
+      return TravelMode.driving;
+  }
+};
 
 export const getTransitInfo = async (
   origin: string,
@@ -10,14 +26,30 @@ export const getTransitInfo = async (
   mode: string
 ): Promise<TransitInfo> => {
   const key = process.env.GOOGLE_API_KEY;
-  return axios.get(DIRECTIONS_API_URL, {
+  const client = new Client({});
+  const response = await client.directions({
     params: {
       origin,
       destination,
       alternatives: false,
-      language: "pl_PL",
-      mode,
+      language: Language.pl,
+      mode: getTravelMode(mode),
       key,
     },
   });
+
+  const travel_modes = response.data.routes[0].legs[0].steps.map((step) => {
+    return step.travel_mode;
+  });
+  const travel_mode = travel_modes.find((mode) => {
+    return mode !== TravelMode.walking;
+  });
+
+  return {
+    arrival_time: response.data.routes[0].legs[0].arrival_time.value,
+    departure_time: response.data.routes[0].legs[0].departure_time.value,
+    distance: response.data.routes[0].legs[0].distance.value,
+    duration: response.data.routes[0].legs[0].duration.value,
+    travel_mode: travel_mode,
+  };
 };
