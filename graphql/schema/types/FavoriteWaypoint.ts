@@ -11,10 +11,10 @@ export const FavoriteWaypoint = objectType({
     t.nullable.field("author", {
       type: "User",
       resolve: (parent, _, ctx) =>
-        ctx.prisma.user
+        ctx.prisma.favoriteWaypoint
           .findUnique({
             where: { id: parent.id },
-          })
+          }).user()
     });
   },
 });

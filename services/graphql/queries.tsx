@@ -30,21 +30,6 @@ export const FeedQuery = gql`
   }
 `;
 
-export const PostQuery = gql`
-  query PostQuery($postId: String!) {
-    post(postId: $postId) {
-      id
-      title
-      content
-      published
-      author {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export const UserQuery = gql`
   query UserQuery($userId: String!) {
     user(userId: $userId) {
