@@ -1,12 +1,11 @@
 import Layout from "../components/Layout";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
-import Loading from "../components/Loading";
 import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
-import PostsList from "../components/PostsList";
-import React, { useEffect } from "react";
-import { FeedQuery, UserQuery } from "../services/graphql/queries";
+import React from "react";
+import { FeedQuery } from "../services/graphql/queries";
+import { DestinationCard } from "../components/DestinationCard";
 
 const Blog = () => {
   const { data: session, status } = useSession();
@@ -23,40 +22,38 @@ const Blog = () => {
     }
   }, [fetchUserData, session]);
 
-  if (loading) {
-    return <></>;
-  }
+    if (feed.error) {
+        return (
+            <div>
+                Error: {feed.error.message}
+            </div>
+        );
+    }
 
-  if (!session) {
-    return <NotAuthorised />;
-  }
-
-  if (feed.error) {
-    return <div>Error: {feed.error.message}</div>;
-  }
-
-  if (userData.error) {
-    return <div>Error: {userData.error.message}</div>;
-  }
-
+    if (userData.error) {
+        return (
+            <div>
+                Error: {userData.error.message}
+            </div>
+        );
+    }
   return (
     <Layout user={session.user as User}>
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Witaj {session.user.name}!
-          </h1>
-          <h3 className="text-gray-900">
-            Twoje saldo skarbonki:{" "}
-            {userData.data && userData.data.user.balance}zł
-          </h3>
+      <header className="bg-white">
+        <div className="flex justify-between mx-auto py-6 px-4 items-center max-w-screen-xl">
+          <div className="max-w-7xl mx-autosm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold text-gray-800"><span className="font-normal">Witaj</span> {session.user.name}!</h1>
+            <h3 className="text-gray-600">Twoje saldo: <span className="font-semibold">{userData.data.user && userData.data.user.balance}zł</span></h3>
+          </div>
+          <div className="flex-shrink-0">
+            <img className="h-14 w-14 rounded-full" src={session.user.image} alt=""/>
+          </div>
         </div>
       </header>
-      <main className="bg-gray-200 shadow">
-        <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
-          <div className="layout">
-            {feed.loading ? <Loading /> : <PostsList posts={feed.data.feed} />}
-          </div>
+      <main className="bg-white shadow">
+        <div className="max-w-7xl mx-4 space-y-4 py-4 sm:px-8 lg:px-8">
+          <DestinationCard destination_name="Bukowińska 26C" destination_id={1} />
+          <DestinationCard destination_name="Politechnika Warszawska" destination_id={2} />
         </div>
       </main>
     </Layout>
