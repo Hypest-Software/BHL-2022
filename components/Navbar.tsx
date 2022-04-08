@@ -10,6 +10,7 @@ import { User } from "../services/models/User";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Drafts", href: "/drafts" },
+  { name: "Transactions", href: "/transactions" },
   { name: "Settings", href: "/settings" },
   { name: "Sign up", href: "/signup" },
 ];
