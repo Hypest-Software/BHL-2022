@@ -41,11 +41,17 @@ const Blog = () => {
             Witaj {session.user.name}!
           </h1>
           <h3 className="text-gray-900">
-            Twoje saldo skarbonki:{" "}
-            {userData.data && userData.data.user.balance}zł
+            Twoje saldo skarbonki: {userData.data && userData.data.user.balance}
+            zł
           </h3>
         </div>
       </header>
+      <main className="bg-gray-200 shadow">
+        <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
+          <div className="layout">
+          </div>
+        </div>
+      </main>
     </Layout>
   );
 };

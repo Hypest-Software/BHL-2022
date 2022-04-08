@@ -1,10 +1,9 @@
-import {Author} from "./Author";
+import { Author } from "./Author";
 
 export interface Waypoint {
-    id: string;
-    name: string;
-    lat: number;
-    lng: number;
-    author: Author;
-
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  author: Author;
 }

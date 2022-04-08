@@ -7,15 +7,6 @@ export const User = objectType({
     t.string("name");
     t.string("email");
     t.float("balance");
-    t.list.field("posts", {
-      type: "Post",
-      resolve: (parent, _, ctx) =>
-        ctx.prisma.user
-          .findUnique({
-            where: { id: parent.id },
-          })
-          .posts(),
-    });
     t.list.field("rides", {
       type: "Ride",
       resolve: (parent, _, ctx) =>
