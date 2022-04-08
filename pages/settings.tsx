@@ -7,7 +7,7 @@ import {useLazyQuery} from "@apollo/client";
 import {WaypointsQuery} from "../services/graphql/queries";
 import Loading from "../components/Loading";
 import WaypointsList from "../components/WaypointsList";
-
+;
 function Settings(props) {
     const { data: session, status } = useSession();
     const loading = status === "loading";
