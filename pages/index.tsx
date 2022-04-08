@@ -5,21 +5,25 @@ import Loading from "../components/Loading";
 import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
 import React, { useEffect } from "react";
-import { UserQuery } from "../services/graphql/queries";
+import { UserQuery, WaypointsQuery } from "../services/graphql/queries";
+import DestinationWaypointsList from "../components/DestinationWaypointsList";
 
 const Blog = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
 
   const [fetchUserData, userData] = useLazyQuery(UserQuery);
+  const [fetchWaypointsData, waypointsData] = useLazyQuery(WaypointsQuery);
 
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
       // @ts-ignore
       fetchUserData({ variables: { userId: session.user.id } });
+      // @ts-ignore
+      fetchWaypointsData({ variables: { authorId: session.user.id } });
     }
-  }, [fetchUserData, session]);
+  }, [fetchUserData, fetchWaypointsData, session]);
 
   if (loading) {
     return <></>;
@@ -48,8 +52,7 @@ const Blog = () => {
       </header>
       <main className="bg-white shadow">
         <div className="max-w-7xl mx-4 space-y-4 py-4 sm:px-8 lg:px-8">
-          <DestinationCard destination_name="Bukowińska 26C" destination_id={1} />
-          <DestinationCard destination_name="Politechnika Warszawska" destination_id={2} />
+          <DestinationWaypointsList waypoints={waypointsData.data ? waypointsData.data.favoriteWaypoints : []}/>
         </div>
       </main>
     </Layout>
