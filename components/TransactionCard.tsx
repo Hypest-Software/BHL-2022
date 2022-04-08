@@ -10,7 +10,7 @@ export const TransactionCard = (props: TransactionCardProps) => (
     <table>
       <tr>
         <td>{props.transaction.type}</td>
-        <td>{props.transaction.date}</td>
+        <td>{props.transaction.createdAt}</td>
         <td>{props.transaction.amount}zł</td>
       </tr>
     </table>
