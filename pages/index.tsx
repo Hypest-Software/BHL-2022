@@ -21,7 +21,7 @@ const Blog = () => {
       // @ts-ignore
       fetchUserData({ variables: { userId: session.user.id } });
       // @ts-ignore
-      fetchWaypointsData({ variables: { authorId: session.user.id } });
+      fetchWaypointsData({ variables: { userId: session.user.id } });
     }
   }, [fetchUserData, fetchWaypointsData, session]);
 
