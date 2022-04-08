@@ -14,14 +14,6 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180)
 }
 
-// air_co: 201.94053649902344,
-// air_no: 0.01877197064459324,
-// air_no2: 0.7711350917816162,
-// air_o3: 68.66455078125,
-// air_so2: 0.6407499313354492,
-// air_pm2_5: 0.5,
-// air_pm10: 0.540438711643219,
-// air_nh3: 0.12369127571582794,
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   var R = 6371; // Radius of the earth in km
@@ -53,26 +45,7 @@ const randomConveyance = (): Conveyance => {
   return options[Math.floor(Math.random() * options.length)]
 }
 
-// export type RideUncheckedCreateInput = {
-//   id?: string
-//   start_lat: number
-//   start_lng: number
-//   end_lat: number
-//   end_lng: number
-//   time?: Date | string
-//   distance: number
-//   conveyance: Conveyance
-//   points: number
-//   air_co: number
-//   air_no: number
-//   air_no2: number
-//   air_o3: number
-//   air_so2: number
-//   air_pm2_5: number
-//   air_pm10: number
-//   air_nh3: number
-//   userId: string
-// }
+
 const randomRide = (userId: string): Prisma.RideUncheckedCreateInput => {
   const startLat = getRandomArbitrary(warsawLatMin, warsawLatMax)
   const startLng = getRandomArbitrary(warsawLngMin, warsawLngMax)
@@ -97,8 +70,6 @@ const randomRide = (userId: string): Prisma.RideUncheckedCreateInput => {
     air_pm10: getRandomArbitrary(0.4, 1),
     air_nh3: getRandomArbitrary(0, 0.1),
     userId: userId,
-
-
   }
 }
 
