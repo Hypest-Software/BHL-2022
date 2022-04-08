@@ -44,3 +44,28 @@ export const PostQuery = gql`
     }
   }
 `;
+
+export const RideQuery = gql`
+  query RideQuery($rideId: String!) {
+    ride(rideId: $rideId) {
+      id
+      start_lat
+      start_lng
+      end_lat
+      end_lng
+      time
+      distance
+      conveyance
+      points
+
+      air_co
+      air_no
+      air_no2
+      air_o3
+      air_so2
+      air_pm2_5
+      air_pm10
+      air_nh3
+    }
+  }
+`;

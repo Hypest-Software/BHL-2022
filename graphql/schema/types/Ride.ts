@@ -23,3 +23,32 @@ export const Ride = objectType({
 		t.float("air_nh3");
 	}
 })
+
+export const RideQueries = extendType({
+	type: "Query",
+	definition: (t) => {
+		t.field("ride", {
+			type: "Ride",
+			args: {
+				rideId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.ride.findUnique({
+					where: { id: args.rideId },
+				})
+			}
+		})
+		t.list.field("rides", {
+			type: "Ride",
+			args: {
+				userId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.ride.findMany({
+					where: { userId: args.userId },
+					orderBy: { time: "asc" }
+				})
+			},
+		})
+	}
+})
