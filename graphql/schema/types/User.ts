@@ -22,7 +22,7 @@ export const User = objectType({
           .findUnique({
             where: { id: parent.id },
           })
-          .rides()
+          .rides(),
     });
   },
 });
