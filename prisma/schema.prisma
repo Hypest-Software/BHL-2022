@@ -53,6 +53,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  rides         Ride[]
 }
 
 model VerificationToken {
@@ -69,4 +70,33 @@ model Ticket {
   name     String @unique
   price    Float
   duration Int    @unique
+}
+
+enum Conveyance {
+  ELECTRIC_CAR
+  BUS
+  BIKE
+}
+
+model Ride {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  user       User       @relation(fields: [userId], references: [id])
+  start_lat  Float
+  start_lng  Float
+  end_lat    Float
+  end_lng    Float
+  distance   Float
+  conveyance Conveyance
+  points     Float
+
+  air_co    Float
+  air_no    Float
+  air_no2   Float
+  air_o3    Float
+  air_so2   Float
+  air_pm2_5 Float
+  air_pm10  Float
+  air_nh3   Float
+
+  userId String @db.ObjectId
 }
