@@ -4,15 +4,13 @@ import { useSession } from "next-auth/react";
 import Loading from "../components/Loading";
 import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
-import PostsList from "../components/PostsList";
 import React, { useEffect } from "react";
-import { FeedQuery, UserQuery } from "../services/graphql/queries";
+import { UserQuery } from "../services/graphql/queries";
 
 const Blog = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
 
-  const feed = useQuery(FeedQuery);
   const [fetchUserData, userData] = useLazyQuery(UserQuery);
 
   useEffect(() => {
@@ -29,10 +27,6 @@ const Blog = () => {
 
   if (!session) {
     return <NotAuthorised />;
-  }
-
-  if (feed.error) {
-    return <div>Error: {feed.error.message}</div>;
   }
 
   if (userData.error) {
@@ -52,13 +46,6 @@ const Blog = () => {
           </h3>
         </div>
       </header>
-      <main className="bg-gray-200 shadow">
-        <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
-          <div className="layout">
-            {feed.loading ? <Loading /> : <PostsList posts={feed.data.feed} />}
-          </div>
-        </div>
-      </main>
     </Layout>
   );
 };
