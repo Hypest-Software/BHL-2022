@@ -47,8 +47,8 @@ const Blog = () => {
             Witaj {session.user.name}!
           </h1>
           <h3 className="text-gray-900">
-            Twoje saldo skarbonki:{" "}
-            {userData.data && userData.data.user.balance}zł
+            Twoje saldo skarbonki: {userData.data && userData.data.user.balance}
+            zł
           </h3>
         </div>
       </header>
