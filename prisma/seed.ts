@@ -146,12 +146,12 @@ const userData: Prisma.UserCreateInput[] = [
 export async function main() {
   try {
     console.log(`Start seeding ...`);
-    for (const u of userData) {
-      const user = await prisma.user.create({
-        data: u,
-      });
-      console.log(`Created user with id: ${user.id}`);
-    }
+    // for (const u of userData) {
+    //   const user = await prisma.user.create({
+    //     data: u,
+    //   });
+    //   console.log(`Created user with id: ${user.id}`);
+    // }
 
     ['6250823f2fcd1a1aae0c2a1a', '62507aa7d4106d32d5da9e1f', '62507a030172e7cfa18ebfd2'].forEach(async userId => {
       for (let i = 0; i < 10; i++) {

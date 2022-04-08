@@ -86,6 +86,9 @@ export const RidesQuery = gql`
       start_lng
       end_lat
       end_lng
+      distance
+      points
+      conveyance
     }
   }
 `

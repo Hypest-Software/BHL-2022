@@ -64,7 +64,7 @@ model User {
   sessions         Session[]
   posts            Post[]
   FavoriteWaypoint FavoriteWaypoint[]
-  rides         Ride[]
+  rides            Ride[]
 
 }
 
