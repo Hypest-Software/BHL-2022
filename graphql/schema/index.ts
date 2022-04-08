@@ -7,11 +7,13 @@ import { permissions } from "../permissions";
 import * as User from "./types/User";
 import * as Post from "./types/Post";
 import * as Ride from "./types/Ride";
+import * as Ticket from "./types/Ticket";
+import * as Transaction from "./types/Transaction";
 
 export const GQLDate = asNexusMethod(DateTimeResolver, "date");
 
 export const baseSchema = makeSchema({
-  types: [User, Post, Ride, GQLDate],
+  types: [User, Post, Ride, Ticket, Transaction, GQLDate],
   plugins: [],
   outputs: {
     typegen: path.join(process.cwd(), "generated/nexus-typegen.ts"),

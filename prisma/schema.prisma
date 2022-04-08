@@ -45,15 +45,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
   rides         Ride[]
+  transactions  Transaction[]
 }
 
 model VerificationToken {
@@ -99,4 +100,20 @@ model Ride {
   air_nh3   Float
 
   userId String @db.ObjectId
+}
+
+enum TransactionType {
+  TOP_UP
+  SINGLE_RIDE
+  PAY_AS_YOU_GO
+  REFUND
+}
+
+model Transaction {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  type      TransactionType
+  user      User            @relation(fields: [userId], references: [id])
+  userId    String          @db.ObjectId
+  amount    Float
+  createdAt DateTime
 }
