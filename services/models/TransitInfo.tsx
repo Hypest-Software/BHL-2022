@@ -1,7 +1,7 @@
 export interface TransitInfo {
-  arrival_time: Date;
-  departure_time: Date;
+  arrivalTime: Date;
+  departureTime: Date;
   distance: number;
   duration: number;
-  travel_mode: string;
+  travelMode: string;
 }

@@ -7,7 +7,7 @@ import { permissions } from "../permissions";
 import * as User from "./types/User";
 import * as Post from "./types/Post";
 import * as FavoriteWaypoint from "./types/FavoriteWaypoint";
-import { TransitInfo } from "./types/TransitInfo";
+import * as TransitInfo from "./types/TransitInfo";
 
 export const GQLDate = asNexusMethod(DateTimeResolver, "date");
 

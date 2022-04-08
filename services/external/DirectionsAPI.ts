@@ -46,10 +46,10 @@ export const getTransitInfo = async (
   });
 
   return {
-    arrival_time: response.data.routes[0].legs[0].arrival_time.value,
-    departure_time: response.data.routes[0].legs[0].departure_time.value,
+    arrivalTime: response.data.routes[0].legs[0].arrival_time.value,
+    departureTime: response.data.routes[0].legs[0].departure_time.value,
     distance: response.data.routes[0].legs[0].distance.value,
     duration: response.data.routes[0].legs[0].duration.value,
-    travel_mode: travel_mode,
+    travelMode: travel_mode,
   };
 };

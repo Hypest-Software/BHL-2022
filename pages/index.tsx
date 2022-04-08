@@ -31,8 +31,6 @@ const Blog = () => {
     return <NotAuthorised />;
   }
 
-  console.log(userData.data);
-
   if (feed.error) {
     return <div>Error: {feed.error.message}</div>;
   }
@@ -40,8 +38,6 @@ const Blog = () => {
   if (userData.error) {
     return <div>Error: {userData.error.message}</div>;
   }
-
-  console.log(userData.data);
 
   return (
     <Layout user={session.user as User}>

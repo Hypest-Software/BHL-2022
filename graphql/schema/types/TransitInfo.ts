@@ -4,8 +4,8 @@ import { getTransitInfo } from "../../../services/external/DirectionsAPI";
 export const TransitInfo = objectType({
   name: "TransitInfo",
   definition(t) {
-    t.int("arrivalTime");
-    t.int("departureTime");
+    t.date("arrivalTime");
+    t.date("departureTime");
     t.int("distance");
     t.int("duration");
     t.string("travelMode");
@@ -15,7 +15,7 @@ export const TransitInfo = objectType({
 export const TransitInfoQueries = extendType({
   type: "Query",
   definition: (t) => {
-    t.list.field("transitInfo", {
+    t.field("transitInfo", {
       type: "TransitInfo",
       args: {
         waypointId: nonNull(stringArg()),
