@@ -1,4 +1,4 @@
-import { extendType, nonNull, objectType, stringArg } from "nexus";
+import { extendType, nonNull, nullable, objectType, stringArg } from "nexus";
 
 export const User = objectType({
   name: "User",
@@ -6,6 +6,7 @@ export const User = objectType({
     t.string("id");
     t.string("name");
     t.string("email");
+    t.float("balance");
     t.list.field("posts", {
       type: "Post",
       resolve: (parent, _, ctx) =>
@@ -14,6 +15,23 @@ export const User = objectType({
             where: { id: parent.id },
           })
           .posts(),
+    });
+  },
+});
+
+export const UserQueries = extendType({
+  type: "Query",
+  definition: (t) => {
+    t.field("user", {
+      type: "User",
+      args: {
+        userId: nonNull(stringArg()),
+      },
+      resolve: async (_, args, ctx) => {
+        return ctx.prisma.user.findUnique({
+          where: {id: args.userId},
+        });
+      },
     });
   },
 });
@@ -32,6 +50,7 @@ export const UserMutations = extendType({
           data: {
             name,
             email,
+            balance: 0.0,
           },
         });
       },
