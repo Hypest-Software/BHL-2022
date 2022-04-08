@@ -1,8 +1,4 @@
-export interface Author {
-  id: string;
-  name: string;
-  email: string;
-}
+import { Author } from "./Author";
 
 export interface Post {
   id: string;

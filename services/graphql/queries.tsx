@@ -45,6 +45,15 @@ export const PostQuery = gql`
   }
 `;
 
+export const UserQuery = gql`
+  query UserQuery($userId: String!) {
+    user(userId: $userId) {
+      id
+      balance
+    }
+  }
+`;
+
 export const RideQuery = gql`
   query RideQuery($rideId: String!) {
     ride(rideId: $rideId) {

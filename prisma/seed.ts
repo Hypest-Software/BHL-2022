@@ -15,6 +15,7 @@ const userData: Prisma.UserCreateInput[] = [
         },
       ],
     },
+    balance: 10.0,
   },
   {
     name: "Nilu",
@@ -48,7 +49,8 @@ const userData: Prisma.UserCreateInput[] = [
           points: 30
         }
       ]
-    }
+    },
+    balance: 10.0,
   },
   {
     name: "Mahmoud",
@@ -66,6 +68,7 @@ const userData: Prisma.UserCreateInput[] = [
         },
       ],
     },
+    balance: 10.0,
   },
 ];
 
