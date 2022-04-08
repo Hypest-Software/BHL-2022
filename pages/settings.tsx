@@ -18,7 +18,7 @@ function Settings(props) {
     if (session && session.user.id) {
       console.log(session);
       // @ts-ignore
-      fetchWaypoints({ variables: { authorId: session.user.id } });
+      fetchWaypoints({ variables: { userId: session.user.id } });
     }
   }, [fetchWaypoints, session]);
 
