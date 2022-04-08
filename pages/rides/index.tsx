@@ -24,7 +24,6 @@ const RideListItem = ({ ride }) => {
 const RidesPage = () => {
     const { data: session, status } = useSession();
     const loading = status === "loading";
-    console.log(session);
 
     const {
         loading: queryLoading,
