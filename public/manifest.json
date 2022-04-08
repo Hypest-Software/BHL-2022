@@ -1,0 +1,23 @@
+
+{
+    "name": "eCommute",
+    "short_name": "ECM",
+    "icons": [
+      {
+        "src": "/icons/192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+
+      {
+        "src": "/icons/512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#333333",
+    "background_color": "#333333",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
