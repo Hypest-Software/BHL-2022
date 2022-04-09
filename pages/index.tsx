@@ -1,17 +1,17 @@
 import Layout from "../components/Layout";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
-import Loading from "../components/Loading";
 import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
 import React, { useEffect } from "react";
 import { UserQuery, WaypointsQuery } from "../services/graphql/queries";
 import DestinationWaypointsList from "../components/DestinationWaypointsList";
-import AirPollutionCard from "../components/AirPollutionCard";
 
 const Blog = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
+
+  const [isRideModalOpen, setIsRideModalOpen] = React.useState(false);
 
   const [fetchUserData, userData] = useLazyQuery(UserQuery);
   const [fetchWaypointsData, waypointsData] = useLazyQuery(WaypointsQuery);
@@ -38,16 +38,32 @@ const Blog = () => {
     return <div>Error: {userData.error.message}</div>;
   }
 
+  const handleRideModalSubmit = () => {
+    setIsRideModalOpen(false);
+  };
+
+  // @ts-ignore
   return (
     <Layout user={session.user as User}>
       <header className="bg-white">
         <div className="flex justify-between mx-auto pt-6 pb-2 px-4 items-center max-w-screen-xl">
           <div className="max-w-7xl mx-autosm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-gray-800"><span className="font-normal">Witaj</span> {session.user.name}!</h1>
-            <h3 className="text-gray-600">Twoje saldo: <span className="font-semibold">{userData.data ? userData.data.user.balance : 0}zł</span></h3>
+            <h1 className="text-3xl font-bold text-gray-800">
+              <span className="font-normal">Witaj</span> {session.user.name}!
+            </h1>
+            <h3 className="text-gray-600">
+              Twoje saldo:{" "}
+              <span className="font-semibold">
+                {userData.data ? userData.data.user.balance : 0}zł
+              </span>
+            </h3>
           </div>
           <div className="flex-shrink-0">
-            <img className="h-14 w-14 rounded-full" src={session.user.image} alt=""/>
+            <img
+              className="h-14 w-14 rounded-full"
+              src={session.user.image}
+              alt=""
+            />
           </div>
         </div>
       </header>
@@ -59,6 +75,7 @@ const Blog = () => {
           <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
           <DestinationWaypointsList waypoints={waypointsData.data ? waypointsData.data.favoriteWaypoints : []}/>
         </div>
+        <StartStopRide userId={session.user.id} />
       </main>
     </Layout>
   );

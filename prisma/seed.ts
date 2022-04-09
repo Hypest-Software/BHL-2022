@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, Conveyance, Ride } from "@prisma/client";
+import { Conveyance, Prisma, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -62,7 +62,8 @@ const randomRide = (userId: string): Prisma.RideUncheckedCreateInput => {
     points: Math.floor(distance * 10),
     air_co: getRandomArbitrary(200, 220),
     air_no: getRandomArbitrary(0, 0.2),
-    time: randomDate(new Date(2022, 0, 1), new Date()),
+    start_time: randomDate(new Date(2022, 0, 1), new Date()),
+    end_time: randomDate(new Date(2022, 0, 2), new Date()),
     air_no2: getRandomArbitrary(0.1, 0.8),
     air_o3: getRandomArbitrary(0, 70),
     air_so2: getRandomArbitrary(0, 0.6),
@@ -90,6 +91,8 @@ const userData: Prisma.UserCreateInput[] = [
           end_lat: 52.2295,
           end_lng: 21.0123,
           distance: 0.1,
+          start_time: new Date(2022, 0, 1),
+          end_time: new Date(2022, 0, 2),
           conveyance: Conveyance.ELECTRIC_CAR,
           air_co: 201.94053649902344,
           air_no: 0.01877197064459324,

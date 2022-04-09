@@ -1,5 +1,8 @@
 import gql from "graphql-tag";
 
+export const TopUpBalanceMutation = gql`
+  mutation TopUpBalanceMutation($id: String!, $amount: Float!) {
+    topUpBalance(id: $id, amount: $amount) {
 
 export const UpdateBalanceMutation = gql`
   mutation UpdateBalanceMutation($id: String!, $amount: Float!) {

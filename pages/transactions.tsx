@@ -1,12 +1,12 @@
 import Layout from "../components/Layout";
-import {useLazyQuery} from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import Loading from "../components/Loading";
 import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
 import TransactionsList from "../components/TransactionsList";
-import React, {useEffect} from "react";
-import {TransactionsListQuery} from "../services/graphql/queries";
+import React, { useEffect } from "react";
+import { TransactionsListQuery } from "../services/graphql/queries";
 
 const Transactions = () => {
   const { data: session, status } = useSession();
@@ -21,7 +21,6 @@ const Transactions = () => {
       fetchTransactions({ variables: { userId: session.user.id } });
     }
   }, [fetchTransactions, session]);
-
 
   if (loading || transactions.loading) {
     return <></>;

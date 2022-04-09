@@ -1,4 +1,4 @@
-import { extendType, nonNull, objectType, stringArg, floatArg} from "nexus";
+import { extendType, nonNull, objectType, stringArg, floatArg } from "nexus";
 
 export const User = objectType({
   name: "User",
@@ -61,16 +61,19 @@ export const UserMutations = extendType({
         id: nonNull(stringArg()),
         amount: nonNull(floatArg()),
       },
-      resolve: async (_, {id, amount}, ctx) => {
+      resolve: async (_, { id, amount }, ctx) => {
         return ctx.prisma.user.update({
-          where: {id: id},
+          where: { id: id },
           data: {
-            balance: (await ctx.prisma.user.findUnique({
-              where: {id: id},
-            })).balance + amount,
+            balance:
+              (
+                await ctx.prisma.user.findUnique({
+                  where: { id: id },
+                })
+              ).balance + amount,
           },
         });
       },
-    })
+    });
   },
 });

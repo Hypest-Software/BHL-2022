@@ -16,7 +16,9 @@ function genRandomDelayValue(duration: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export const DestinationWaypointCard = (props: DestinationWaypointCardProps) => {
+export const DestinationWaypointCard = (
+  props: DestinationWaypointCardProps
+) => {
   const [fetchTransitData, transitData] = useLazyQuery(TransitInfoQuery);
 
   useEffect(() => {
@@ -29,8 +31,8 @@ export const DestinationWaypointCard = (props: DestinationWaypointCardProps) => 
             variables: {
               waypointId: props.waypoint.id,
               originLat: position.coords.latitude,
-              originLng: position.coords.longitude
-            }
+              originLng: position.coords.longitude,
+            },
           });
         });
       }
@@ -69,4 +71,4 @@ export const DestinationWaypointCard = (props: DestinationWaypointCardProps) => 
     </div>
   </>
   );
-}
+};

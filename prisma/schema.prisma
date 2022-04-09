@@ -9,13 +9,13 @@ generator client {
 }
 
 model FavoriteWaypoint {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  lat      Float
-  lng      Float
-  address  String
-  user     User?  @relation(fields: [userId], references: [id])
-  userId   String @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  lat     Float
+  lng     Float
+  address String
+  user    User?  @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
 }
 
 model Account {
@@ -46,16 +46,16 @@ model Session {
 }
 
 model User {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?       @unique
-  emailVerified DateTime?
-  image         String?
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?            @unique
+  emailVerified    DateTime?
+  image            String?
   balance          Float              @default(0.0)
-  accounts      Account[]
-  sessions      Session[]
-  rides         Ride[]
-  transactions  Transaction[]
+  accounts         Account[]
+  sessions         Session[]
+  rides            Ride[]
+  transactions     Transaction[]
   FavoriteWaypoint FavoriteWaypoint[]
 }
 
@@ -77,31 +77,30 @@ model Ticket {
 
 enum Conveyance {
   ELECTRIC_CAR
-  BUS
+  TRANSIT
   BIKE
 }
 
 model Ride {
-  id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  user       User       @relation(fields: [userId], references: [id])
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  user       User        @relation(fields: [userId], references: [id])
   start_lat  Float
   start_lng  Float
-  end_lat    Float
-  end_lng    Float
-  time       DateTime   @default(now())
-  distance   Float
-  conveyance Conveyance
-  points     Float
+  end_lat    Float?
+  end_lng    Float?
+  start_time DateTime
+  end_time   DateTime?
+  distance   Float?
+  conveyance Conveyance?
+  points     Float?
   single_ride_ticket Boolean
 
-  air_co    Float
-  air_no    Float
-  air_no2   Float
-  air_o3    Float
-  air_so2   Float
-  air_pm2_5 Float
-  air_pm10  Float
-  air_nh3   Float
+  carbonMonoxide      Float
+  nitrogenDioxide     Float
+  ozone               Float
+  sulfurDioxide       Float
+  particulateMatter25 Float
+  particulateMatter10 Float
 
   userId String @db.ObjectId
 }
