@@ -33,7 +33,7 @@ const BuyTicket = () => {
     }
   }, [fetchTickets, session])
 
-  const [charge, { data, loading, error }] = useMutation(UpdateBalanceMutation)
+  const [updateBalance, { data, loading, error }] = useMutation(UpdateBalanceMutation)
   const [createTransaction, { data: tData, loading: tLoading, error: tError }] =
     useMutation(TransactionCreateMutation)
   if (loading || tLoading) {
@@ -54,7 +54,7 @@ const BuyTicket = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    charge({
+    updateBalance({
       variables: {
         amount: -Number(ticketPrice),
         id: userData.data.user.id,
