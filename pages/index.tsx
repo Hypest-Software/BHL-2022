@@ -7,6 +7,7 @@ import NotAuthorised from "../components/NotAuthorised";
 import React, { useEffect } from "react";
 import { UserQuery, WaypointsQuery } from "../services/graphql/queries";
 import DestinationWaypointsList from "../components/DestinationWaypointsList";
+import AirPollutionCard from "../components/AirPollutionCard";
 
 const Blog = () => {
   const { data: session, status } = useSession();
@@ -40,7 +41,7 @@ const Blog = () => {
   return (
     <Layout user={session.user as User}>
       <header className="bg-white">
-        <div className="flex justify-between mx-auto py-6 px-4 items-center max-w-screen-xl">
+        <div className="flex justify-between mx-auto pt-6 pb-2 px-4 items-center max-w-screen-xl">
           <div className="max-w-7xl mx-autosm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-gray-800"><span className="font-normal">Witaj</span> {session.user.name}!</h1>
             <h3 className="text-gray-600">Twoje saldo: <span className="font-semibold">{userData.data ? userData.data.user.balance : 0}zł</span></h3>
@@ -51,7 +52,11 @@ const Blog = () => {
         </div>
       </header>
       <main className="bg-white shadow">
-        <div className="max-w-7xl mx-4 space-y-4 py-4 sm:px-8 lg:px-8">
+        <div className="max-w-7xl mx-4 py-4 sm:px-8 lg:px-8">
+          <AirPollutionCard></AirPollutionCard>
+        </div>
+        <div className="max-w-7xl mx-4 space-y-4 py-2 sm:px-8 lg:px-8">
+          <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
           <DestinationWaypointsList waypoints={waypointsData.data ? waypointsData.data.favoriteWaypoints : []}/>
         </div>
       </main>

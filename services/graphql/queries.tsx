@@ -141,4 +141,19 @@ export const TicketsQuery = gql`
             duration
         }
     }
-    `
+`
+
+export const PollutionQuery = gql`
+  query PollutionQuery {
+    pollutionStatus {
+      average,
+      carbonMonoxide,
+      particulateMatter10,
+    }
+    pollution {
+      carbonMonoxide,
+      particulateMatter10,
+    }
+  }
+`
+
