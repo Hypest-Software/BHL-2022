@@ -1,5 +1,5 @@
 import { extendType, nonNull, objectType, stringArg } from "nexus";
-import { getPollution } from "../../../services/external/WaqiApi"
+import { getPollution, getPollutionStatus } from "../../../services/external/WaqiApi"
 
 
 export const Pollution = objectType({
@@ -19,6 +19,19 @@ export const Pollution = objectType({
 	}
 })
 
+export const PollutionStatus = objectType({
+	name: "PollutionStatus",
+	definition(t) {
+		t.string("carbonMonoxide");
+		t.string("nitrogenDioxide");
+		t.string("ozone");
+		t.string("particulateMatter10");
+		t.string("particulateMatter25");
+		t.string("sulfurDioxide");
+		t.string("average");
+	}
+})
+
 export const PollutionQueries = extendType({
 	type: "Query",
 	definition: (t) => {
@@ -26,6 +39,11 @@ export const PollutionQueries = extendType({
 			type: "Pollution",
 			resolve: () => getPollution()
 		})
+		t.field("pollutionStatus", {
+			type: "PollutionStatus",
+			resolve: () => getPollutionStatus()
+		})
 	}
-
 })
+
+
