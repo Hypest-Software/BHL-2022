@@ -1,19 +1,19 @@
-import { extendType, nonNull, objectType, stringArg } from "nexus";
+import { extendType, nonNull, objectType, stringArg } from 'nexus'
 
 export const Ticket = objectType({
-  name: "Ticket",
+  name: 'Ticket',
   definition: (t) => {
-    t.string("id");
-    t.string("name");
-    t.float("price");
-    t.int("duration");
+    t.string('id')
+    t.string('name')
+    t.float('price')
+    t.int('duration')
   },
-});
+})
 
 export const TicketQueries = extendType({
-  type: "Query",
+  type: 'Query',
   definition(t) {
-    t.field("ticket", {
+    t.field('ticket', {
       type: Ticket,
       args: {
         ticketId: nonNull(stringArg()),
@@ -23,14 +23,14 @@ export const TicketQueries = extendType({
           where: {
             id: ticketId,
           },
-        });
+        })
       },
-    });
-    t.list.field("tickets", {
+    })
+    t.list.field('tickets', {
       type: Ticket,
       resolve: (_, args, ctx) => {
-        return ctx.prisma.ticket.findMany();
+        return ctx.prisma.ticket.findMany()
       },
-    });
+    })
   },
-});
+})

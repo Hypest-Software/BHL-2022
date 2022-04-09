@@ -1,21 +1,21 @@
-import { getWaqi } from "./WaqiRawApi";
+import { getWaqi } from './WaqiRawApi'
 
 export interface Pollution {
-  carbonMonoxide: number;
-  humidity: number;
-  nitrogenDioxide: number;
-  ozone: number;
-  particulateMatter: number;
-  particulateMatter10: number;
-  particulateMatter25: number;
-  sulfurDioxide: number;
-  temperature: number;
-  wind: number;
-  windGust: number;
+  carbonMonoxide: number
+  humidity: number
+  nitrogenDioxide: number
+  ozone: number
+  particulateMatter: number
+  particulateMatter10: number
+  particulateMatter25: number
+  sulfurDioxide: number
+  temperature: number
+  wind: number
+  windGust: number
 }
 
 export const getPollution = async (): Promise<Pollution> => {
-  const raw = await getWaqi();
+  const raw = await getWaqi()
 
   return {
     carbonMonoxide: raw.data.iaqi.co.v,
@@ -29,15 +29,15 @@ export const getPollution = async (): Promise<Pollution> => {
     temperature: raw.data.iaqi.t.v,
     wind: raw.data.iaqi.w.v,
     windGust: raw.data.iaqi.wg.v,
-  };
-};
+  }
+}
 
 export enum PollutionStatus {
-  Good = "GOOD",
-  Fair = "FAIR",
-  Poor = "POOR",
-  VeryPoor = "VERY_POOR",
-  ExtremelyPoor = "EXTREMELY_POOR",
+  Good = 'GOOD',
+  Fair = 'FAIR',
+  Poor = 'POOR',
+  VeryPoor = 'VERY_POOR',
+  ExtremelyPoor = 'EXTREMELY_POOR',
 }
 
 const statusRanges = (
@@ -46,11 +46,11 @@ const statusRanges = (
 ): PollutionStatus => {
   for (const [status, { min, max }] of table.entries()) {
     if (value >= min && value <= max) {
-      return status;
+      return status
     }
   }
-  return PollutionStatus.Good;
-};
+  return PollutionStatus.Good
+}
 
 export const carbonMonoxiteStatus = (
   carbonMonoxite: number
@@ -62,8 +62,8 @@ export const carbonMonoxiteStatus = (
       [PollutionStatus.Poor, { min: 30, max: 70 }],
       [PollutionStatus.ExtremelyPoor, { min: 70, max: Infinity }],
     ])
-  );
-};
+  )
+}
 
 export const nitrogenDioxideStatus = (
   nitrogenDioxide: number
@@ -77,8 +77,8 @@ export const nitrogenDioxideStatus = (
       [PollutionStatus.VeryPoor, { min: 180, max: 360 }],
       [PollutionStatus.ExtremelyPoor, { min: 360, max: Infinity }],
     ])
-  );
-};
+  )
+}
 
 export const ozoneStatus = (ozone: number): PollutionStatus => {
   return statusRanges(
@@ -90,8 +90,8 @@ export const ozoneStatus = (ozone: number): PollutionStatus => {
       [PollutionStatus.VeryPoor, { min: 150, max: 300 }],
       [PollutionStatus.ExtremelyPoor, { min: 300, max: Infinity }],
     ])
-  );
-};
+  )
+}
 
 export const particulateMatter10Status = (
   particulateMatter: number
@@ -105,8 +105,8 @@ export const particulateMatter10Status = (
       [PollutionStatus.VeryPoor, { min: 120, max: 300 }],
       [PollutionStatus.ExtremelyPoor, { min: 300, max: Infinity }],
     ])
-  );
-};
+  )
+}
 
 export const particulateMatter25Status = (
   particulateMatter: number
@@ -120,8 +120,8 @@ export const particulateMatter25Status = (
       [PollutionStatus.VeryPoor, { min: 50, max: 150 }],
       [PollutionStatus.ExtremelyPoor, { min: 150, max: Infinity }],
     ])
-  );
-};
+  )
+}
 
 export const sulfurDioxideStatus = (sulfurDioxide: number): PollutionStatus => {
   return statusRanges(
@@ -133,68 +133,68 @@ export const sulfurDioxideStatus = (sulfurDioxide: number): PollutionStatus => {
       [PollutionStatus.VeryPoor, { min: 300, max: 600 }],
       [PollutionStatus.ExtremelyPoor, { min: 600, max: Infinity }],
     ])
-  );
-};
+  )
+}
 
 const statusToInt = (status: PollutionStatus): number => {
   switch (status) {
     case PollutionStatus.Good:
-      return 1;
+      return 1
     case PollutionStatus.Fair:
-      return 2;
+      return 2
     case PollutionStatus.Poor:
-      return 3;
+      return 3
     case PollutionStatus.VeryPoor:
-      return 4;
+      return 4
     case PollutionStatus.ExtremelyPoor:
-      return 5;
+      return 5
     default:
-      return 0;
+      return 0
   }
-};
+}
 
 const averageStatus = (pollution: PollutionStatus[]): PollutionStatus => {
-  const sum = pollution.reduce((acc, curr) => acc + statusToInt(curr), 0);
-  const avg = sum / pollution.length;
+  const sum = pollution.reduce((acc, curr) => acc + statusToInt(curr), 0)
+  const avg = sum / pollution.length
   switch (avg) {
     case 1:
-      return PollutionStatus.Good;
+      return PollutionStatus.Good
     case 2:
-      return PollutionStatus.Fair;
+      return PollutionStatus.Fair
     case 3:
-      return PollutionStatus.Poor;
+      return PollutionStatus.Poor
     case 4:
-      return PollutionStatus.VeryPoor;
+      return PollutionStatus.VeryPoor
     case 5:
-      return PollutionStatus.ExtremelyPoor;
+      return PollutionStatus.ExtremelyPoor
     default:
-      return PollutionStatus.Good;
+      return PollutionStatus.Good
   }
-};
+}
 
 export interface PollutionStatuses {
-  carbonMonoxide: PollutionStatus;
-  nitrogenDioxide: PollutionStatus;
-  ozone: PollutionStatus;
-  particulateMatter10: PollutionStatus;
-  particulateMatter25: PollutionStatus;
-  sulfurDioxide: PollutionStatus;
-  average: PollutionStatus;
+  carbonMonoxide: PollutionStatus
+  nitrogenDioxide: PollutionStatus
+  ozone: PollutionStatus
+  particulateMatter10: PollutionStatus
+  particulateMatter25: PollutionStatus
+  sulfurDioxide: PollutionStatus
+  average: PollutionStatus
 }
 
 export const getPollutionStatus = async (): Promise<PollutionStatuses> => {
-  const pollution = await getPollution();
+  const pollution = await getPollution()
 
-  const carbonMonoxide = carbonMonoxiteStatus(pollution.carbonMonoxide);
-  const nitrogenDioxide = nitrogenDioxideStatus(pollution.nitrogenDioxide);
-  const ozone = ozoneStatus(pollution.ozone);
+  const carbonMonoxide = carbonMonoxiteStatus(pollution.carbonMonoxide)
+  const nitrogenDioxide = nitrogenDioxideStatus(pollution.nitrogenDioxide)
+  const ozone = ozoneStatus(pollution.ozone)
   const particulateMatter10 = particulateMatter10Status(
     pollution.particulateMatter10
-  );
+  )
   const particulateMatter25 = particulateMatter25Status(
     pollution.particulateMatter25
-  );
-  const sulfurDioxide = sulfurDioxideStatus(pollution.sulfurDioxide);
+  )
+  const sulfurDioxide = sulfurDioxideStatus(pollution.sulfurDioxide)
   const average = averageStatus([
     carbonMonoxide,
     nitrogenDioxide,
@@ -202,7 +202,7 @@ export const getPollutionStatus = async (): Promise<PollutionStatuses> => {
     particulateMatter10,
     particulateMatter25,
     sulfurDioxide,
-  ]);
+  ])
   return {
     carbonMonoxide,
     nitrogenDioxide,
@@ -211,5 +211,5 @@ export const getPollutionStatus = async (): Promise<PollutionStatuses> => {
     particulateMatter25,
     sulfurDioxide,
     average,
-  };
-};
+  }
+}

@@ -1,7 +1,7 @@
 interface ModalProps {
-  showModal: boolean;
-  setShowModal: (showModal: boolean) => void;
-  submit: () => void;
+  showModal: boolean
+  setShowModal: (showModal: boolean) => void
+  submit: () => void
 }
 
 export default function StartStopRideModal(props: ModalProps) {
@@ -58,5 +58,5 @@ export default function StartStopRideModal(props: ModalProps) {
         </>
       ) : null}
     </>
-  );
+  )
 }

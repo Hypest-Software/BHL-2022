@@ -1,9 +1,9 @@
-import React from "react";
-import { WaypointCard } from "./WaypointCard";
-import { Waypoint } from "../services/models/Waypoint";
+import React from 'react'
+import { WaypointCard } from './WaypointCard'
+import { Waypoint } from '../services/models/Waypoint'
 
 interface WaypointsListProps {
-  waypoints: Waypoint[];
+  waypoints: Waypoint[]
 }
 
 export default function WaypointsList(props: WaypointsListProps) {
@@ -12,7 +12,7 @@ export default function WaypointsList(props: WaypointsListProps) {
       <div className="text-center">
         <span>No posts to display</span>
       </div>
-    );
+    )
   }
 
   return (
@@ -37,5 +37,5 @@ export default function WaypointsList(props: WaypointsListProps) {
         }
       `}</style>
     </>
-  );
+  )
 }

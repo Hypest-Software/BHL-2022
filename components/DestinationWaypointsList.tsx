@@ -1,9 +1,9 @@
-import React from "react";
-import { Waypoint } from "../services/models/Waypoint";
-import { DestinationWaypointCard } from "./DestinationWaypointCard";
+import React from 'react'
+import { Waypoint } from '../services/models/Waypoint'
+import { DestinationWaypointCard } from './DestinationWaypointCard'
 
 interface DestinationWaypointsListProps {
-  waypoints: Waypoint[];
+  waypoints: Waypoint[]
 }
 
 export default function DestinationWaypointsList(
@@ -14,7 +14,7 @@ export default function DestinationWaypointsList(
       <div className="text-center">
         <span>No waypoints saved.</span>
       </div>
-    );
+    )
   }
 
   return (
@@ -25,5 +25,5 @@ export default function DestinationWaypointsList(
         </div>
       ))}
     </>
-  );
+  )
 }

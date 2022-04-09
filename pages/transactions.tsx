@@ -1,33 +1,33 @@
-import Layout from "../components/Layout";
-import { useLazyQuery } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import Loading from "../components/Loading";
-import { User } from "../services/models/User";
-import NotAuthorised from "../components/NotAuthorised";
-import TransactionsList from "../components/TransactionsList";
-import React, { useEffect } from "react";
-import { TransactionsListQuery } from "../services/graphql/queries";
+import Layout from '../components/Layout'
+import { useLazyQuery } from '@apollo/client'
+import { useSession } from 'next-auth/react'
+import Loading from '../components/Loading'
+import { User } from '../services/models/User'
+import NotAuthorised from '../components/NotAuthorised'
+import TransactionsList from '../components/TransactionsList'
+import React, { useEffect } from 'react'
+import { TransactionsListQuery } from '../services/graphql/queries'
 
 const Transactions = () => {
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
+  const { data: session, status } = useSession()
+  const loading = status === 'loading'
 
-  const [fetchTransactions, transactions] = useLazyQuery(TransactionsListQuery);
+  const [fetchTransactions, transactions] = useLazyQuery(TransactionsListQuery)
 
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
       // @ts-ignore
-      fetchTransactions({ variables: { userId: session.user.id } });
+      fetchTransactions({ variables: { userId: session.user.id } })
     }
-  }, [fetchTransactions, session]);
+  }, [fetchTransactions, session])
 
   if (loading || transactions.loading) {
-    return <></>;
+    return <></>
   }
 
   if (!session) {
-    return <NotAuthorised />;
+    return <NotAuthorised />
   }
 
   return (
@@ -51,7 +51,7 @@ const Transactions = () => {
         </div>
       </main>
     </Layout>
-  );
-};
+  )
+}
 
-export default Transactions;
+export default Transactions

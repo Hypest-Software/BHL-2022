@@ -6,68 +6,68 @@ import {
   floatArg,
   enumType,
   arg,
-} from "nexus";
+} from 'nexus'
 
 const TransactionType = enumType({
-  name: "TransactionType",
-  members: ["TOP_UP", "SINGLE_RIDE", "PAY_AS_YOU_GO", "REFUND"],
-});
+  name: 'TransactionType',
+  members: ['TOP_UP', 'SINGLE_RIDE', 'PAY_AS_YOU_GO', 'REFUND'],
+})
 
 export const Transaction = objectType({
-  name: "Transaction",
+  name: 'Transaction',
   definition(t) {
-    t.string("id");
-    t.field("type", { type: TransactionType });
-    t.field("user", {
-      type: "User",
+    t.string('id')
+    t.field('type', { type: TransactionType })
+    t.field('user', {
+      type: 'User',
       resolve: (parent, _, ctx) => {
         return ctx.prisma.transaction
           .findUnique({
             where: { id: parent.id },
           })
-          .user();
+          .user()
       },
-    });
-    t.float("amount");
+    })
+    t.float('amount')
     // @ts-ignore
-    t.date("createdAt");
+    t.date('createdAt')
   },
-});
+})
 
 export const TransactionQueries = extendType({
-  type: "Query",
+  type: 'Query',
   definition(t) {
-    t.field("transaction", {
-      type: "Transaction",
+    t.field('transaction', {
+      type: 'Transaction',
       args: {
         transactionId: nonNull(stringArg()),
       },
       resolve: (_, { transactionId }, ctx) => {
         return ctx.prisma.transaction.findUnique({
           where: { id: transactionId },
-        });
+        })
       },
-    });
-    t.list.field("transactions", {
-      type: "Transaction",
+    })
+    t.list.field('transactions', {
+      type: 'Transaction',
       args: {
         userId: nonNull(stringArg()),
       },
       resolve: (_, { userId }, ctx) => {
         return ctx.prisma.transaction.findMany({
           where: { user: { id: userId } },
-          orderBy: { createdAt: "desc" },
-        });
+          orderBy: { createdAt: 'desc' },
+        })
       },
-    });
+    })
   },
-});
+})
 
 export const TransactionMutations = extendType({
-  type: "Mutation",
+  type: 'Mutation',
   definition(t) {
-    t.field("createTransaction", {
-      type: "Transaction",
+    t.field('createTransaction', {
+      type: 'Transaction',
       args: {
         type: nonNull(arg({ type: TransactionType })),
         userId: nonNull(stringArg()),
@@ -81,8 +81,8 @@ export const TransactionMutations = extendType({
             amount,
             createdAt: new Date(),
           },
-        });
+        })
       },
-    });
+    })
   },
-});
+})

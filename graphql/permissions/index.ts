@@ -1,11 +1,11 @@
-import { shield } from "graphql-shield";
-import { isAuthenticated } from "./rules/isAuthenticated";
+import { shield } from 'graphql-shield'
+import { isAuthenticated } from './rules/isAuthenticated'
 
 export const permissions = shield({
   Query: {
-    "*": isAuthenticated,
+    '*': isAuthenticated,
   },
   Mutation: {
-    "*": isAuthenticated,
+    '*': isAuthenticated,
   },
-});
+})

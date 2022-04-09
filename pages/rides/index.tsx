@@ -1,11 +1,11 @@
-import { useSession } from "next-auth/react";
-import Layout from "../../components/Layout";
-import { SessionUser, User } from "../../services/models/User";
-import NotAuthorised from "../../components/NotAuthorised";
-import React, { useEffect } from "react";
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { RideQuery, RidesQuery } from "../../services/graphql/queries";
-import moment from "moment";
+import { useSession } from 'next-auth/react'
+import Layout from '../../components/Layout'
+import { SessionUser, User } from '../../services/models/User'
+import NotAuthorised from '../../components/NotAuthorised'
+import React, { useEffect } from 'react'
+import { useLazyQuery, useQuery } from '@apollo/client'
+import { RideQuery, RidesQuery } from '../../services/graphql/queries'
+import moment from 'moment'
 
 const RideListItem = ({ ride }) => {
   const {
@@ -17,9 +17,9 @@ const RideListItem = ({ ride }) => {
     time,
     conveyance,
     points,
-  } = ride;
+  } = ride
 
-  let date = moment(time).format("DD.MM");
+  let date = moment(time).format('DD.MM')
 
   return (
     <div className="bg-gray-100 rounded-lg flex justify-between items-center p-4">
@@ -34,29 +34,29 @@ const RideListItem = ({ ride }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const RidesPage = () => {
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
+  const { data: session, status } = useSession()
+  const loading = status === 'loading'
 
-  const [fetchRidesData, ridesData] = useLazyQuery(RidesQuery);
+  const [fetchRidesData, ridesData] = useLazyQuery(RidesQuery)
 
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
       // @ts-ignore
-      fetchRidesData({ variables: { userId: session.user.id } });
+      fetchRidesData({ variables: { userId: session.user.id } })
     }
-  }, [fetchRidesData, session]);
+  }, [fetchRidesData, session])
 
   if (!ridesData.called || ridesData.loading) {
-    return <></>;
+    return <></>
   }
 
   if (!session) {
-    return <NotAuthorised />;
+    return <NotAuthorised />
   }
 
   return (
@@ -65,12 +65,12 @@ const RidesPage = () => {
         <h1 className="font-bold text-3xl">Twoje podróże</h1>
         <div className="space-y-2 flex-col mt-4">
           {ridesData.data.rides.map((ride) => {
-            return <RideListItem ride={ride} key={ride.id} />;
+            return <RideListItem ride={ride} key={ride.id} />
           })}
         </div>
       </main>
     </Layout>
-  );
-};
+  )
+}
 
-export default RidesPage;
+export default RidesPage

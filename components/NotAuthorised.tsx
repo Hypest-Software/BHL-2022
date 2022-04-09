@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { signIn } from 'next-auth/react'
 
 export default function NotAuthorised(props) {
   return (
@@ -16,5 +16,5 @@ export default function NotAuthorised(props) {
         </div>
       </div>
     </main>
-  );
+  )
 }
