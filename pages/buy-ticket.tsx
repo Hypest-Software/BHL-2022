@@ -108,7 +108,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticket ? ticket.name + ' - ' + ticket.price : 'Wybierz bilet'}
+              {ticket ? ticket.name + ' - ' + ticket.price.toFixed(2) + ' zł' : 'Wybierz bilet'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -125,7 +125,7 @@ const BuyTicket = () => {
                         setTicketPrice(ticket.price)
                       }}
                     >
-                      {ticket.name} - {ticket.price}zł
+                      {ticket.name} - {ticket.price.toFixed(2)}zł
                     </a>
                   </li>
                 ))}
