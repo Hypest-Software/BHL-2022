@@ -2,7 +2,7 @@ interface TravelModeIconProps {
   travel_mode: string;
 }
 
-export default function TravelModeIcon (props: TravelModeIconProps) {
+export default function TravelModeIcon(props: TravelModeIconProps) {
   let iconName = "local_airport";
   return (
     <>
