@@ -112,27 +112,27 @@ const userData: Prisma.UserCreateInput[] = [
 
 const tickets: Prisma.TicketCreateInput[] = [
   {
-    name: '30-minute ticket',
+    name: '30-minutowy',
     price: 5.0,
     duration: 30,
   },
   {
-    name: '60-minute ticket',
+    name: '60-minutowy',
     price: 9.0,
     duration: 60,
   },
   {
-    name: '90-minute ticket',
+    name: '90-minutowy',
     price: 12.0,
     duration: 90,
   },
   {
-    name: 'Daily ticket',
+    name: '24-godzinny',
     price: 20.0,
     duration: 24 * 60,
   },
   {
-    name: 'Monthly ticket',
+    name: 'Miesięczny (31 dni)',
     price: 110.0,
     duration: 31 * 24 * 60,
   },
