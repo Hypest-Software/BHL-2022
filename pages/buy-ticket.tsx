@@ -4,20 +4,18 @@ import { useSession } from 'next-auth/react'
 import { User } from '../services/models/User'
 import NotAuthorised from '../components/NotAuthorised'
 import React, { useEffect } from 'react'
-import {
-  UpdateBalanceMutation,
-  TransactionCreateMutation,
-} from '../services/graphql/mutations'
+import { BuyTicketMutation } from '../services/graphql/mutations'
 import { TicketsQuery, UserQuery } from '../services/graphql/queries'
 
 const BuyTicket = () => {
-  const [ticketPrice, setTicketPrice] = React.useState(0)
-  const [ticketName, setTicketName] = React.useState('')
+  const [ticket, setTicket] = React.useState()
 
   const { data: session, status } = useSession()
 
   const [fetchUserData, userData] = useLazyQuery(UserQuery)
   const [fetchTickets, tickets] = useLazyQuery(TicketsQuery)
+
+  const [buyTicket, buyTicketMutation] = useMutation(BuyTicketMutation)
 
   useEffect(() => {
     // @ts-ignore
@@ -33,10 +31,7 @@ const BuyTicket = () => {
     }
   }, [fetchTickets, session])
 
-  const [updateBalance, { data, loading, error }] = useMutation(UpdateBalanceMutation)
-  const [createTransaction, { data: tData, loading: tLoading, error: tError }] =
-    useMutation(TransactionCreateMutation)
-  if (loading || tLoading) {
+  if (tickets.loading) {
     return <></>
   }
 
@@ -44,30 +39,23 @@ const BuyTicket = () => {
     return <NotAuthorised />
   }
 
-  if (error) {
-    return <div>Error! {error.message}</div>
-  }
-
-  if (tError) {
-    return <div>Error! {tError.message}</div>
+  if (tickets.error) {
+    return <div>Error! {tickets.error.message}</div>
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    updateBalance({
-      variables: {
-        amount: -Number(ticketPrice),
-        id: userData.data.user.id,
-      },
-    }).then(() => {
-      createTransaction({
+    if (ticket) {
+      buyTicket({
         variables: {
-          amount: -Number(ticketPrice),
-          userId: userData.data.user.id,
-          type: 'SINGLE_RIDE',
+          ticketId: ticket.id,
+          userId: session.user.id,
         },
+        refetchQueries: [
+          { query: UserQuery, variables: { userId: session.user.id } },
+        ],
       })
-    })
+    }
   }
 
   return (
@@ -81,7 +69,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticketName ? ticketName : 'Select a ticket'}
+              {ticket ? ticket.name : 'Select a ticket'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -93,8 +81,7 @@ const BuyTicket = () => {
                     <a
                       className="dropdown-item"
                       onClick={() => {
-                        setTicketPrice(ticket.price)
-                        setTicketName(ticket.name)
+                        setTicket(ticket)
                       }}
                     >
                       {ticket.name}

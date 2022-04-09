@@ -26,7 +26,7 @@ const RideListItem = ({ ride }) => {
       <div className="flex flex-grow align-center justify-between">
         <div className="flex flex-col">
           <h1 className="text-xl font-semibold">
-             Earned: {points.toFixed(2)} zł
+            Earned: {points.toFixed(2)} zł
           </h1>
           <h4 className="text-gray-600 font-light">
             {(distance / 1000).toFixed(2)}km
