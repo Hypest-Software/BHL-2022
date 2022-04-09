@@ -5,17 +5,17 @@ import { getPollution } from "../../../services/external/WaqiApi"
 export const Pollution = objectType({
 	name: "Pollution",
 	definition(t) {
-		t.float("co"); // carbon monoxide
-		t.float("h"); // humidity
-		t.float("no2"); // nitrogen dioxide
-		t.float("o3"); // ozone
-		t.float("p"); // particulate matter
-		t.float("pm10"); // particulate matter
-		t.float("pm25"); // particulate matter
-		t.float("so2"); // sulfur dioxide
-		t.float("t"); // temperature
-		t.float("w"); // wind
-		t.float("wg"); // wind gust
+		t.float("carbonMonoxide");
+		t.float("humidity");
+		t.float("nitrogenDioxide");
+		t.float("ozone");
+		t.float("particulateMatter");
+		t.float("particulateMatter10");
+		t.float("particulateMatter25");
+		t.float("sulfurDioxide");
+		t.float("temperature");
+		t.float("wind");
+		t.float("windGust");
 	}
 })
 
