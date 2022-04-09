@@ -11,6 +11,7 @@ export const WaypointCard = (props: WaypointCardProps) => {
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
         <h2 className="card-title">{props.waypoint.name}</h2>
+        <p>{props.waypoint.address}</p>
         <div className="google-map-code">
           <Map lat={props.waypoint.lat} lng={props.waypoint.lng} />
         </div>
