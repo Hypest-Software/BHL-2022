@@ -55,13 +55,6 @@ export const BoughtTicketMutations = extendType({
           throw new Error('Not enough money')
         }
 
-        const boughtTicket = await ctx.prisma.boughtTicket.findUnique({
-          where: {
-            userId: userId,
-            ticketId: ticketId,
-          },
-        })
-
         await ctx.prisma.user.update({
           where: { id: userId },
           data: {
@@ -83,14 +76,31 @@ export const BoughtTicketMutations = extendType({
           },
         })
 
-        return ctx.prisma.boughtTicket.update({
+        const boughtTicket = await ctx.prisma.boughtTicket.findFirst({
           where: {
-            id: boughtTicket.id,
-          },
-          data: {
-            ticketCount: boughtTicket.ticketCount + 1,
+            userId: userId,
+            ticketId: ticketId,
           },
         })
+
+        if (!boughtTicket) {
+          return ctx.prisma.boughtTicket.create({
+            data: {
+              userId: userId,
+              ticketId: ticketId,
+              ticketCount: 1,
+            },
+          })
+        } else {
+          return ctx.prisma.boughtTicket.update({
+            where: {
+              id: boughtTicket.id,
+            },
+            data: {
+              ticketCount: boughtTicket.ticketCount + 1,
+            },
+          })
+        }
       },
     })
   },
