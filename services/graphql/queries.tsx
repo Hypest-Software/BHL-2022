@@ -100,10 +100,35 @@ export const RideQuery = gql`
       end_lat
       end_lng
       distance
-      time
+      start_time
+      end_time
       conveyance
       points
+      air_co
+      air_no
+      air_no2
+      air_o3
+      air_so2
+      air_pm2_5
+      air_pm10
+      air_nh3
+    }
+  }
+`;
 
+export const ActiveRideQuery = gql`
+  query ActiveRideQuery($userId: String!) {
+    activeRide(userId: $userId) {
+      id
+      start_lat
+      start_lng
+      end_lat
+      end_lng
+      distance
+      start_time
+      end_time
+      conveyance
+      points
       air_co
       air_no
       air_no2
@@ -125,7 +150,8 @@ export const RidesQuery = gql`
       end_lat
       end_lng
       distance
-      time
+      start_time
+      end_time
       points
       conveyance
     }

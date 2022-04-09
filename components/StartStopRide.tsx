@@ -1,15 +1,33 @@
 import React from "react";
+import {ActiveRideQuery} from "../services/graphql/queries";
+import {useQuery} from "@apollo/client";
+import Loading from "./Loading";
 
 interface StartStopRideProps {
+    userId: string;
 }
 
 export default function StartStopRide(props: StartStopRideProps) {
-    const handleStartStop = () => {
 
+    const activeRide = useQuery(ActiveRideQuery, {
+        variables: {
+            userId: props.userId
+        }
+    });
+
+    if (activeRide.loading) {
+        return <Loading/>;
+    }
+
+    const isRideActive = Boolean(activeRide.data.activeRide)
+
+    const handleStartStop = () => {
+        const activeRideData = activeRide.data.activeRide;
+        console.log(activeRideData)
     }
 
     const getTitle = () => {
-        return "Rozpocznij przejazd";
+        return isRideActive ? "Zakończ przejazd" : "Rozpocznij przejazd";
     }
 
     return (

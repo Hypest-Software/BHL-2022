@@ -43,6 +43,7 @@ const Blog = () => {
         setIsRideModalOpen(false);
     }
 
+    // @ts-ignore
     return (
         <Layout user={session.user as User}>
             <header className="bg-white">
@@ -63,7 +64,7 @@ const Blog = () => {
                     <DestinationWaypointsList
                         waypoints={waypointsData.data ? waypointsData.data.favoriteWaypoints : []}/>
                 </div>
-                <StartStopRide/>
+                <StartStopRide userId={session.user.id}/>
             </main>
         </Layout>
     );
