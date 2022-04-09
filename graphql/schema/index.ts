@@ -14,7 +14,15 @@ import * as TransitInfo from "./types/TransitInfo";
 export const GQLDate = asNexusMethod(DateTimeResolver, "date");
 
 export const baseSchema = makeSchema({
-  types: [User, Ride, Ticket, Transaction, FavoriteWaypoint, TransitInfo, GQLDate],
+  types: [
+    User,
+    Ride,
+    Ticket,
+    Transaction,
+    FavoriteWaypoint,
+    TransitInfo,
+    GQLDate,
+  ],
   plugins: [],
   outputs: {
     typegen: path.join(process.cwd(), "generated/nexus-typegen.ts"),

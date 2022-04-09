@@ -14,7 +14,8 @@ export const FavoriteWaypoint = objectType({
         ctx.prisma.favoriteWaypoint
           .findUnique({
             where: { id: parent.id },
-          }).user()
+          })
+          .user(),
     });
   },
 });

@@ -48,8 +48,7 @@ const Blog = () => {
       </header>
       <main className="bg-gray-200 shadow">
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
-          <div className="layout">
-          </div>
+          <div className="layout"></div>
         </div>
       </main>
     </Layout>
