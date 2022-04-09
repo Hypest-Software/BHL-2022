@@ -66,6 +66,7 @@ export const WaypointsQuery = gql`
       name
       lat
       lng
+      address
     }
   }
 `;

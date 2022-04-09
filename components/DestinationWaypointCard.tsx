@@ -57,7 +57,7 @@ export const DestinationWaypointCard = (props: DestinationWaypointCardProps) => 
       <div className="flex flex-grow align-center justify-between items-center">
         <div className="flex flex-col">
           <h1 className="text-xl font-semibold">{props.waypoint.name}</h1>
-          <h4 className="text-gray-600"></h4>
+          <h4 className="text-gray-600">{props.waypoint.address}</h4>
         </div>
         <div className="flex flex-row items-center">
           <span className={durationColor + " font-medium"}>

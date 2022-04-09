@@ -8,6 +8,7 @@ export const FavoriteWaypoint = objectType({
     t.string("name");
     t.float("lat");
     t.float("lng");
+    t.string("address");
     t.nullable.field("author", {
       type: "User",
       resolve: (parent, _, ctx) =>
