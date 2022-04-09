@@ -1,47 +1,53 @@
-import Layout from '../components/Layout'
-import { useLazyQuery } from '@apollo/client'
-import { useSession } from 'next-auth/react'
-import { User } from '../services/models/User'
-import NotAuthorised from '../components/NotAuthorised'
-import React, { useEffect } from 'react'
-import { UserQuery, WaypointsQuery } from '../services/graphql/queries'
-import DestinationWaypointsList from '../components/DestinationWaypointsList'
-import AirPollutionCard from '../components/AirPollutionCard'
-import StartStopRide from '../components/StartStopRide'
+import Layout from "../components/Layout";
+import { useLazyQuery } from "@apollo/client";
+import { useSession } from "next-auth/react";
+import { User } from "../services/models/User";
+import NotAuthorised from "../components/NotAuthorised";
+import React, { useEffect } from "react";
+import { UserQuery, WaypointsQuery } from "../services/graphql/queries";
+import DestinationWaypointsList from "../components/DestinationWaypointsList";
+import AirPollutionCard from "../components/AirPollutionCard";
+import StartStopRide from "../components/StartStopRide";
+import Link from "next/link";
 
 const Blog = () => {
-  const { data: session, status } = useSession()
-  const loading = status === 'loading'
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
-  const [isRideModalOpen, setIsRideModalOpen] = React.useState(false)
+  const [isRideModalOpen, setIsRideModalOpen] = React.useState(false);
 
-  const [fetchUserData, userData] = useLazyQuery(UserQuery)
-  const [fetchWaypointsData, waypointsData] = useLazyQuery(WaypointsQuery)
+  const [fetchUserData, userData] = useLazyQuery(UserQuery);
+  const [fetchWaypointsData, waypointsData] = useLazyQuery(WaypointsQuery);
 
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
       // @ts-ignore
-      fetchUserData({ variables: { userId: session.user.id } })
+      fetchUserData({ variables: { userId: session.user.id } });
       // @ts-ignore
-      fetchWaypointsData({ variables: { userId: session.user.id } })
+      fetchWaypointsData({ variables: { userId: session.user.id } });
     }
-  }, [fetchUserData, fetchWaypointsData, session])
+  }, [fetchUserData, fetchWaypointsData, session]);
 
   if (loading) {
-    return <></>
+    return <></>;
   }
 
   if (!session) {
-    return <NotAuthorised />
+    return <NotAuthorised />;
   }
 
   if (userData.error) {
-    return <div>Error: {userData.error.message}</div>
+    return <div>Error: {userData.error.message}</div>;
   }
 
   const handleRideModalSubmit = () => {
-    setIsRideModalOpen(false)
+    setIsRideModalOpen(false);
+  };
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+
   }
 
   // @ts-ignore
@@ -54,7 +60,7 @@ const Blog = () => {
               <span className="font-normal">Witaj</span> {session.user.name}!
             </h1>
             <h3 className="text-gray-600">
-              Twoje saldo:{' '}
+              Twoje saldo:{" "}
               <span className="font-semibold">
                 {userData.data ? userData.data.user.balance : 0}zł
               </span>
@@ -71,20 +77,23 @@ const Blog = () => {
       </header>
       <main className="bg-white shadow">
         <div className="max-w-7xl mx-4 py-4 sm:px-8 lg:px-8">
-          <AirPollutionCard />
+          <AirPollutionCard/>
         </div>
         <div className="max-w-7xl mx-4 space-y-4 py-2 sm:px-8 lg:px-8">
-          <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
-          <DestinationWaypointsList
-            waypoints={
-              waypointsData.data ? waypointsData.data.favoriteWaypoints : []
-            }
-          />
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
+            <Link href='/settings'>
+              <button className="btn btn-sm">
+                edytuj
+              </button>
+            </Link>
+          </div>
+          <DestinationWaypointsList waypoints={waypointsData.data ? waypointsData.data.favoriteWaypoints : []}/>
         </div>
         <StartStopRide userId={session.user.id} />
       </main>
     </Layout>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;
