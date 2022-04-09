@@ -1,4 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
+import { TravelMode } from "@googlemaps/google-maps-services-js";
+import { ArrowRightIcon } from "@heroicons/react/outline";
 import { useEffect } from "react";
 import { TransitInfoQuery } from "../services/graphql/queries";
 import { TransitInfo } from "../services/models/TransitInfo";
@@ -39,22 +41,30 @@ export const DestinationWaypointCard = (props: DestinationWaypointCardProps) => 
     return <></>;
   }
   // let duration = props.transit_info.duration;
+
+  let travelPossible = transitData.data.travelMode == TravelMode.walking;
+  let durationColor = "text-gray-600";
+  let delay = 0;
   let duration = transitData.data?.duration;
-  let delay = genRandomDelayValue(duration);
-  let durationColor = delay > 0.3 * duration ? "text-red-700" : "text-green-700";
+
+  if (travelPossible) {
+    delay = genRandomDelayValue(duration);
+    durationColor = delay > 0.3 * duration ? "text-red-700" : "text-green-700";
+  }
 
   return (
   <>
-    <div className="bg-gray-100 rounded-lg flex justify-between items-center p-4">
-      <div className="flex flex-grow align-center justify-between">
+    <div className="bg-gray-100 rounded-lg p-4">
+      <div className="flex flex-grow align-center justify-between items-center">
         <div className="flex flex-col">
           <h1 className="text-xl font-semibold">{props.waypoint.name}</h1>
           <h4 className="text-gray-600"></h4>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-row items-center">
           <span className={durationColor + " font-medium"}>
-            {duration + delay} min
+            {travelPossible ? `${duration} min.` : "pieszo!"}
           </span>
+          <ArrowRightIcon className={`ml-4 h-6 w-6 mb-0.5 ${durationColor}`}/>
         </div>
       </div>
     </div>
