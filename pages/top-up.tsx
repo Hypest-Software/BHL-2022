@@ -99,6 +99,7 @@ const TopUp = () => {
               className="input input-bordered w-full max-w-xs"
               value={value}
               onChange={(e) => setValue(Number(e.target.value))}
+              min="1"
             />
             <button onClick={handleSubmit} className="btn btn-primary">
               Doładuj
