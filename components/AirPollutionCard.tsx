@@ -57,7 +57,6 @@ const AirPollutionCard = () => {
     return <></>;
   }
 
-  console.log(airData.data);
   let airQualityName = getNameForAirQuality(airData.data.pollutionStatus.average);
   let colorName = getColorForAirQuality(airData.data.pollutionStatus.average);
   let polStatus = airData.data.pollutionStatus;

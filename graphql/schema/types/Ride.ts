@@ -136,7 +136,6 @@ export const RideMutations = extendType({
                     "transit"
                 );
 
-                console.log(transitInfo)
 
                 const points = calculatePoints(transitInfo.distance, ride.particulateMatter10)
 
