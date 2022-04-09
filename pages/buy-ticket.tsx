@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import Modal from 'react-modal'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { useSession } from 'next-auth/react'
 import { User } from '../services/models/User'
@@ -13,6 +14,7 @@ import { TicketsQuery, UserQuery } from '../services/graphql/queries'
 const BuyTicket = () => {
   const [ticketPrice, setTicketPrice] = React.useState(0)
   const [ticketName, setTicketName] = React.useState('')
+  const [showModal, setShowModal] = React.useState(false)
 
   const { data: session, status } = useSession()
 
@@ -54,6 +56,11 @@ const BuyTicket = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (ticketPrice > userData.data.user.balance) {
+      handleModalShow(e)
+      return
+    }
+
     charge({
       variables: {
         amount: -Number(ticketPrice),
@@ -70,6 +77,16 @@ const BuyTicket = () => {
     })
   }
 
+  const handleModalShow = (e) => {
+    e.preventDefault()
+    setShowModal(true)
+  }
+
+  const handleModalClose = (e) => {
+    e.preventDefault()
+    setShowModal(false)
+  }
+
   return (
     <Layout user={session.user as User}>
       <header className="bg-white shadow">
@@ -81,7 +98,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticketName ? ticketName : 'Select a ticket'}
+              {ticketName ? ticketName + " - " + ticketPrice + "zł" : 'Select a ticket'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -97,7 +114,7 @@ const BuyTicket = () => {
                         setTicketName(ticket.name)
                       }}
                     >
-                      {ticket.name}
+                      {ticket.name} - {ticket.price}zł
                     </a>
                   </li>
                 ))}
@@ -105,10 +122,22 @@ const BuyTicket = () => {
             <button onClick={handleSubmit} className="btn btn-primary">
               Buy
             </button>
+            <Modal
+                isOpen={showModal}
+                onRequestClose={handleModalClose}
+            >
+              <div>
+                <h2>Błąd przy zakupie biletu: Brak wystarczającej ilości pieniędzy</h2>
+                <button onClick={handleModalClose} className="btn btn-primary">Zamknij</button>
+              </div>
+              </Modal>
+
           </div>
         </div>
       </main>
+
     </Layout>
+
   )
 }
 
