@@ -39,15 +39,17 @@ function Settings(props) {
       </header>
       <main className="bg-gray-200 shadow">
         <div className="flex flex-col bg-gray-100 max-w-7xl space-y-2 mx-auto py-4 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
-            <Link href="/settings">
-              <button className="btn btn-sm flex-shrink self-center mt-2 mb-4">Dodaj miejsce</button>
-            </Link>
-            {!waypoints.data || waypoints.loading ? (
-              <Loading />
-            ) : (
-              <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
-            )}
-          </div>
+          <Link href="/settings">
+            <button className="btn btn-sm flex-shrink self-center mt-2 mb-4">
+              Dodaj miejsce
+            </button>
+          </Link>
+          {!waypoints.data || waypoints.loading ? (
+            <Loading />
+          ) : (
+            <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
+          )}
+        </div>
       </main>
     </Layout>
   )

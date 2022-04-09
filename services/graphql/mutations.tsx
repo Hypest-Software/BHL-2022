@@ -100,3 +100,10 @@ export const DeleteWaypointMutation = gql`
     }
   }
 `
+export const BuyTicketMutation = gql`
+  mutation BuyTicketMutation($userId: String!, $ticketId: String!) {
+    buyTicket(userId: $userId, ticketId: $ticketId) {
+      id
+    }
+  }
+`

@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
@@ -42,7 +42,7 @@ export default function Navbar(props: NavbarProps) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center">
-                <Link href={"/"}>
+                <Link href={'/'}>
                   <div className="flex-shrink-0">
                     <img
                       className="h-8 w-8"
@@ -171,12 +171,11 @@ export default function Navbar(props: NavbarProps) {
               </div>
               <div className="mt-3 px-2 space-y-1">
                 <div
+                  onClick={() => signOut()}
                   key={'logout'}
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                 >
-                  <Disclosure.Button onClick={() => signOut()}>
-                    Wyloguj się
-                  </Disclosure.Button>
+                  <Disclosure.Button>Wyloguj się</Disclosure.Button>
                 </div>
               </div>
             </div>

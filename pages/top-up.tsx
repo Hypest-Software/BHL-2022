@@ -62,7 +62,7 @@ const TopUp = () => {
           type: 'TOP_UP',
         },
       })
-      router.push('/');
+      router.push('/')
     })
   }
 

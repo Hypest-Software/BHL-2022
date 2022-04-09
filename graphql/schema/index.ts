@@ -1,8 +1,6 @@
 import { asNexusMethod, makeSchema } from 'nexus'
 import { DateTimeResolver } from 'graphql-scalars'
 import path from 'path'
-import { applyMiddleware } from 'graphql-middleware'
-import { permissions } from '../permissions'
 
 import * as User from './types/User'
 import * as Ride from './types/Ride'
@@ -11,6 +9,7 @@ import * as Ticket from './types/Ticket'
 import * as Transaction from './types/Transaction'
 import * as FavoriteWaypoint from './types/FavoriteWaypoint'
 import * as TransitInfo from './types/TransitInfo'
+import * as BoughtTicket from './types/BoughtTicket'
 
 export const GQLDate = asNexusMethod(DateTimeResolver, 'date')
 
@@ -23,6 +22,7 @@ export const baseSchema = makeSchema({
     FavoriteWaypoint,
     TransitInfo,
     Pollution,
+    BoughtTicket,
     GQLDate,
   ],
   plugins: [],
@@ -44,4 +44,6 @@ export const baseSchema = makeSchema({
   },
 })
 
-export const schema = applyMiddleware(baseSchema, permissions)
+export const schema = baseSchema
+
+// export const schema = applyMiddleware(baseSchema, permissions)

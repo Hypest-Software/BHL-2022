@@ -5,21 +5,19 @@ import { useSession } from 'next-auth/react'
 import { User } from '../services/models/User'
 import NotAuthorised from '../components/NotAuthorised'
 import React, { useEffect } from 'react'
-import {
-  UpdateBalanceMutation,
-  TransactionCreateMutation,
-} from '../services/graphql/mutations'
+import { BuyTicketMutation } from '../services/graphql/mutations'
 import { TicketsQuery, UserQuery } from '../services/graphql/queries'
 
 const BuyTicket = () => {
-  const [ticketPrice, setTicketPrice] = React.useState(0)
-  const [ticketName, setTicketName] = React.useState('')
+  const [ticket, setTicket] = React.useState()
   const [showModal, setShowModal] = React.useState(false)
 
   const { data: session, status } = useSession()
 
   const [fetchUserData, userData] = useLazyQuery(UserQuery)
   const [fetchTickets, tickets] = useLazyQuery(TicketsQuery)
+
+  const [buyTicket, buyTicketMutation] = useMutation(BuyTicketMutation)
 
   useEffect(() => {
     // @ts-ignore
@@ -35,10 +33,7 @@ const BuyTicket = () => {
     }
   }, [fetchTickets, session])
 
-  const [charge, { data, loading, error }] = useMutation(UpdateBalanceMutation)
-  const [createTransaction, { data: tData, loading: tLoading, error: tError }] =
-    useMutation(TransactionCreateMutation)
-  if (loading || tLoading) {
+  if (tickets.loading) {
     return <></>
   }
 
@@ -46,35 +41,28 @@ const BuyTicket = () => {
     return <NotAuthorised />
   }
 
-  if (error) {
-    return <div>Error! {error.message}</div>
-  }
-
-  if (tError) {
-    return <div>Error! {tError.message}</div>
+  if (tickets.error) {
+    return <div>Error! {tickets.error.message}</div>
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (ticketPrice > userData.data.user.balance) {
-      handleModalShow(e)
-      return
-    }
+    if (ticket) {
+      if (ticket.price > userData.data.user.balance) {
+        handleModalShow(e)
+        return
+      }
 
-    charge({
-      variables: {
-        amount: -Number(ticketPrice),
-        id: userData.data.user.id,
-      },
-    }).then(() => {
-      createTransaction({
+      buyTicket({
         variables: {
-          amount: -Number(ticketPrice),
-          userId: userData.data.user.id,
-          type: 'SINGLE_RIDE',
+          ticketId: ticket.id,
+          userId: session.user.id,
         },
+        refetchQueries: [
+          { query: UserQuery, variables: { userId: session.user.id } },
+        ],
       })
-    })
+    }
   }
 
   const handleModalShow = (e) => {
@@ -98,7 +86,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticketName ? ticketName + " - " + ticketPrice + "zł" : 'Wybierz bilet'}
+              {ticket ? ticket.name : 'Select a ticket'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -110,8 +98,7 @@ const BuyTicket = () => {
                     <a
                       className="dropdown-item"
                       onClick={() => {
-                        setTicketPrice(ticket.price)
-                        setTicketName(ticket.name)
+                        setTicket(ticket)
                       }}
                     >
                       {ticket.name} - {ticket.price}zł
@@ -122,22 +109,20 @@ const BuyTicket = () => {
             <button onClick={handleSubmit} className="btn btn-primary">
               Kup
             </button>
-            <Modal
-                isOpen={showModal}
-                onRequestClose={handleModalClose}
-            >
+            <Modal isOpen={showModal} onRequestClose={handleModalClose}>
               <div>
-                <h2>Błąd przy zakupie biletu: Brak wystarczającej ilości pieniędzy</h2>
-                <button onClick={handleModalClose} className="btn btn-primary">Zamknij</button>
+                <h2>
+                  Błąd przy zakupie biletu: Brak wystarczającej ilości pieniędzy
+                </h2>
+                <button onClick={handleModalClose} className="btn btn-primary">
+                  Zamknij
+                </button>
               </div>
-              </Modal>
-
+            </Modal>
           </div>
         </div>
       </main>
-
     </Layout>
-
   )
 }
 
