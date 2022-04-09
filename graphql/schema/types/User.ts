@@ -1,4 +1,4 @@
-import { extendType, nonNull, nullable, objectType, stringArg } from "nexus";
+import { extendType, nonNull, objectType, stringArg, floatArg} from "nexus";
 
 export const User = objectType({
   name: "User",
@@ -64,5 +64,22 @@ export const UserMutations = extendType({
         });
       },
     });
+    t.field("topUpBalance", {
+      type: "User",
+      args: {
+        id: nonNull(stringArg()),
+        amount: nonNull(floatArg()),
+      },
+      resolve: async (_, {id, amount}, ctx) => {
+        return ctx.prisma.user.update({
+          where: {id: id},
+          data: {
+            balance: (await ctx.prisma.user.findUnique({
+              where: {id: id},
+            })).balance + amount,
+          },
+        });
+      },
+    })
   },
 });
