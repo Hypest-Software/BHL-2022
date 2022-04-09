@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActiveRideQuery, UserQuery } from '../services/graphql/queries'
 import {
   EndRideMutation,
@@ -7,6 +7,7 @@ import {
 import { useMutation, useQuery } from '@apollo/client'
 import Loading from './Loading'
 import { IdentificationIcon, WifiIcon } from '@heroicons/react/outline'
+import moment from 'moment'
 
 interface StartStopRideProps {
   userId: string
@@ -18,6 +19,25 @@ export default function StartStopRide(props: StartStopRideProps) {
       userId: props.userId,
     },
   })
+
+  const [durationString, setDurationString] = useState("");
+
+  useEffect(() => {
+    if (!activeRide || !activeRide.data || !activeRide.data.activeRide)
+      return;
+
+    const interval = setInterval(() => {
+      let startTime = activeRide.data.activeRide.start_time;
+      let currentTime = new Date().getTime();
+      let startMoment = moment(startTime);
+      let currentMoment = moment(currentTime);
+      currentMoment.subtract(1, "hours");
+      let duration = currentMoment.diff(startMoment);
+      setDurationString(moment(duration).format("HH:mm:ss"))
+    }, 1000);
+    return () => clearInterval(interval);
+
+  }, [activeRide]);
 
   const [startRide, startRideMutation] = useMutation(StartRideMutation, {
     refetchQueries: [
@@ -81,15 +101,23 @@ export default function StartStopRide(props: StartStopRideProps) {
     }
   }
 
-  const getTitle = () => {
-    return isRideActive ? 'Zakończ przejazd' : 'Zbliż do czytnika, aby rozpocząć przejazd'
+  const getContent = () => {
+    let mainText = isRideActive ? 'Zakończ przejazd' : 'Zbliż do czytnika, aby rozpocząć przejazd'
+    let helperText = isRideActive ? 'Czas: ' + durationString : null;
+
+    return (
+      <>
+        <div>{mainText}</div>
+        {helperText && <div>{helperText}</div>}
+      </>
+    )
   }
 
   return (
     <button className="bg-blue-50 border-solid border-gray-500 border-1 rounded-lg flex flex-col flex-grow justify-center items-center py-8 px-4" type="button" onClick={() => handleStartStop()}>
       <WifiIcon className="w-12 h-12 text-gray-400 rotate-90 mb-2"/>
-      <div className="text-gray-400">
-        {getTitle()}
+      <div className="text-gray-400 flex-col">
+        {getContent()}
       </div>
     </button>
   )
