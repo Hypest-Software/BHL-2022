@@ -8,16 +8,12 @@ import Loading from './Loading'
 import { User } from '../services/models/User'
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Transactions', href: '/transactions' },
-  { name: 'Top up', href: '/top-up' },
-  { name: 'Buy a ticket', href: '/buy-ticket' },
-  { name: 'Rides history', href: '/rides' },
-  { name: 'Settings', href: '/settings' },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
+  { name: 'Strona główna', href: '/' },
+  { name: 'Historia przejazdów', href: '/rides' },
+  { name: 'Historia transakcji', href: '/transactions' },
+  { name: 'Zapisane miejsca', href: '/settings' },
+  { name: 'Kup bilet', href: '/buy-ticket' },
+  { name: 'Doładuj konto', href: '/top-up' },
 ]
 
 function classNames(...classes) {
@@ -82,14 +78,6 @@ export default function Navbar(props: NavbarProps) {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <button
-                    type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
                     <div>
@@ -112,18 +100,6 @@ export default function Navbar(props: NavbarProps) {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {userNavigation.map((item) => (
-                          <Menu.Item key={item.name}>
-                            <div
-                              className={classNames(
-                                isActive(item.href) ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-700'
-                              )}
-                            >
-                              <Link href={item.href}>{item.name}</Link>
-                            </div>
-                          </Menu.Item>
-                        ))}
                         <Menu.Item key={'logout'}>
                           <div
                             className={
@@ -192,35 +168,14 @@ export default function Navbar(props: NavbarProps) {
                     {props.user.email}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
               </div>
               <div className="mt-3 px-2 space-y-1">
-                {userNavigation.map((item) => (
-                  <div
-                    key={item.name}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                  >
-                    <Disclosure.Button
-                      as={Link}
-                      href={item.href}
-                      aria-current={isActive(item.href) ? 'page' : undefined}
-                    >
-                      {item.name}
-                    </Disclosure.Button>
-                  </div>
-                ))}
                 <div
                   key={'logout'}
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                 >
                   <Disclosure.Button onClick={() => signOut()}>
-                    Sign out
+                    Wyloguj się
                   </Disclosure.Button>
                 </div>
               </div>

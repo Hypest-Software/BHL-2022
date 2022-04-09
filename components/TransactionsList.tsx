@@ -10,7 +10,7 @@ export default function TransactionsList(props: TransactionsListProps) {
   if (props.transactions.length == 0) {
     return (
       <div className="text-center">
-        <span>No transactions to display</span>
+        <span>Brak transakcji do wyświetlenia.</span>
       </div>
     )
   }

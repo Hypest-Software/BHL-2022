@@ -14,7 +14,7 @@ export default function DestinationWaypointsList(
   if (!props.waypoints || props.waypoints?.length == 0) {
     return (
       <div className="text-center">
-        <span>No waypoints saved.</span>
+        <span>Brak zapisanych miejsc.</span>
       </div>
     )
   }
