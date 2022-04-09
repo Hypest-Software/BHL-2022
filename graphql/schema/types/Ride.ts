@@ -65,18 +65,22 @@ export const RideQueries = extendType({
         userId: nonNull(stringArg()),
       },
       resolve: async (_, args, ctx) => {
-        const latestRide = await ctx.prisma.ride.findFirst({
-          where: { userId: args.userId },
-          orderBy: { start_time: 'desc' },
-        })
+        try {
+          const latestRide = await ctx.prisma.ride.findFirst({
+            where: { userId: args.userId },
+            orderBy: { start_time: 'desc' },
+          })
 
-        if (!latestRide) {
-          return null
-        }
+          if (!latestRide) {
+            return null
+          }
 
-        if (!latestRide.end_time) {
-          return latestRide
-        } else {
+          if (!latestRide.end_time) {
+            return latestRide
+          } else {
+            return null
+          }
+        } catch(e) {
           return null
         }
       },
