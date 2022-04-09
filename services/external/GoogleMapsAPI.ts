@@ -16,7 +16,10 @@ const getTravelMode = (mode: string): TravelMode => {
     }
 };
 
-export const reverseGeocoding = async (lat: number, lng: number): Promise<string> => {
+export const reverseGeocoding = async (
+    lat: number,
+    lng: number
+): Promise<string> => {
     const client = new Client({});
     const response = await client.reverseGeocode({
         params: {
@@ -32,37 +35,39 @@ export const reverseGeocoding = async (lat: number, lng: number): Promise<string
     }
 };
 
-
 export const getTransitInfo = async (
     origin: string,
     destination: string,
     mode: string
 ): Promise<TransitInfo> => {
     const key = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
-    const client = new Client({});
-    const response = await client.directions({
-        params: {
-            origin,
-            destination,
-            alternatives: false,
-            language: Language.pl,
-            mode: getTravelMode(mode),
-            key,
-        },
-    });
+    const response = await fetch(
+        `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&alternatives=false&language=pl_PL&mode=${mode}&key=${key}`
+    );
 
-    const travel_modes = response.data.routes[0].legs[0].steps.map((step) => {
+    const data = await response.json();
+    if (data.status === 'ZERO_RESULTS') {
+        return {
+            arrivalTime: null,
+            departureTime: null,
+            distance: null,
+            duration: null,
+            travelMode: "WALKING",
+        };
+    }
+
+    const travel_modes = data.routes[0].legs[0].steps.map((step) => {
         return step.travel_mode;
     });
     const travel_mode = travel_modes.find((mode) => {
-        return mode !== TravelMode.walking;
+        return mode !== "WALKING";
     });
 
     return {
-        arrivalTime: response.data.routes[0].legs[0].arrival_time.value,
-        departureTime: response.data.routes[0].legs[0].departure_time.value,
-        distance: response.data.routes[0].legs[0].distance.value,
-        duration: response.data.routes[0].legs[0].duration.value,
+        arrivalTime: data.routes[0].legs[0].arrival_time.value,
+        departureTime: data.routes[0].legs[0].departure_time.value,
+        distance: data.routes[0].legs[0].distance.value,
+        duration: data.routes[0].legs[0].duration.value,
         travelMode: travel_mode,
     };
 };

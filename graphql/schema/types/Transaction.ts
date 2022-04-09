@@ -29,6 +29,7 @@ export const Transaction = objectType({
       },
     });
     t.float("amount");
+    // @ts-ignore
     t.date("createdAt");
   },
 });

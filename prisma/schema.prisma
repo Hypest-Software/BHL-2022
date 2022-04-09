@@ -8,23 +8,14 @@ generator client {
   previewFeatures = ["mongoDb"]
 }
 
-model Post {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  content   String?
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  String  @db.ObjectId
-  published Boolean @default(false)
-}
-
 model FavoriteWaypoint {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   lat      Float
   lng      Float
   address  String
-  author   User?  @relation(fields: [authorId], references: [id])
-  authorId String @db.ObjectId
+  user     User?  @relation(fields: [userId], references: [id])
+  userId   String @db.ObjectId
 }
 
 model Account {
@@ -63,7 +54,6 @@ model User {
   balance          Float              @default(0.0)
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
   rides         Ride[]
   transactions  Transaction[]
   FavoriteWaypoint FavoriteWaypoint[]
@@ -98,6 +88,7 @@ model Ride {
   start_lng  Float
   end_lat    Float
   end_lng    Float
+  time       DateTime   @default(now())
   distance   Float
   conveyance Conveyance
   points     Float
