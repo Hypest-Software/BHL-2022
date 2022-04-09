@@ -13,6 +13,9 @@ function Settings(props) {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
 
+  const [nameValue, setNameValue] = React.useState(null);
+  const [addressValue, setAddressValue] = React.useState(null);
+
   const [fetchWaypoints, waypoints] = useLazyQuery(WaypointsQuery)
   const [createWaypoint, createWaypointMutation] = useMutation(
     CreateWaypointMutation,
@@ -37,14 +40,8 @@ function Settings(props) {
   }, [fetchWaypoints, session])
 
   const handleAdd = (e) => {
-    e.preventDefault()
-    createWaypoint({
-      variables: {
-        address: 'Nowowiejska 40',
-        name: 'Polibuda',
-        userId: session.user.id,
-      },
-    })
+    e.preventDefault();
+    createWaypoint({variables: {address: addressValue, name: nameValue, userId: session.user.id}});
   }
 
   if (loading || waypoints.loading) {
@@ -62,21 +59,33 @@ function Settings(props) {
           <h1 className="text-3xl font-bold text-gray-900">Zapisane miejsca</h1>
         </div>
       </header>
-      <main className="bg-gray-200 shadow">
-        <div className="flex flex-col bg-gray-100 max-w-7xl space-y-2 mx-auto py-4 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
-          <Link href="/settings">
-            <button
-              onClick={handleAdd}
-              className="btn btn-sm flex-shrink self-center mt-2 mb-4"
-            >
-              Dodaj miejsce
-            </button>
-          </Link>
-          {!waypoints.data || waypoints.loading ? (
-            <Loading />
-          ) : (
-            <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
-          )}
+      <main className="bg-gray-100  shadow">
+        <div className="flex flex-col max-w-7xl mx-4 py-4 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
+          <h1 className="text-lg font-medium mb-1">Dodaj nowe miejsce</h1>
+          <div className="flex flex-row max-w-lg space-x-2">
+            <input
+              type="text"
+              placeholder="Nazwa"
+              className="input input-bordered w-full max-w-xs"
+              value={nameValue}
+              onChange={(e) => setNameValue(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Adres"
+              className="input input-bordered w-full max-w-xs"
+              value={addressValue}
+              onChange={(e) => setAddressValue(e.target.value)}
+            />
+          </div>
+          <button onClick={handleAdd} className="btn btn-sm flex-shrink self-end mt-2">Dodaj miejsce</button>
+            {!waypoints.data || waypoints.loading ? (
+              <Loading />
+            ) : (
+              <div className="mt-6">
+                <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
+              </div>
+            )}
         </div>
       </main>
     </Layout>

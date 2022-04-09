@@ -10,7 +10,7 @@ export default function WaypointsList(props: WaypointsListProps) {
   if (props.waypoints.length == 0) {
     return (
       <div className="text-center">
-        <span>No posts to display</span>
+        <span>Brak zapisanych miejsc.</span>
       </div>
     )
   }

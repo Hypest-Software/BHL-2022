@@ -87,7 +87,7 @@ const BuyTicket = () => {
     e.preventDefault()
     setShowSuccess(true)
     setTimeout(() => {
-      // router.push('/')
+      handleSuccessClose(e)
     }, 3000)
   }
 

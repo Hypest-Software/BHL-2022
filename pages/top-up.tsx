@@ -72,8 +72,8 @@ const TopUp = () => {
     e.preventDefault()
     setShowModal(true)
     setTimeout(() => {
-      // router.push('/');
-    }, 5000)
+      handleModalClose(e)
+    }, 3000)
   }
 
   const handleModalClose = (e) => {
