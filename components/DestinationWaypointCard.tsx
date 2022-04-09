@@ -37,13 +37,11 @@ export const DestinationWaypointCard = (props: DestinationWaypointCardProps) => 
     }
   }, [fetchTransitData, props.waypoint]);
 
-  if (transitData.loading || !transitData.called) {
+  if (transitData.loading || !transitData.called || !transitData.data.transitInfo) {
     return <></>;
   }
 
-  console.log(transitData.data.transitInfo.travelMode);
   let travelPossible = transitData.data.transitInfo.travelMode != "WALKING";
-  console.log(travelPossible);
   let durationColor = "text-gray-600";
   let delay = 0;
   let duration = Math.ceil(transitData.data?.transitInfo.duration / 60);
