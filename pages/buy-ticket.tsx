@@ -6,8 +6,8 @@ import { User } from '../services/models/User'
 import NotAuthorised from '../components/NotAuthorised'
 import React, { useEffect } from 'react'
 import { TicketsQuery, UserQuery } from '../services/graphql/queries'
-import {router} from "next/client";
-import {BuyTicketMutation} from "../services/graphql/mutations";
+import { router } from 'next/client'
+import { BuyTicketMutation } from '../services/graphql/mutations'
 
 const BuyTicket = () => {
   const [ticket, setTicket] = React.useState()
@@ -68,8 +68,7 @@ const BuyTicket = () => {
       })
 
       handleSuccessShow(e)
-    }
-    else {
+    } else {
       handleModalShow(e)
     }
   }
@@ -97,7 +96,6 @@ const BuyTicket = () => {
     setShowSuccess(false)
   }
 
-
   // @ts-ignore
   return (
     <Layout user={session.user as User}>
@@ -110,7 +108,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticket ? ticket.name + " - " + ticket.price: 'Wybierz bilet'}
+              {ticket ? ticket.name + ' - ' + ticket.price : 'Wybierz bilet'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -144,16 +142,16 @@ const BuyTicket = () => {
                   Zamknij
                 </button>
               </div>
-              </Modal>
-            <Modal
-                isOpen={showSuccess}
-                onRequestClose={handleSuccessClose}
-            >
+            </Modal>
+            <Modal isOpen={showSuccess} onRequestClose={handleSuccessClose}>
               <div>
-                {ticket && <h2>Kupiono bilet {ticket.name} za {ticket.price}zł</h2>}
+                {ticket && (
+                  <h2>
+                    Kupiono bilet {ticket.name} za {ticket.price}zł
+                  </h2>
+                )}
               </div>
             </Modal>
-
           </div>
         </div>
       </main>

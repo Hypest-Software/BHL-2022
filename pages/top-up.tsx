@@ -103,10 +103,7 @@ const TopUp = () => {
             <button onClick={handleSubmit} className="btn btn-primary">
               Doładuj
             </button>
-            <Modal
-                isOpen={showModal}
-                onRequestClose={handleModalClose}
-            >
+            <Modal isOpen={showModal} onRequestClose={handleModalClose}>
               <div>
                 <h2>Doładowano konto za kwotę {value}zł</h2>
               </div>
