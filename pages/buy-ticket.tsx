@@ -7,10 +7,12 @@ import NotAuthorised from '../components/NotAuthorised'
 import React, { useEffect } from 'react'
 import { BuyTicketMutation } from '../services/graphql/mutations'
 import { TicketsQuery, UserQuery } from '../services/graphql/queries'
+import {router} from "next/client";
 
 const BuyTicket = () => {
   const [ticket, setTicket] = React.useState()
   const [showModal, setShowModal] = React.useState(false)
+  const [showSuccess, setShowSuccess] = React.useState(false)
 
   const { data: session, status } = useSession()
 
@@ -62,6 +64,11 @@ const BuyTicket = () => {
           { query: UserQuery, variables: { userId: session.user.id } },
         ],
       })
+
+      handleSuccessShow(e)
+    }
+    else {
+      handleModalShow(e)
     }
   }
 
@@ -75,6 +82,20 @@ const BuyTicket = () => {
     setShowModal(false)
   }
 
+  const handleSuccessShow = (e) => {
+    e.preventDefault()
+    setShowSuccess(true)
+    setTimeout(() => {
+      router.push('/')
+    }, 3000)
+  }
+
+  const handleSuccessClose = (e) => {
+    e.preventDefault()
+    setShowSuccess(false)
+  }
+
+
   return (
     <Layout user={session.user as User}>
       <header className="bg-white shadow">
@@ -86,7 +107,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticket ? ticket.name : 'Select a ticket'}
+              {ticket ? ticket.name + " - " + ticket.price: 'Select a ticket'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -118,7 +139,16 @@ const BuyTicket = () => {
                   Zamknij
                 </button>
               </div>
+              </Modal>
+            <Modal
+                isOpen={showSuccess}
+                onRequestClose={handleSuccessClose}
+            >
+              <div>
+                <h2>Kupiono bilet {ticket.name} za {ticket.price}zł</h2>
+              </div>
             </Modal>
+
           </div>
         </div>
       </main>
