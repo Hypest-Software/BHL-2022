@@ -1,9 +1,8 @@
 import React from 'react'
 import {
   ActiveRideQuery,
-  EndRideMutation,
-  StartRideMutation,
 } from '../services/graphql/queries'
+import { EndRideMutation, StartRideMutation } from '../services/graphql/mutations'
 import { useMutation, useQuery } from '@apollo/client'
 import Loading from './Loading'
 
