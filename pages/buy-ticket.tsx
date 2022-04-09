@@ -10,11 +10,13 @@ import {
   TransactionCreateMutation,
 } from '../services/graphql/mutations'
 import { TicketsQuery, UserQuery } from '../services/graphql/queries'
+import {router} from "next/client";
 
 const BuyTicket = () => {
   const [ticketPrice, setTicketPrice] = React.useState(0)
   const [ticketName, setTicketName] = React.useState('')
   const [showModal, setShowModal] = React.useState(false)
+  const [showSuccess, setShowSuccess] = React.useState(false)
 
   const { data: session, status } = useSession()
 
@@ -60,6 +62,7 @@ const BuyTicket = () => {
       handleModalShow(e)
       return
     }
+    handleSuccessShow(e)
 
     charge({
       variables: {
@@ -86,6 +89,20 @@ const BuyTicket = () => {
     e.preventDefault()
     setShowModal(false)
   }
+
+  const handleSuccessShow = (e) => {
+    e.preventDefault()
+    setShowSuccess(true)
+    setTimeout(() => {
+      router.push('/')
+    }, 3000)
+  }
+
+  const handleSuccessClose = (e) => {
+    e.preventDefault()
+    setShowSuccess(false)
+  }
+
 
   return (
     <Layout user={session.user as User}>
@@ -131,6 +148,14 @@ const BuyTicket = () => {
                 <button onClick={handleModalClose} className="btn btn-primary">Zamknij</button>
               </div>
               </Modal>
+            <Modal
+                isOpen={showSuccess}
+                onRequestClose={handleSuccessClose}
+            >
+              <div>
+                <h2>Kupiono bilet {ticketName} za {ticketPrice}zł</h2>
+              </div>
+            </Modal>
 
           </div>
         </div>

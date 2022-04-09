@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import Modal from 'react-modal'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { useSession } from 'next-auth/react'
 import { User } from '../services/models/User'
@@ -13,6 +14,7 @@ import { useRouter } from 'next/router'
 
 const TopUp = () => {
   const [value, setValue] = React.useState(null)
+  const [showModal, setShowModal] = React.useState(false)
 
   const { data: session, status } = useSession()
 
@@ -49,6 +51,7 @@ const TopUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    handleModalShow(e)
     topUp({
       variables: {
         amount: Number(value),
@@ -62,8 +65,20 @@ const TopUp = () => {
           type: 'TOP_UP',
         },
       })
-      router.push('/');
     })
+  }
+
+  const handleModalShow = (e) => {
+    e.preventDefault()
+    setShowModal(true)
+    setTimeout(() => {
+      router.push('/');
+    }, 5000)
+  }
+
+  const handleModalClose = (e) => {
+    e.preventDefault()
+    setShowModal(false)
   }
 
   return (
@@ -88,6 +103,14 @@ const TopUp = () => {
             <button onClick={handleSubmit} className="btn btn-primary">
               Doładuj
             </button>
+            <Modal
+                isOpen={showModal}
+                onRequestClose={handleModalClose}
+            >
+              <div>
+                <h2>Doładowano konto za kwotę {value}zł</h2>
+              </div>
+            </Modal>
           </div>
         </div>
       </main>
