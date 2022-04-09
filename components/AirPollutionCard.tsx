@@ -38,11 +38,11 @@ const AirPollutionItem = ({ item, quality, value, unit }) => {
 
   return (
     <div
-      className={`flex flex-row rounded-lg justify-between text-sm py-1 px-2 bg-${colorName}-200`}
+      className={`flex flex-row rounded-lg justify-between text-sm py-1 px-2 bg-${colorName}-600 bg-opacity-20`}
     >
       <h2 className={`text-${colorName}-700 font-light`}>{item}</h2>
       <h4 className={`font-medium ml-1 text-${colorName}-700`}>{value}</h4>
-      <span className={`font-light text-${colorName}-700`}>{unit}</span>
+      {unit ? (<span className={`font-light text-${colorName}-700`}>{unit}</span>) : null}
     </div>
   )
 }

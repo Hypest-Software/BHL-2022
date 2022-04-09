@@ -18,24 +18,10 @@ export default function WaypointsList(props: WaypointsListProps) {
   return (
     <>
       {props.waypoints.map((waypoint) => (
-        <div key={waypoint.id} className="card">
+        <div key={waypoint.id}>
           <WaypointCard waypoint={waypoint} />
         </div>
       ))}
-      <style jsx>{`
-        .card {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .card:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .card + .card {
-          margin-top: 2rem;
-        }
-      `}</style>
     </>
   )
 }

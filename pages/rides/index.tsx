@@ -19,14 +19,14 @@ const RideListItem = ({ ride }) => {
     points,
   } = ride
 
-  let date = moment(end_time).format('LLL')
+  let date = moment(end_time).format('DD.MM.YYYY HH:mm');
 
   return (
     <div className="bg-gray-100 rounded-lg flex justify-between items-center p-4">
       <div className="flex flex-grow align-center justify-between">
         <div className="flex flex-col">
           <h1 className="text-xl font-semibold">
-            Earned: {points.toFixed(2)} zł
+             <span className="font-normal">Otrzymano:</span> {points.toFixed(2)} zł
           </h1>
           <h4 className="text-gray-600 font-light">
             {(distance / 1000).toFixed(2)}km
