@@ -6,12 +6,14 @@ import Loading from './Loading'
 import {WifiIcon} from '@heroicons/react/outline'
 import StartStopRideModal from "./StartStopRideModal";
 import moment from "moment";
+import { useRouter } from 'next/router'
 
 interface StartStopRideProps {
     userId: string
 }
 
 export default function StartStopRide(props: StartStopRideProps) {
+    const router = useRouter();
     const [isRideModalOpen, setIsRideModalOpen] = React.useState(false)
 
     const activeRide = useQuery(ActiveRideQuery, {
@@ -113,11 +115,12 @@ export default function StartStopRide(props: StartStopRideProps) {
                     end_lng: END_LNG,
                 },
             })
+            router.push('/rides');
         }
     }
 
     const getContent = () => {
-        let mainText = isRideActive ? 'Zakończ przejazd' : 'Zbliż do czytnika, aby rozpocząć przejazd'
+        let mainText = isRideActive ? 'Zbliż, aby zakończyć przejazd' : 'Zbliż do czytnika, aby rozpocząć przejazd'
         let helperText = isRideActive ? 'Czas: ' + durationString : null;
 
         return (
@@ -131,7 +134,7 @@ export default function StartStopRide(props: StartStopRideProps) {
     return (
         <div>
             <button
-                className="bg-blue-50 border-solid border-gray-500 border-1 rounded-lg flex flex-col flex-grow justify-center items-center py-8 px-4"
+                className="bg-blue-50 border-solid border-gray-500 w-[93vw] border-1 rounded-lg flex flex-col flex-grow justify-center items-center py-8 px-4"
                 type="button"
                 onClick={() => handleStartStop()}
             >
