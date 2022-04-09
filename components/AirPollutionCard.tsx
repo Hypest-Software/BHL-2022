@@ -1,5 +1,6 @@
 import { useLazyQuery } from '@apollo/client'
 import { useEffect } from 'react'
+import { getPointsMultiplier } from '../services/external/PointsService'
 import { PollutionStatus } from '../services/external/WaqiApi'
 import { PollutionQuery } from '../services/graphql/queries'
 
@@ -65,9 +66,10 @@ const AirPollutionCard = () => {
     airData.data.pollutionStatus.average
   )
   let colorName = getColorForAirQuality(airData.data.pollutionStatus.average)
+  //let colorName = getColorForAirQuality(PollutionStatus.ExtremelyPoor);
   let polStatus = airData.data.pollutionStatus
   let polValues = airData.data.pollution
-  //let backgroundColor = getColorForAirQuality(PollutionStatus.ExtremelyPoor);
+  let pointsMultiplier = getPointsMultiplier(polValues.particulateMatter10)
 
   return (
     <>
@@ -79,7 +81,12 @@ const AirPollutionCard = () => {
               {airQualityName}
             </h1>
           </div>
-          <div className="flex flex-row space-x-2">
+          <div className="flex flex-row space-x-4 items-center">
+            <div className="flex flex-col justify-around items-center">
+              <div className={`text-3xl font-bold text-${colorName}-700`}>{pointsMultiplier}<span className="font-normal text-2xl">x</span></div>
+              <div className={`text-sm text-${colorName}-700 -mt-1`}>mnożnik</div>
+            </div>
+
             <div className="flex flex-col justify-around space-y-2">
               <AirPollutionItem
                 item="CO2"
