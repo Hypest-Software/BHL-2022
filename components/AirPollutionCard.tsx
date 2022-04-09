@@ -34,7 +34,7 @@ function getNameForAirQuality(quality: PollutionStatus) {
 }
 
 const AirPollutionItem = ({ item, quality, value, unit }) => {
-  let colorName = getColorForAirQuality(quality);
+  let colorName = getColorForAirQuality(quality)
 
   return (
     <div
@@ -44,8 +44,8 @@ const AirPollutionItem = ({ item, quality, value, unit }) => {
       <h4 className={`font-medium ml-1 text-${colorName}-700`}>{value}</h4>
       <span className={`font-light text-${colorName}-700`}>{unit}</span>
     </div>
-  );
-};
+  )
+}
 
 const AirPollutionCard = () => {
   const [fetchAirData, airData] = useLazyQuery(PollutionQuery)
@@ -61,10 +61,10 @@ const AirPollutionCard = () => {
 
   let airQualityName = getNameForAirQuality(
     airData.data.pollutionStatus.average
-  );
-  let colorName = getColorForAirQuality(airData.data.pollutionStatus.average);
-  let polStatus = airData.data.pollutionStatus;
-  let polValues = airData.data.pollution;
+  )
+  let colorName = getColorForAirQuality(airData.data.pollutionStatus.average)
+  let polStatus = airData.data.pollutionStatus
+  let polValues = airData.data.pollution
   //let backgroundColor = getColorForAirQuality(PollutionStatus.ExtremelyPoor);
 
   return (
@@ -97,4 +97,4 @@ const AirPollutionCard = () => {
   )
 }
 
-export default AirPollutionCard;
+export default AirPollutionCard

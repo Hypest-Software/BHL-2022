@@ -1,8 +1,8 @@
-import { ArrowRightIcon } from "@heroicons/react/outline";
-import Link from "next/link";
-import React from "react";
-import { Waypoint } from "../services/models/Waypoint";
-import { DestinationWaypointCard } from "./DestinationWaypointCard";
+import { ArrowRightIcon } from '@heroicons/react/outline'
+import Link from 'next/link'
+import React from 'react'
+import { Waypoint } from '../services/models/Waypoint'
+import { DestinationWaypointCard } from './DestinationWaypointCard'
 
 interface DestinationWaypointsListProps {
   waypoints: Waypoint[]
@@ -26,7 +26,7 @@ export default function DestinationWaypointsList(
           <DestinationWaypointCard waypoint={waypoint} />
         </div>
       ))}
-      <Link href={"https://www.google.com/maps/@?api=1&map_action=map"}>
+      <Link href={'https://www.google.com/maps/@?api=1&map_action=map'}>
         <div className="bg-blue-50 rounded-lg p-4">
           <div className="flex flex-grow align-center justify-between items-center">
             <div className="flex flex-col">

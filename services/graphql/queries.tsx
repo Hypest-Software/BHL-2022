@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag'
 
 export const DraftsQuery = gql`
   query DraftsQuery {
@@ -13,7 +13,7 @@ export const DraftsQuery = gql`
       }
     }
   }
-`;
+`
 
 export const FeedQuery = gql`
   query FeedQuery {
@@ -28,7 +28,7 @@ export const FeedQuery = gql`
       }
     }
   }
-`;
+`
 
 export const UserQuery = gql`
   query UserQuery($userId: String!) {
@@ -37,7 +37,7 @@ export const UserQuery = gql`
       balance
     }
   }
-`;
+`
 
 export const TransitInfoQuery = gql`
   query TransitInfoQuery(
@@ -57,7 +57,7 @@ export const TransitInfoQuery = gql`
       travelMode
     }
   }
-`;
+`
 
 export const WaypointsQuery = gql`
   query WaypointsQuery($userId: String!) {
@@ -69,7 +69,7 @@ export const WaypointsQuery = gql`
       address
     }
   }
-`;
+`
 
 export const TransactionQuery = gql`
   query TransactionQuery($transactionId: String!) {
@@ -80,7 +80,7 @@ export const TransactionQuery = gql`
       createdAt
     }
   }
-`;
+`
 export const TransactionsListQuery = gql`
   query TransactionsListQuery($userId: String!) {
     transactions(userId: $userId) {
@@ -90,7 +90,7 @@ export const TransactionsListQuery = gql`
       createdAt
     }
   }
-`;
+`
 
 export const RideQuery = gql`
   query RideQuery($rideId: String!) {
@@ -115,7 +115,7 @@ export const RideQuery = gql`
       air_nh3
     }
   }
-`;
+`
 
 export const ActiveRideQuery = gql`
   query ActiveRideQuery($userId: String!) {
@@ -140,7 +140,7 @@ export const ActiveRideQuery = gql`
       air_nh3
     }
   }
-`;
+`
 
 export const RidesQuery = gql`
   query RidesQuery($userId: String!) {
@@ -157,7 +157,7 @@ export const RidesQuery = gql`
       conveyance
     }
   }
-`;
+`
 
 export const TicketsQuery = gql`
   query TicketsQuery {
@@ -168,7 +168,7 @@ export const TicketsQuery = gql`
       duration
     }
   }
-`;
+`
 
 export const PollutionQuery = gql`
   query PollutionQuery {
@@ -182,7 +182,7 @@ export const PollutionQuery = gql`
       particulateMatter10
     }
   }
-`;
+`
 
 export const StartRideMutation = gql`
   mutation StartRideMutation(
@@ -217,7 +217,7 @@ export const StartRideMutation = gql`
       air_nh3
     }
   }
-`;
+`
 
 export const EndRideMutation = gql`
   mutation EndRideMutation(
@@ -252,4 +252,4 @@ export const EndRideMutation = gql`
       air_nh3
     }
   }
-`;
+`

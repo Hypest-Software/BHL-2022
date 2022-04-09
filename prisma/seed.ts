@@ -1,57 +1,52 @@
-import { Conveyance, Prisma, PrismaClient } from "@prisma/client";
+import { Conveyance, Prisma, PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 function randomDate(start, end) {
   return new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  );
+  )
 }
 
 function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
+  return Math.random() * (max - min) + min
 }
 
 function deg2rad(deg) {
-  return deg * (Math.PI / 180);
+  return deg * (Math.PI / 180)
 }
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2 - lat1); // deg2rad below
-  var dLon = deg2rad(lon2 - lon1);
+  var R = 6371 // Radius of the earth in km
+  var dLat = deg2rad(lat2 - lat1) // deg2rad below
+  var dLon = deg2rad(lon2 - lon1)
   var a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(deg2rad(lat1)) *
       Math.cos(deg2rad(lat2)) *
       Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  var d = R * c; // Distance in km
-  return d;
+      Math.sin(dLon / 2)
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  var d = R * c // Distance in km
+  return d
 }
 
-const warsawLatMax = 52.274729;
-const warsawLatMin = 52.172733;
-const warsawLngMax = 21.092944;
-const warsawLngMin = 20.906415;
+const warsawLatMax = 52.274729
+const warsawLatMin = 52.172733
+const warsawLngMax = 21.092944
+const warsawLngMin = 20.906415
 
 const randomConveyance = (): Conveyance => {
-  const options: Conveyance[] = ["ELECTRIC_CAR", "TRANSIT", "BIKE"];
-  return options[Math.floor(Math.random() * options.length)];
-};
+  const options: Conveyance[] = ['ELECTRIC_CAR', 'TRANSIT', 'BIKE']
+  return options[Math.floor(Math.random() * options.length)]
+}
 
 const randomRide = (userId: string): Prisma.RideUncheckedCreateInput => {
-  const startLat = getRandomArbitrary(warsawLatMin, warsawLatMax);
-  const startLng = getRandomArbitrary(warsawLngMin, warsawLngMax);
-  const endLat = getRandomArbitrary(warsawLatMin, warsawLatMax);
-  const endLng = getRandomArbitrary(warsawLngMin, warsawLngMax);
-  const distance = getDistanceFromLatLonInKm(
-    startLat,
-    startLng,
-    endLat,
-    endLng
-  );
+  const startLat = getRandomArbitrary(warsawLatMin, warsawLatMax)
+  const startLng = getRandomArbitrary(warsawLngMin, warsawLngMax)
+  const endLat = getRandomArbitrary(warsawLatMin, warsawLatMax)
+  const endLng = getRandomArbitrary(warsawLngMin, warsawLngMax)
+  const distance = getDistanceFromLatLonInKm(startLat, startLng, endLat, endLng)
   return {
     start_lat: startLat,
     start_lng: startLng,
@@ -71,18 +66,18 @@ const randomRide = (userId: string): Prisma.RideUncheckedCreateInput => {
     air_pm10: getRandomArbitrary(0.4, 1),
     air_nh3: getRandomArbitrary(0, 0.1),
     userId: userId,
-  };
-};
+  }
+}
 
 const userData: Prisma.UserCreateInput[] = [
   {
-    name: "Alice",
-    email: "alice@prisma.io",
+    name: 'Alice',
+    email: 'alice@prisma.io',
     balance: 10.0,
   },
   {
-    name: "Nilu",
-    email: "nilu@prisma.io",
+    name: 'Nilu',
+    email: 'nilu@prisma.io',
     rides: {
       create: [
         {
@@ -109,43 +104,43 @@ const userData: Prisma.UserCreateInput[] = [
     balance: 10.0,
   },
   {
-    name: "Mahmoud",
-    email: "mahmoud@prisma.io",
+    name: 'Mahmoud',
+    email: 'mahmoud@prisma.io',
     balance: 10.0,
   },
-];
+]
 
 const tickets: Prisma.TicketCreateInput[] = [
   {
-    name: "30-minute ticket",
+    name: '30-minute ticket',
     price: 5.0,
     duration: 30,
   },
   {
-    name: "60-minute ticket",
+    name: '60-minute ticket',
     price: 9.0,
     duration: 60,
   },
   {
-    name: "90-minute ticket",
+    name: '90-minute ticket',
     price: 12.0,
     duration: 90,
   },
   {
-    name: "Daily ticket",
+    name: 'Daily ticket',
     price: 20.0,
     duration: 24 * 60,
   },
   {
-    name: "Monthly ticket",
+    name: 'Monthly ticket',
     price: 110.0,
     duration: 31 * 24 * 60,
   },
-];
+]
 
 export async function main() {
   try {
-    console.log(`Start seeding ...`);
+    console.log(`Start seeding ...`)
     // for (const u of userData) {
     //   const user = await prisma.user.create({
     //     data: u,
@@ -169,17 +164,17 @@ export async function main() {
     for (const t of tickets) {
       const ticket = await prisma.ticket.create({
         data: t,
-      });
-      console.log(`Created ticket with id: ${ticket.id}`);
+      })
+      console.log(`Created ticket with id: ${ticket.id}`)
     }
 
-    console.log(`Seeding finished.`);
+    console.log(`Seeding finished.`)
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    console.error(err)
+    process.exit(1)
   } finally {
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   }
 }
 
-main();
+main()

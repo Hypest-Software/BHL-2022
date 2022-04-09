@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react'
 import {
   ActiveRideQuery,
   EndRideMutation,
   StartRideMutation,
-} from "../services/graphql/queries";
-import { useMutation, useQuery } from "@apollo/client";
-import Loading from "./Loading";
+} from '../services/graphql/queries'
+import { useMutation, useQuery } from '@apollo/client'
+import Loading from './Loading'
 
 interface StartStopRideProps {
-  userId: string;
+  userId: string
 }
 
 export default function StartStopRide(props: StartStopRideProps) {
@@ -16,7 +16,7 @@ export default function StartStopRide(props: StartStopRideProps) {
     variables: {
       userId: props.userId,
     },
-  });
+  })
 
   const [startRide, startRideMutation] = useMutation(StartRideMutation, {
     refetchQueries: [
@@ -27,7 +27,7 @@ export default function StartStopRide(props: StartStopRideProps) {
         },
       },
     ],
-  });
+  })
 
   const [endRide, endRideMutation] = useMutation(EndRideMutation, {
     refetchQueries: [
@@ -38,19 +38,19 @@ export default function StartStopRide(props: StartStopRideProps) {
         },
       },
     ],
-  });
+  })
 
   if (activeRide.loading || !activeRide.data) {
-    return <Loading />;
+    return <Loading />
   }
 
-  const isRideActive = Boolean(activeRide.data.activeRide);
+  const isRideActive = Boolean(activeRide.data.activeRide)
 
-  const START_LAT = 52.184028;
-  const START_LNG = 21.025121;
+  const START_LAT = 52.184028
+  const START_LNG = 21.025121
 
-  const END_LAT = 52.219795;
-  const END_LNG = 21.012449;
+  const END_LAT = 52.219795
+  const END_LNG = 21.012449
 
   const handleStartStop = () => {
     if (!isRideActive) {
@@ -59,9 +59,9 @@ export default function StartStopRide(props: StartStopRideProps) {
           userId: props.userId,
           start_lat: START_LAT,
           start_lng: START_LNG,
-          conveyance: "TRANSIT",
+          conveyance: 'TRANSIT',
         },
-      });
+      })
     } else {
       endRide({
         variables: {
@@ -70,13 +70,13 @@ export default function StartStopRide(props: StartStopRideProps) {
           end_lat: END_LAT,
           end_lng: END_LNG,
         },
-      });
+      })
     }
-  };
+  }
 
   const getTitle = () => {
-    return isRideActive ? "Zakończ przejazd" : "Rozpocznij przejazd";
-  };
+    return isRideActive ? 'Zakończ przejazd' : 'Rozpocznij przejazd'
+  }
 
   return (
     <div className="max-w-7xl mx-4 space-y-4 py-4 sm:px-8 lg:px-8">
@@ -88,5 +88,5 @@ export default function StartStopRide(props: StartStopRideProps) {
         {getTitle()}
       </button>
     </div>
-  );
+  )
 }

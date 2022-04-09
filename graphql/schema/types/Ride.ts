@@ -149,7 +149,9 @@ export const RideMutations = extendType({
           ride.particulateMatter10
         )
 
-        ctx.prisma.user.update({
+        console.log(points)
+
+        await ctx.prisma.user.update({
           where: { id: userId },
           data: {
             balance:
