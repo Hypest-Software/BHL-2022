@@ -12,7 +12,6 @@ const RideListItem = ({ ride }) => {
     const {start_lat, start_lng, end_lat, end_lng, distance, time, conveyance, points} = ride;
 
     let date = moment(time).format("DD.MM");
-    console.log(time);
 
     return (
       <div className="bg-gray-100 rounded-lg flex justify-between items-center p-4">
