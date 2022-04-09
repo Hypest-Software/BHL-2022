@@ -5,7 +5,8 @@ import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
 import React, { useEffect } from "react";
 import {
-  TransactionCreateMutation, UpdateBalanceMutation,
+  TransactionCreateMutation,
+  UpdateBalanceMutation,
 } from "../services/graphql/mutations";
 import { UserQuery } from "../services/graphql/queries";
 
@@ -24,11 +25,12 @@ const TopUp = () => {
     }
   }, [fetchUserData, session]);
 
-    const [topUp, {data, loading, error}] = useMutation(UpdateBalanceMutation);
-    const [createTransaction, {data: tData, loading: tLoading, error: tError}] = useMutation(TransactionCreateMutation);
-    if (loading || tLoading) {
-        return <></>;
-    }
+  const [topUp, { data, loading, error }] = useMutation(UpdateBalanceMutation);
+  const [createTransaction, { data: tData, loading: tLoading, error: tError }] =
+    useMutation(TransactionCreateMutation);
+  if (loading || tLoading) {
+    return <></>;
+  }
 
   if (!session) {
     return <NotAuthorised />;

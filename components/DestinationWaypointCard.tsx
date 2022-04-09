@@ -39,7 +39,11 @@ export const DestinationWaypointCard = (
     }
   }, [fetchTransitData, props.waypoint]);
 
-  if (transitData.loading || !transitData.called || !transitData.data.transitInfo) {
+  if (
+    transitData.loading ||
+    !transitData.called ||
+    !transitData.data.transitInfo
+  ) {
     return <></>;
   }
 
@@ -54,21 +58,23 @@ export const DestinationWaypointCard = (
   }
 
   return (
-  <>
-    <div className="bg-gray-100 rounded-lg p-4">
-      <div className="flex flex-grow align-center justify-between items-center">
-        <div className="flex flex-col">
-          <h1 className="text-xl font-semibold">{props.waypoint.name}</h1>
-          <h4 className="text-gray-600">{props.waypoint.address}</h4>
-        </div>
-        <div className="flex flex-row items-center">
-          <span className={durationColor + " font-medium"}>
-            {travelPossible ? `${duration} min.` : "pieszo!"}
-          </span>
-          <ArrowRightIcon className={`ml-4 h-6 w-6 mb-0.5 ${durationColor}`}/>
+    <>
+      <div className="bg-gray-100 rounded-lg p-4">
+        <div className="flex flex-grow align-center justify-between items-center">
+          <div className="flex flex-col">
+            <h1 className="text-xl font-semibold">{props.waypoint.name}</h1>
+            <h4 className="text-gray-600">{props.waypoint.address}</h4>
+          </div>
+          <div className="flex flex-row items-center">
+            <span className={durationColor + " font-medium"}>
+              {travelPossible ? `${duration} min.` : "pieszo!"}
+            </span>
+            <ArrowRightIcon
+              className={`ml-4 h-6 w-6 mb-0.5 ${durationColor}`}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };

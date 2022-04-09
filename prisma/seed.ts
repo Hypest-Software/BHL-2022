@@ -134,13 +134,13 @@ const tickets: Prisma.TicketCreateInput[] = [
   {
     name: "Daily ticket",
     price: 20.0,
-    duration: 24 * 60 ,
+    duration: 24 * 60,
   },
   {
     name: "Monthly ticket",
     price: 110.0,
     duration: 31 * 24 * 60,
-  }
+  },
 ];
 
 export async function main() {

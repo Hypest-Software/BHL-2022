@@ -71,11 +71,15 @@ const Blog = () => {
       </header>
       <main className="bg-white shadow">
         <div className="max-w-7xl mx-4 py-4 sm:px-8 lg:px-8">
-          <AirPollutionCard/>
+          <AirPollutionCard />
         </div>
         <div className="max-w-7xl mx-4 space-y-4 py-2 sm:px-8 lg:px-8">
           <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
-          <DestinationWaypointsList waypoints={waypointsData.data ? waypointsData.data.favoriteWaypoints : []}/>
+          <DestinationWaypointsList
+            waypoints={
+              waypointsData.data ? waypointsData.data.favoriteWaypoints : []
+            }
+          />
         </div>
         <StartStopRide userId={session.user.id} />
       </main>

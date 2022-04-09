@@ -33,17 +33,19 @@ function getNameForAirQuality(quality: PollutionStatus) {
   }
 }
 
-const AirPollutionItem = ( {item, quality, value, unit } ) => {
+const AirPollutionItem = ({ item, quality, value, unit }) => {
   let colorName = getColorForAirQuality(quality);
 
   return (
-    <div className={`flex flex-row rounded-lg justify-between text-sm py-1 px-2 bg-${colorName}-200`}>
+    <div
+      className={`flex flex-row rounded-lg justify-between text-sm py-1 px-2 bg-${colorName}-200`}
+    >
       <h2 className={`text-${colorName}-700 font-light`}>{item}</h2>
       <h4 className={`font-medium ml-1 text-${colorName}-700`}>{value}</h4>
       <span className={`font-light text-${colorName}-700`}>{unit}</span>
     </div>
   );
-}
+};
 
 const AirPollutionCard = () => {
   const [fetchAirData, airData] = useLazyQuery(PollutionQuery);
@@ -57,7 +59,9 @@ const AirPollutionCard = () => {
     return <></>;
   }
 
-  let airQualityName = getNameForAirQuality(airData.data.pollutionStatus.average);
+  let airQualityName = getNameForAirQuality(
+    airData.data.pollutionStatus.average
+  );
   let colorName = getColorForAirQuality(airData.data.pollutionStatus.average);
   let polStatus = airData.data.pollutionStatus;
   let polValues = airData.data.pollution;
@@ -69,12 +73,22 @@ const AirPollutionCard = () => {
         <div className="flex flex-row justify-between">
           <div className="flex flex-col justify-between">
             <h2 className={`text-${colorName}-800`}>Jakość powietrza</h2>
-            <h1 className={`text-3xl font-semibold text-${colorName}-800`}>{airQualityName}</h1>
+            <h1 className={`text-3xl font-semibold text-${colorName}-800`}>
+              {airQualityName}
+            </h1>
           </div>
           <div className="flex flex-row space-x-2">
             <div className="flex flex-col justify-around space-y-2">
-              <AirPollutionItem item="CO2" quality={polStatus.carbonMonoxide} value={polValues.carbonMonoxide}/>
-              <AirPollutionItem item="PM10" quality={polStatus.particulateMatter10} value={polValues.particulateMatter10}/>
+              <AirPollutionItem
+                item="CO2"
+                quality={polStatus.carbonMonoxide}
+                value={polValues.carbonMonoxide}
+              />
+              <AirPollutionItem
+                item="PM10"
+                quality={polStatus.particulateMatter10}
+                value={polValues.particulateMatter10}
+              />
             </div>
           </div>
         </div>
