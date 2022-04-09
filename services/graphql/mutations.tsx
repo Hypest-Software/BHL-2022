@@ -7,7 +7,7 @@ export const UpdateBalanceMutation = gql`
       balance
     }
   }
-`;
+`
 
 export const TransactionCreateMutation = gql`
   mutation TransactionCreateMutation(
@@ -21,4 +21,4 @@ export const TransactionCreateMutation = gql`
       amount
     }
   }
-`;
+`

@@ -1,59 +1,59 @@
-import Layout from "../components/Layout";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import { User } from "../services/models/User";
-import NotAuthorised from "../components/NotAuthorised";
-import React, { useEffect } from "react";
+import Layout from '../components/Layout'
+import { useLazyQuery, useMutation } from '@apollo/client'
+import { useSession } from 'next-auth/react'
+import { User } from '../services/models/User'
+import NotAuthorised from '../components/NotAuthorised'
+import React, { useEffect } from 'react'
 import {
   UpdateBalanceMutation,
   TransactionCreateMutation,
-} from "../services/graphql/mutations";
-import { TicketsQuery, UserQuery } from "../services/graphql/queries";
+} from '../services/graphql/mutations'
+import { TicketsQuery, UserQuery } from '../services/graphql/queries'
 
 const BuyTicket = () => {
-  const [ticketPrice, setTicketPrice] = React.useState(0);
-  const [ticketName, setTicketName] = React.useState("");
+  const [ticketPrice, setTicketPrice] = React.useState(0)
+  const [ticketName, setTicketName] = React.useState('')
 
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession()
 
-  const [fetchUserData, userData] = useLazyQuery(UserQuery);
-  const [fetchTickets, tickets] = useLazyQuery(TicketsQuery);
+  const [fetchUserData, userData] = useLazyQuery(UserQuery)
+  const [fetchTickets, tickets] = useLazyQuery(TicketsQuery)
 
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
       // @ts-ignore
-      fetchUserData({ variables: { userId: session.user.id } });
+      fetchUserData({ variables: { userId: session.user.id } })
     }
-  }, [fetchUserData, session]);
+  }, [fetchUserData, session])
 
   useEffect(() => {
     if (session) {
-      fetchTickets();
+      fetchTickets()
     }
-  }, [fetchTickets, session]);
+  }, [fetchTickets, session])
 
-  const [charge, { data, loading, error }] = useMutation(UpdateBalanceMutation);
+  const [charge, { data, loading, error }] = useMutation(UpdateBalanceMutation)
   const [createTransaction, { data: tData, loading: tLoading, error: tError }] =
-    useMutation(TransactionCreateMutation);
+    useMutation(TransactionCreateMutation)
   if (loading || tLoading) {
-    return <></>;
+    return <></>
   }
 
   if (!session) {
-    return <NotAuthorised />;
+    return <NotAuthorised />
   }
 
   if (error) {
-    return <div>Error! {error.message}</div>;
+    return <div>Error! {error.message}</div>
   }
 
   if (tError) {
-    return <div>Error! {tError.message}</div>;
+    return <div>Error! {tError.message}</div>
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     charge({
       variables: {
         amount: -Number(ticketPrice),
@@ -64,11 +64,11 @@ const BuyTicket = () => {
         variables: {
           amount: -Number(ticketPrice),
           userId: userData.data.user.id,
-          type: "SINGLE_RIDE",
+          type: 'SINGLE_RIDE',
         },
-      });
-    });
-  };
+      })
+    })
+  }
 
   return (
     <Layout user={session.user as User}>
@@ -81,7 +81,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticketName ? ticketName : "Select a ticket"}
+              {ticketName ? ticketName : 'Select a ticket'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -93,8 +93,8 @@ const BuyTicket = () => {
                     <a
                       className="dropdown-item"
                       onClick={() => {
-                        setTicketPrice(ticket.price);
-                        setTicketName(ticket.name);
+                        setTicketPrice(ticket.price)
+                        setTicketName(ticket.name)
                       }}
                     >
                       {ticket.name}
@@ -109,7 +109,7 @@ const BuyTicket = () => {
         </div>
       </main>
     </Layout>
-  );
-};
+  )
+}
 
-export default BuyTicket;
+export default BuyTicket

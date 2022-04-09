@@ -1,9 +1,9 @@
-import { Transaction } from "../services/models/Transaction";
-import React from "react";
-import { TransactionCard } from "./TransactionCard";
+import { Transaction } from '../services/models/Transaction'
+import React from 'react'
+import { TransactionCard } from './TransactionCard'
 
 interface TransactionsListProps {
-  transactions: Transaction[];
+  transactions: Transaction[]
 }
 
 export default function TransactionsList(props: TransactionsListProps) {
@@ -12,7 +12,7 @@ export default function TransactionsList(props: TransactionsListProps) {
       <div className="text-center">
         <span>No transactions to display</span>
       </div>
-    );
+    )
   }
 
   return (
@@ -37,5 +37,5 @@ export default function TransactionsList(props: TransactionsListProps) {
         }
       `}</style>
     </>
-  );
+  )
 }

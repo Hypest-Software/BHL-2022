@@ -1,24 +1,24 @@
-import { extendType, floatArg, nonNull, objectType, stringArg } from "nexus";
-import { getTransitInfo } from "../../../services/external/GoogleMapsAPI";
+import { extendType, floatArg, nonNull, objectType, stringArg } from 'nexus'
+import { getTransitInfo } from '../../../services/external/GoogleMapsAPI'
 
 export const TransitInfo = objectType({
-  name: "TransitInfo",
+  name: 'TransitInfo',
   definition(t) {
     // @ts-ignore
-    t.date("arrivalTime");
+    t.date('arrivalTime')
     // @ts-ignore
-    t.date("departureTime");
-    t.int("distance");
-    t.int("duration");
-    t.string("travelMode");
+    t.date('departureTime')
+    t.int('distance')
+    t.int('duration')
+    t.string('travelMode')
   },
-});
+})
 
 export const TransitInfoQueries = extendType({
-  type: "Query",
+  type: 'Query',
   definition: (t) => {
-    t.field("transitInfo", {
-      type: "TransitInfo",
+    t.field('transitInfo', {
+      type: 'TransitInfo',
       args: {
         waypointId: nonNull(stringArg()),
         originLat: nonNull(floatArg()),
@@ -27,19 +27,19 @@ export const TransitInfoQueries = extendType({
       resolve: async (_, args, ctx) => {
         const waypoint = await ctx.prisma.favoriteWaypoint.findUnique({
           where: { id: args.waypointId },
-        });
+        })
 
         return getTransitInfo(
           `${args.originLat},${args.originLng}`,
           `${waypoint.lat},${waypoint.lng}`,
-          "transit"
-        );
+          'transit'
+        )
       },
-    });
+    })
   },
-});
+})
 
 export const TransitInfoMutations = extendType({
-  type: "Mutation",
+  type: 'Mutation',
   definition: (t) => {},
-});
+})

@@ -1,35 +1,35 @@
-import { useLazyQuery } from "@apollo/client";
-import { useEffect } from "react";
-import { PollutionStatus } from "../services/external/WaqiApi";
-import { PollutionQuery } from "../services/graphql/queries";
+import { useLazyQuery } from '@apollo/client'
+import { useEffect } from 'react'
+import { PollutionStatus } from '../services/external/WaqiApi'
+import { PollutionQuery } from '../services/graphql/queries'
 
 function getColorForAirQuality(quality: PollutionStatus) {
   switch (quality) {
     case PollutionStatus.Good:
-      return "green";
+      return 'green'
     case PollutionStatus.Fair:
-      return "lime";
+      return 'lime'
     case PollutionStatus.Poor:
-      return "yellow";
+      return 'yellow'
     case PollutionStatus.VeryPoor:
-      return "orange";
+      return 'orange'
     case PollutionStatus.ExtremelyPoor:
-      return "red";
+      return 'red'
   }
 }
 
 function getNameForAirQuality(quality: PollutionStatus) {
   switch (quality) {
     case PollutionStatus.Good:
-      return "DOBRA";
+      return 'DOBRA'
     case PollutionStatus.Fair:
-      return "DOSTATECZNA";
+      return 'DOSTATECZNA'
     case PollutionStatus.Poor:
-      return "UMIARKOWANA";
+      return 'UMIARKOWANA'
     case PollutionStatus.VeryPoor:
-      return "ZŁA";
+      return 'ZŁA'
     case PollutionStatus.ExtremelyPoor:
-      return "BARDZO ZŁA";
+      return 'BARDZO ZŁA'
   }
 }
 
@@ -48,15 +48,15 @@ const AirPollutionItem = ({ item, quality, value, unit }) => {
 };
 
 const AirPollutionCard = () => {
-  const [fetchAirData, airData] = useLazyQuery(PollutionQuery);
+  const [fetchAirData, airData] = useLazyQuery(PollutionQuery)
 
   useEffect(() => {
     // @ts-ignore
-    fetchAirData();
-  }, [fetchAirData]);
+    fetchAirData()
+  }, [fetchAirData])
 
   if (airData.loading || !airData.called) {
-    return <></>;
+    return <></>
   }
 
   let airQualityName = getNameForAirQuality(
@@ -94,7 +94,7 @@ const AirPollutionCard = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export default AirPollutionCard;

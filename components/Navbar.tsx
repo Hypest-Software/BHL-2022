@@ -1,41 +1,42 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { signOut } from "next-auth/react";
-import Loading from "./Loading";
-import { User } from "../services/models/User";
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+import Loading from './Loading'
+import { User } from '../services/models/User'
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Transactions", href: "/transactions" },
-  { name: "Top up", href: "/top-up" },
-  { name: "Buy a ticket", href: "/buy-ticket" },
-  { name: "Settings", href: "/settings" },
-];
+  { name: 'Home', href: '/' },
+  { name: 'Transactions', href: '/transactions' },
+  { name: 'Top up', href: '/top-up' },
+  { name: 'Buy a ticket', href: '/buy-ticket' },
+  { name: 'Rides history', href: '/rides' },
+  { name: 'Settings', href: '/settings' },
+]
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-];
+  { name: 'Your Profile', href: '#' },
+  { name: 'Settings', href: '#' },
+]
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ')
 }
 
 interface NavbarProps {
-  user: User;
+  user: User
 }
 
 export default function Navbar(props: NavbarProps) {
-  const router = useRouter();
+  const router = useRouter()
 
   function isActive(pathname) {
-    return router.pathname === pathname || router.pathname === "/" + pathname;
+    return router.pathname === pathname || router.pathname === '/' + pathname
   }
 
   if (!props.user) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
@@ -59,15 +60,15 @@ export default function Navbar(props: NavbarProps) {
                         key={item.name}
                         className={classNames(
                           isActive(item.href)
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium'
                         )}
                       >
                         <Link
                           href={item.href}
                           aria-current={
-                            isActive(item.href) ? "page" : undefined
+                            isActive(item.href) ? 'page' : undefined
                           }
                         >
                           {item.name}
@@ -113,18 +114,18 @@ export default function Navbar(props: NavbarProps) {
                           <Menu.Item key={item.name}>
                             <div
                               className={classNames(
-                                isActive(item.href) ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-700"
+                                isActive(item.href) ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-700'
                               )}
                             >
                               <Link href={item.href}>{item.name}</Link>
                             </div>
                           </Menu.Item>
                         ))}
-                        <Menu.Item key={"logout"}>
+                        <Menu.Item key={'logout'}>
                           <div
                             className={
-                              "block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-700 cursor-pointer"
+                              'block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-700 cursor-pointer'
                             }
                             onClick={() => signOut()}
                           >
@@ -157,15 +158,15 @@ export default function Navbar(props: NavbarProps) {
                   key={item.name}
                   className={classNames(
                     isActive(item.href)
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    'block px-3 py-2 rounded-md text-base font-medium'
                   )}
                 >
                   <Disclosure.Button
                     as={Link}
                     href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
@@ -206,14 +207,14 @@ export default function Navbar(props: NavbarProps) {
                     <Disclosure.Button
                       as={Link}
                       href={item.href}
-                      aria-current={isActive(item.href) ? "page" : undefined}
+                      aria-current={isActive(item.href) ? 'page' : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>
                   </div>
                 ))}
                 <div
-                  key={"logout"}
+                  key={'logout'}
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                 >
                   <Disclosure.Button onClick={() => signOut()}>
@@ -226,5 +227,5 @@ export default function Navbar(props: NavbarProps) {
         </>
       )}
     </Disclosure>
-  );
+  )
 }

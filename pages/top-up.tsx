@@ -1,51 +1,51 @@
-import Layout from "../components/Layout";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import { User } from "../services/models/User";
-import NotAuthorised from "../components/NotAuthorised";
-import React, { useEffect } from "react";
+import Layout from '../components/Layout'
+import { useLazyQuery, useMutation } from '@apollo/client'
+import { useSession } from 'next-auth/react'
+import { User } from '../services/models/User'
+import NotAuthorised from '../components/NotAuthorised'
+import React, { useEffect } from 'react'
 import {
   TransactionCreateMutation,
   UpdateBalanceMutation,
-} from "../services/graphql/mutations";
-import { UserQuery } from "../services/graphql/queries";
+} from '../services/graphql/mutations'
+import { UserQuery } from '../services/graphql/queries'
 
 const TopUp = () => {
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState(null)
 
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession()
 
-  const [fetchUserData, userData] = useLazyQuery(UserQuery);
+  const [fetchUserData, userData] = useLazyQuery(UserQuery)
 
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
       // @ts-ignore
-      fetchUserData({ variables: { userId: session.user.id } });
+      fetchUserData({ variables: { userId: session.user.id } })
     }
-  }, [fetchUserData, session]);
+  }, [fetchUserData, session])
 
-  const [topUp, { data, loading, error }] = useMutation(UpdateBalanceMutation);
+  const [topUp, { data, loading, error }] = useMutation(UpdateBalanceMutation)
   const [createTransaction, { data: tData, loading: tLoading, error: tError }] =
-    useMutation(TransactionCreateMutation);
+    useMutation(TransactionCreateMutation)
   if (loading || tLoading) {
-    return <></>;
+    return <></>
   }
 
   if (!session) {
-    return <NotAuthorised />;
+    return <NotAuthorised />
   }
 
   if (error) {
-    return <div>Error! {error.message}</div>;
+    return <div>Error! {error.message}</div>
   }
 
   if (tError) {
-    return <div>Error! {tError.message}</div>;
+    return <div>Error! {tError.message}</div>
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     topUp({
       variables: {
         amount: Number(value),
@@ -56,11 +56,11 @@ const TopUp = () => {
         variables: {
           amount: Number(value),
           userId: userData.data.user.id,
-          type: "TOP_UP",
+          type: 'TOP_UP',
         },
-      });
-    });
-  };
+      })
+    })
+  }
 
   return (
     <Layout user={session.user as User}>
@@ -88,7 +88,7 @@ const TopUp = () => {
         </div>
       </main>
     </Layout>
-  );
-};
+  )
+}
 
-export default TopUp;
+export default TopUp

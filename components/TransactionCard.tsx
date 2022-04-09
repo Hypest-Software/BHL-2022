@@ -1,8 +1,8 @@
-import React from "react";
-import { Transaction } from "../services/models/Transaction";
+import React from 'react'
+import { Transaction } from '../services/models/Transaction'
 
 interface TransactionCardProps {
-  transaction: Transaction;
+  transaction: Transaction
 }
 
 export const TransactionCard = (props: TransactionCardProps) => (
@@ -15,4 +15,4 @@ export const TransactionCard = (props: TransactionCardProps) => (
       </tr>
     </table>
   </a>
-);
+)

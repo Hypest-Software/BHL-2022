@@ -1,9 +1,9 @@
-import React from "react";
-import Map from "./Map";
-import { Waypoint } from "../services/models/Waypoint";
+import React from 'react'
+import Map from './Map'
+import { Waypoint } from '../services/models/Waypoint'
 
 interface WaypointCardProps {
-  waypoint: Waypoint;
+  waypoint: Waypoint
 }
 
 export const WaypointCard = (props: WaypointCardProps) => {
@@ -20,5 +20,5 @@ export const WaypointCard = (props: WaypointCardProps) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

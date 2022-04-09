@@ -1,25 +1,31 @@
 import { useLazyQuery } from "@apollo/client";
 import { TravelMode } from "@googlemaps/google-maps-services-js";
 import { ArrowRightIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 import { useEffect } from "react";
 import { TransitInfoQuery } from "../services/graphql/queries";
 import { TransitInfo } from "../services/models/TransitInfo";
 import { Waypoint } from "../services/models/Waypoint";
 
 interface DestinationWaypointCardProps {
-  waypoint: Waypoint;
+  waypoint: Waypoint
 }
 
 function genRandomDelayValue(duration: number) {
-  const min = Math.floor(duration * 0.15);
-  const max = duration * 0.5;
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  const min = Math.floor(duration * 0.15)
+  const max = duration * 0.5
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function getLinkForWaypoint(waypoint: Waypoint) {
+  // create a link search for the waypoint on Google Maps
+  return `https://www.google.com/maps/search/?api=1&query=${waypoint.lat},${waypoint.lng}`;
 }
 
 export const DestinationWaypointCard = (
   props: DestinationWaypointCardProps
 ) => {
-  const [fetchTransitData, transitData] = useLazyQuery(TransitInfoQuery);
+  const [fetchTransitData, transitData] = useLazyQuery(TransitInfoQuery)
 
   useEffect(() => {
     // @ts-ignore
@@ -33,32 +39,33 @@ export const DestinationWaypointCard = (
               originLat: position.coords.latitude,
               originLng: position.coords.longitude,
             },
-          });
-        });
+          })
+        })
       }
     }
-  }, [fetchTransitData, props.waypoint]);
+  }, [fetchTransitData, props.waypoint])
 
   if (
     transitData.loading ||
     !transitData.called ||
     !transitData.data.transitInfo
   ) {
-    return <></>;
+    return <></>
   }
 
-  let travelPossible = transitData.data.transitInfo.travelMode != "WALKING";
-  let durationColor = "text-gray-600";
-  let delay = 0;
-  let duration = Math.ceil(transitData.data?.transitInfo.duration / 60);
+  let travelPossible = transitData.data.transitInfo.travelMode != 'WALKING'
+  let durationColor = 'text-gray-600'
+  let delay = 0
+  let duration = Math.ceil(transitData.data?.transitInfo.duration / 60)
 
   if (travelPossible) {
-    delay = genRandomDelayValue(duration);
-    durationColor = delay > 0.3 * duration ? "text-red-700" : "text-green-700";
+    delay = genRandomDelayValue(duration)
+    durationColor = delay > 0.3 * duration ? 'text-red-700' : 'text-green-700'
   }
 
   return (
-    <>
+  <>
+    <Link href={getLinkForWaypoint(props.waypoint)}>
       <div className="bg-gray-100 rounded-lg p-4">
         <div className="flex flex-grow align-center justify-between items-center">
           <div className="flex flex-col">
@@ -69,12 +76,11 @@ export const DestinationWaypointCard = (
             <span className={durationColor + " font-medium"}>
               {travelPossible ? `${duration} min.` : "pieszo!"}
             </span>
-            <ArrowRightIcon
-              className={`ml-4 h-6 w-6 mb-0.5 ${durationColor}`}
-            />
+            <ArrowRightIcon className={`ml-2 h-6 w-6 mb-0.5 ${durationColor}`}/>
           </div>
         </div>
       </div>
-    </>
+    </Link>
+  </>
   );
 };

@@ -1,32 +1,32 @@
-import React, { useEffect } from "react";
-import Layout from "../components/Layout";
-import { useSession } from "next-auth/react";
-import { User } from "../services/models/User";
-import NotAuthorised from "../components/NotAuthorised";
-import { useLazyQuery } from "@apollo/client";
-import { WaypointsQuery } from "../services/graphql/queries";
-import Loading from "../components/Loading";
-import WaypointsList from "../components/WaypointsList";
+import React, { useEffect } from 'react'
+import Layout from '../components/Layout'
+import { useSession } from 'next-auth/react'
+import { User } from '../services/models/User'
+import NotAuthorised from '../components/NotAuthorised'
+import { useLazyQuery } from '@apollo/client'
+import { WaypointsQuery } from '../services/graphql/queries'
+import Loading from '../components/Loading'
+import WaypointsList from '../components/WaypointsList'
 function Settings(props) {
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
+  const { data: session, status } = useSession()
+  const loading = status === 'loading'
 
-  const [fetchWaypoints, waypoints] = useLazyQuery(WaypointsQuery);
+  const [fetchWaypoints, waypoints] = useLazyQuery(WaypointsQuery)
 
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
       // @ts-ignore
-      fetchWaypoints({ variables: { userId: session.user.id } });
+      fetchWaypoints({ variables: { userId: session.user.id } })
     }
-  }, [fetchWaypoints, session]);
+  }, [fetchWaypoints, session])
 
   if (loading || waypoints.loading) {
-    return <></>;
+    return <></>
   }
 
   if (!session) {
-    return <NotAuthorised />;
+    return <NotAuthorised />
   }
 
   return (
@@ -52,7 +52,7 @@ function Settings(props) {
         </div>
       </main>
     </Layout>
-  );
+  )
 }
 
-export default Settings;
+export default Settings
