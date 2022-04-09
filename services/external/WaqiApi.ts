@@ -91,6 +91,16 @@ export const particulateMatter10Status = (particulateMatter: number): PollutionS
 	]))
 }
 
+export const particulateMatter25Status = (particulateMatter: number): PollutionStatus => {
+	return statusRanges(particulateMatter, new Map([
+		[PollutionStatus.Good, { min: 0, max: 12.5 }],
+		[PollutionStatus.Fair, { min: 12.5, max: 25 }],
+		[PollutionStatus.Poor, { min: 25, max: 50 }],
+		[PollutionStatus.VeryPoor, { min: 50, max: 150 }],
+		[PollutionStatus.ExtremelyPoor, { min: 150, max: Infinity }]
+	]))
+}
+
 
 export const sulfurDioxideStatus = (sulfurDioxide: number): PollutionStatus => {
 	return statusRanges(sulfurDioxide, new Map([
@@ -143,6 +153,7 @@ export interface PollutionStatuses {
 	nitrogenDioxide: PollutionStatus
 	ozone: PollutionStatus
 	particulateMatter10: PollutionStatus
+	particulateMatter25: PollutionStatus
 	sulfurDioxide: PollutionStatus
 	average: PollutionStatus
 }
@@ -154,13 +165,15 @@ export const getPollutionStatus = async (): Promise<PollutionStatuses> => {
 	const nitrogenDioxide = nitrogenDioxideStatus(pollution.nitrogenDioxide)
 	const ozone = ozoneStatus(pollution.ozone)
 	const particulateMatter10 = particulateMatter10Status(pollution.particulateMatter10)
+	const particulateMatter25 = particulateMatter25Status(pollution.particulateMatter25)
 	const sulfurDioxide = sulfurDioxideStatus(pollution.sulfurDioxide)
-	const average = averageStatus([carbonMonoxide, nitrogenDioxide, ozone, particulateMatter10, sulfurDioxide])
+	const average = averageStatus([carbonMonoxide, nitrogenDioxide, ozone, particulateMatter10, particulateMatter25, sulfurDioxide])
 	return {
 		carbonMonoxide,
 		nitrogenDioxide,
 		ozone,
 		particulateMatter10,
+		particulateMatter25,
 		sulfurDioxide,
 		average
 	}

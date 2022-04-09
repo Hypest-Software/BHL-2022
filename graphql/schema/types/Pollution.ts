@@ -26,6 +26,7 @@ export const PollutionStatus = objectType({
 		t.string("nitrogenDioxide");
 		t.string("ozone");
 		t.string("particulateMatter10");
+		t.string("particulateMatter25");
 		t.string("sulfurDioxide");
 		t.string("average");
 	}
