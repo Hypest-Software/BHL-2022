@@ -75,11 +75,11 @@ export const DestinationWaypointCard = (
             <div className="flex flex-row items-center">
               <div className={durationColor + ' flex flex-col items-center'}>
                 {travelPossible ? (
-                <>
-                  <div className="text-3xl font-medium">{duration}</div>
-                  <div className="text-sm -mt-1">min</div>
-                </>)
-                :(
+                  <>
+                    <div className="text-3xl font-medium">{duration}</div>
+                    <div className="text-sm -mt-1">min</div>
+                  </>
+                ) : (
                   <div>pieszo!</div>
                 )}
               </div>

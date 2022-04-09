@@ -18,21 +18,24 @@ function getLinkForWaypoint(waypoint: Waypoint) {
 }
 
 export const WaypointCard = (props: WaypointCardProps) => {
-  const { data: session, status } = useSession();
-  const [deleteWaypoint, deleteWaypointMutation] = useMutation(DeleteWaypointMutation, {
-    refetchQueries: [
-      {
-        query: WaypointsQuery,
-        variables: {
-          userId: session.user.id,
+  const { data: session, status } = useSession()
+  const [deleteWaypoint, deleteWaypointMutation] = useMutation(
+    DeleteWaypointMutation,
+    {
+      refetchQueries: [
+        {
+          query: WaypointsQuery,
+          variables: {
+            userId: session.user.id,
+          },
         },
-      },
-    ],
-  });
+      ],
+    }
+  )
 
   const handleDelete = (e) => {
-    e.preventDefault();
-    deleteWaypoint({variables: {waypointId: props.waypoint.id}});
+    e.preventDefault()
+    deleteWaypoint({ variables: { waypointId: props.waypoint.id } })
   }
 
   return (
@@ -43,9 +46,13 @@ export const WaypointCard = (props: WaypointCardProps) => {
       </div>
       <div className="flex flex-row space-x-2">
         <Link href={getLinkForWaypoint(props.waypoint)}>
-          <button className="bg-blue-100 rounded-lg p-3"><MapIcon className="w-6 h-6 text-blue-600"/></button>
+          <button className="bg-blue-100 rounded-lg p-3">
+            <MapIcon className="w-6 h-6 text-blue-600" />
+          </button>
         </Link>
-        <button className="bg-red-100 rounded-lg p-3" onClick={handleDelete}><TrashIcon className="w-6 h-6 text-red-600"/></button>
+        <button className="bg-red-100 rounded-lg p-3" onClick={handleDelete}>
+          <TrashIcon className="w-6 h-6 text-red-600" />
+        </button>
       </div>
     </div>
   )

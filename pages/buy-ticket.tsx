@@ -109,22 +109,20 @@ const BuyTicket = () => {
             <button onClick={handleSubmit} className="btn btn-primary">
               Kup
             </button>
-            <Modal
-                isOpen={showModal}
-                onRequestClose={handleModalClose}
-            >
+            <Modal isOpen={showModal} onRequestClose={handleModalClose}>
               <div>
-                <h2>Błąd przy zakupie biletu: Brak wystarczającej ilości pieniędzy</h2>
-                <button onClick={handleModalClose} className="btn btn-primary">Zamknij</button>
+                <h2>
+                  Błąd przy zakupie biletu: Brak wystarczającej ilości pieniędzy
+                </h2>
+                <button onClick={handleModalClose} className="btn btn-primary">
+                  Zamknij
+                </button>
               </div>
-              </Modal>
-
+            </Modal>
           </div>
         </div>
       </main>
-
     </Layout>
-
   )
 }
 
