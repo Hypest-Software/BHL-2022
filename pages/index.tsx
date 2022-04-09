@@ -10,7 +10,7 @@ import AirPollutionCard from '../components/AirPollutionCard'
 import StartStopRide from '../components/StartStopRide'
 import Link from 'next/link'
 
-const Blog = () => {
+const Home = () => {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
 
@@ -97,4 +97,4 @@ const Blog = () => {
   )
 }
 
-export default Blog
+export default Home
