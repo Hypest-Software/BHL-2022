@@ -16,7 +16,6 @@ function Settings(props) {
   useEffect(() => {
     // @ts-ignore
     if (session && session.user.id) {
-      console.log(session);
       // @ts-ignore
       fetchWaypoints({ variables: { userId: session.user.id } });
     }

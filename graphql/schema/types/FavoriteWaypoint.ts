@@ -62,7 +62,7 @@ export const FavoriteWaypointMutations = extendType({
       },
       resolve: async (_, { name, lat, lng, userId }, ctx) => {
         const address = await reverseGeocoding(Number(lat), Number(lng));
-
+        console.log(address)
         return ctx.prisma.favoriteWaypoint.create({
           data: {
             name,

@@ -8,7 +8,7 @@ interface MapProps {
 
 export default function Map(props: MapProps) {
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div style={{ height: "300px", width: "300px" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY }}
         defaultCenter={{ lat: props.lat, lng: props.lng }}
