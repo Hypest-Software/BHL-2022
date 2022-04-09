@@ -41,10 +41,12 @@ export const DestinationWaypointCard = (props: DestinationWaypointCardProps) => 
     return <></>;
   }
 
-  let travelPossible = transitData.data.travelMode != TravelMode.walking;
+  console.log(transitData.data.transitInfo.travelMode);
+  let travelPossible = transitData.data.transitInfo.travelMode != "WALKING";
+  console.log(travelPossible);
   let durationColor = "text-gray-600";
   let delay = 0;
-  let duration = transitData.data?.duration;
+  let duration = Math.ceil(transitData.data?.transitInfo.duration / 60);
 
   if (travelPossible) {
     delay = genRandomDelayValue(duration);
