@@ -51,7 +51,7 @@ export const TransactionQueries = extendType({
     t.list.field("transactions", {
       type: "Transaction",
       args: {
-        userId: stringArg(),
+        userId: nonNull(stringArg()),
       },
       resolve: (_, { userId }, ctx) => {
         return ctx.prisma.transaction.findMany({

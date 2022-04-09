@@ -19,6 +19,15 @@ export const CreateDraftMutation = gql`
   }
 `;
 
+export const TopUpBalanceMutation = gql`
+  mutation TopUpBalanceMutation($id: String!, $amount: Float!) {
+    topUpBalance(id: $id, amount: $amount) {
+      id
+      balance
+    }
+  }
+`;
+
 export const SignupMutation = gql`
   mutation SignupMutation($name: String, $email: String!) {
     signupUser(name: $name, email: $email) {
@@ -31,7 +40,7 @@ export const SignupMutation = gql`
 
 export const TransactionCreateMutation = gql`
   mutation TransactionCreateMutation(
-    $type: String!
+    $type: TransactionType!
     $userId: String!
     $amount: Float!
   ) {
