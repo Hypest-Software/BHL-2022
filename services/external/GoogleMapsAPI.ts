@@ -39,6 +39,27 @@ export const reverseGeocoding = async (
   }
 }
 
+export const geocoding = async (
+  address: string
+): Promise<number[]> => {
+  const client = new Client({})
+  const response = await client.geocode({
+    params: {
+      address,
+      key: process.env.GOOGLE_MAPS_API_KEY,
+      language: Language.pl,
+    },
+  })
+  if (response.data.status === 'OK') {
+    return [
+      response.data.results[0].geometry.location.lat,
+      response.data.results[0].geometry.location.lng,
+    ]
+  } else {
+    return [0, 0]
+  }
+}
+
 export const getTransitInfo = async (
   origin: string,
   destination: string,

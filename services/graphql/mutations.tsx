@@ -110,3 +110,15 @@ export const BuyTicketMutation = gql`
     }
   }
 `
+
+export const CreateWaypointMutation = gql`
+  mutation CreateWaypointMutation($address: String!, $name: String!, $userId: String!) {
+    createWaypoint(address: $address, name: $name, userId: $userId) {
+      id
+      name
+      lat
+      lng
+      address
+    }
+  }
+`
