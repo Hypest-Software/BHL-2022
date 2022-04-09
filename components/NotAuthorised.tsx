@@ -19,9 +19,6 @@ export default function NotAuthorised(props) {
             </button>
           </div>
         </div>
-        <div className="absolute top-0 left-4 z-1">
-          <div className="p-5 bg-blue-300 w-80 h-24 rounded"></div>
-        </div>
       </div>
     </main>
   )
