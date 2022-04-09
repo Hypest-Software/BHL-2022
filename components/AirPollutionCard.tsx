@@ -42,7 +42,9 @@ const AirPollutionItem = ({ item, quality, value, unit }) => {
     >
       <h2 className={`text-${colorName}-700 font-light`}>{item}</h2>
       <h4 className={`font-medium ml-1 text-${colorName}-700`}>{value}</h4>
-      {unit ? (<span className={`font-light text-${colorName}-700`}>{unit}</span>) : null}
+      {unit ? (
+        <span className={`font-light text-${colorName}-700`}>{unit}</span>
+      ) : null}
     </div>
   )
 }

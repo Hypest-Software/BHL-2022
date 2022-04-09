@@ -1,8 +1,9 @@
 import React from 'react'
+import { ActiveRideQuery, UserQuery } from '../services/graphql/queries'
 import {
-  ActiveRideQuery,
-} from '../services/graphql/queries'
-import { EndRideMutation, StartRideMutation } from '../services/graphql/mutations'
+  EndRideMutation,
+  StartRideMutation,
+} from '../services/graphql/mutations'
 import { useMutation, useQuery } from '@apollo/client'
 import Loading from './Loading'
 
@@ -32,6 +33,12 @@ export default function StartStopRide(props: StartStopRideProps) {
     refetchQueries: [
       {
         query: ActiveRideQuery,
+        variables: {
+          userId: props.userId,
+        },
+      },
+      {
+        query: UserQuery,
         variables: {
           userId: props.userId,
         },
@@ -79,11 +86,7 @@ export default function StartStopRide(props: StartStopRideProps) {
 
   return (
     <div className="max-w-7xl mx-4 space-y-4 py-4 sm:px-8 lg:px-8">
-      <button
-        className=""
-        type="button"
-        onClick={() => handleStartStop()}
-      >
+      <button className="" type="button" onClick={() => handleStartStop()}>
         {getTitle()}
       </button>
     </div>

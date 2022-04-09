@@ -46,17 +46,27 @@ model Session {
 }
 
 model User {
-  id               String             @id @default(auto()) @map("_id") @db.ObjectId
-  name             String?
-  email            String?            @unique
-  emailVerified    DateTime?
-  image            String?
-  balance          Float              @default(0.0)
-  accounts         Account[]
-  sessions         Session[]
-  rides            Ride[]
-  transactions     Transaction[]
-  FavoriteWaypoint FavoriteWaypoint[]
+  id                String             @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
+  email             String?            @unique
+  emailVerified     DateTime?
+  image             String?
+  balance           Float              @default(0.0)
+  accounts          Account[]
+  sessions          Session[]
+  rides             Ride[]
+  transactions      Transaction[]
+  favoriteWaypoints FavoriteWaypoint[]
+  boughtTickets     BoughtTicket[]
+}
+
+model BoughtTicket {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  ticketCount Int
+  ticketId    String @db.ObjectId
+  ticket      Ticket @relation(fields: [ticketId], references: [id])
+  userId      String @db.ObjectId
+  user        User   @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {
@@ -69,10 +79,11 @@ model VerificationToken {
 }
 
 model Ticket {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  name     String @unique
-  price    Float
-  duration Int    @unique
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String         @unique
+  price        Float
+  duration     Int            @unique
+  BoughtTicket BoughtTicket[]
 }
 
 enum Conveyance {

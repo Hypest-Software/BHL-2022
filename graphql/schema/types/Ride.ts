@@ -80,7 +80,7 @@ export const RideQueries = extendType({
           } else {
             return null
           }
-        } catch(e) {
+        } catch (e) {
           return null
         }
       },
@@ -93,11 +93,11 @@ export const RideQueries = extendType({
       },
       resolve: async (_, args, ctx) => {
         const rides = await ctx.prisma.ride.findMany({
-          where: {userId: args.userId},
-          orderBy: {start_time: 'asc'},
+          where: { userId: args.userId },
+          orderBy: { start_time: 'asc' },
         })
 
-        return rides.filter(ride => Boolean(ride.end_time))
+        return rides.filter((ride) => Boolean(ride.end_time))
       },
     })
   },
@@ -169,7 +169,7 @@ export const RideMutations = extendType({
 
         await ctx.prisma.transaction.create({
           data: {
-            type: "REFUND",
+            type: 'REFUND',
             user: { connect: { id: userId } },
             amount: points,
             createdAt: new Date(),
