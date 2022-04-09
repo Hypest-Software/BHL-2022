@@ -131,7 +131,7 @@ export default function StartStopRide(props: StartStopRideProps) {
     return (
         <div>
             <button
-                className="bg-blue-50 border-solid border-gray-500 border-1 rounded-lg flex flex-col flex-grow justify-center items-center py-8 px-4"
+                className="bg-blue-50 border-solid border-gray-500 w-[93vw] border-1 rounded-lg flex flex-col flex-grow justify-center items-center py-8 px-4"
                 type="button"
                 onClick={() => handleStartStop()}
             >
