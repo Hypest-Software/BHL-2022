@@ -83,8 +83,13 @@ const AirPollutionCard = () => {
           </div>
           <div className="flex flex-row space-x-4 items-center">
             <div className="flex flex-col justify-around items-center">
-              <div className={`text-3xl font-bold text-${colorName}-700`}>{pointsMultiplier}<span className="font-normal text-2xl">x</span></div>
-              <div className={`text-sm text-${colorName}-700 -mt-1`}>mnożnik</div>
+              <div className={`text-3xl font-bold text-${colorName}-700`}>
+                {pointsMultiplier}
+                <span className="font-normal text-2xl">x</span>
+              </div>
+              <div className={`text-sm text-${colorName}-700 -mt-1`}>
+                mnożnik
+              </div>
             </div>
 
             <div className="flex flex-col justify-around space-y-2">
