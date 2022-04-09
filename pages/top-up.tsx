@@ -5,8 +5,7 @@ import { User } from "../services/models/User";
 import NotAuthorised from "../components/NotAuthorised";
 import React, { useEffect } from "react";
 import {
-  TopUpBalanceMutation,
-  TransactionCreateMutation,
+  TransactionCreateMutation, UpdateBalanceMutation,
 } from "../services/graphql/mutations";
 import { UserQuery } from "../services/graphql/queries";
 
