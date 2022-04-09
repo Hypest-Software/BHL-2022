@@ -65,7 +65,7 @@ export const DestinationWaypointCard = (
           <span className={durationColor + " font-medium"}>
             {travelPossible ? `${duration} min.` : "pieszo!"}
           </span>
-          <ArrowRightIcon className={`ml-4 h-6 w-6 mb-0.5 ${durationColor}`}/>
+          <ArrowRightIcon className={`ml-2 h-6 w-6 mb-0.5 ${durationColor}`}/>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import { UserQuery, WaypointsQuery } from "../services/graphql/queries";
 import DestinationWaypointsList from "../components/DestinationWaypointsList";
 import AirPollutionCard from "../components/AirPollutionCard";
 import StartStopRide from "../components/StartStopRide";
+import Link from "next/link";
 
 const Blog = () => {
   const { data: session, status } = useSession();
@@ -44,6 +45,11 @@ const Blog = () => {
     setIsRideModalOpen(false);
   };
 
+  const handleEdit = (e) => {
+    e.preventDefault();
+
+  }
+
   // @ts-ignore
   return (
     <Layout user={session.user as User}>
@@ -74,7 +80,14 @@ const Blog = () => {
           <AirPollutionCard/>
         </div>
         <div className="max-w-7xl mx-4 space-y-4 py-2 sm:px-8 lg:px-8">
-          <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
+            <Link href='/settings'>
+              <button className="btn btn-sm">
+                edytuj
+              </button>
+            </Link>
+          </div>
           <DestinationWaypointsList waypoints={waypointsData.data ? waypointsData.data.favoriteWaypoints : []}/>
         </div>
         <StartStopRide userId={session.user.id} />
