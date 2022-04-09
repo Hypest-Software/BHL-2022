@@ -145,7 +145,7 @@ const BuyTicket = () => {
                 onRequestClose={handleSuccessClose}
             >
               <div>
-                <h2>Kupiono bilet {ticket.name} za {ticket.price}zł</h2>
+                {ticket && <h2>Kupiono bilet {ticket.name} za {ticket.price}zł</h2>}
               </div>
             </Modal>
 
