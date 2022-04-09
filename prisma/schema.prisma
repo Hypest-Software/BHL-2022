@@ -77,7 +77,7 @@ model Ticket {
 
 enum Conveyance {
   ELECTRIC_CAR
-  BUS
+  TRANSIT
   BIKE
 }
 
