@@ -26,12 +26,14 @@ export const TransactionCreateMutation = gql`
 export const StartRideMutation = gql`
   mutation StartRideMutation(
     $userId: String!
+    $ticketId: String
     $start_lat: Float!
     $start_lng: Float!
     $conveyance: Conveyance!
   ) {
     startRide(
       userId: $userId
+      ticketId: $ticketId
       start_lat: $start_lat
       start_lng: $start_lng
       conveyance: $conveyance
@@ -100,6 +102,7 @@ export const DeleteWaypointMutation = gql`
     }
   }
 `
+
 export const BuyTicketMutation = gql`
   mutation BuyTicketMutation($userId: String!, $ticketId: String!) {
     buyTicket(userId: $userId, ticketId: $ticketId) {
