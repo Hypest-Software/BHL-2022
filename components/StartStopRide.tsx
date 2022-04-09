@@ -6,6 +6,7 @@ import {
 } from '../services/graphql/mutations'
 import { useMutation, useQuery } from '@apollo/client'
 import Loading from './Loading'
+import { IdentificationIcon, WifiIcon } from '@heroicons/react/outline'
 
 interface StartStopRideProps {
   userId: string
@@ -81,14 +82,15 @@ export default function StartStopRide(props: StartStopRideProps) {
   }
 
   const getTitle = () => {
-    return isRideActive ? 'Zakończ przejazd' : 'Rozpocznij przejazd'
+    return isRideActive ? 'Zakończ przejazd' : 'Zbliż do czytnika, aby rozpocząć przejazd'
   }
 
   return (
-    <div className="max-w-7xl mx-4 space-y-4 py-4 sm:px-8 lg:px-8">
-      <button className="" type="button" onClick={() => handleStartStop()}>
+    <button className="bg-gray-100 w-screen rounded-lg flex flex-col flex-grow justify-center items-center py-8 px-4" type="button" onClick={() => handleStartStop()}>
+      <WifiIcon className="w-12 h-12 text-gray-400 rotate-90 mb-2"/>
+      <div className="text-gray-400">
         {getTitle()}
-      </button>
-    </div>
+      </div>
+    </button>
   )
 }

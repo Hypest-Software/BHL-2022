@@ -70,7 +70,7 @@ const Home = () => {
           </div>
         </div>
       </header>
-      <main className="bg-white shadow">
+      <main className="bg-white">
         <div className="max-w-7xl mx-4 py-4 sm:px-8 lg:px-8">
           <AirPollutionCard />
         </div>
@@ -92,7 +92,9 @@ const Home = () => {
             }
           />
         </div>
-        <StartStopRide userId={session.user.id} />
+        <div className="absolute bottom-0 px-2 pt-2 border-1 border-gray-300 border-solid">
+          <StartStopRide userId={session.user.id} />
+        </div>
       </main>
     </Layout>
   )

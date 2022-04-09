@@ -17,11 +17,13 @@ export default function WaypointsList(props: WaypointsListProps) {
 
   return (
     <>
-      {props.waypoints.map((waypoint) => (
-        <div key={waypoint.id}>
-          <WaypointCard waypoint={waypoint} />
-        </div>
-      ))}
+      <div className="flex flex-col space-y-2">
+        {props.waypoints.map((waypoint) => (
+          <div key={waypoint.id}>
+            <WaypointCard waypoint={waypoint} />
+          </div>
+        ))}
+      </div>
     </>
   )
 }

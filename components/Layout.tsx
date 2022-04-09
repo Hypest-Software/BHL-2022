@@ -11,7 +11,7 @@ interface LayoutProps {
 export default function Layout(props: LayoutProps) {
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-screen">
         <Navbar user={props.user} />
         <main>{props.children}</main>
       </div>
