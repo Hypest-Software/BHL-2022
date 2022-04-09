@@ -11,6 +11,8 @@ import {BuyTicketMutation} from "../services/graphql/mutations";
 
 const BuyTicket = () => {
   const [ticket, setTicket] = React.useState()
+  const [ticketName, setTicketName] = React.useState()
+  const [ticketPrice, setTicketPrice] = React.useState()
   const [showModal, setShowModal] = React.useState(false)
   const [showSuccess, setShowSuccess] = React.useState(false)
 
@@ -96,6 +98,7 @@ const BuyTicket = () => {
   }
 
 
+  // @ts-ignore
   return (
     <Layout user={session.user as User}>
       <header className="bg-white shadow">
@@ -107,7 +110,7 @@ const BuyTicket = () => {
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="dropdown">
             <label tabIndex={Number(0)} className="btn m-1">
-              {ticket ? ticket.name + " - " + ticket.price: 'Select a ticket'}
+              {ticket ? ticket.name + " - " + ticket.price: 'Wybierz bilet'}
             </label>
             <ul
               tabIndex={Number(0)}
@@ -120,6 +123,8 @@ const BuyTicket = () => {
                       className="dropdown-item"
                       onClick={() => {
                         setTicket(ticket)
+                        setTicketName(ticket.name)
+                        setTicketPrice(ticket.price)
                       }}
                     >
                       {ticket.name} - {ticket.price}zł
