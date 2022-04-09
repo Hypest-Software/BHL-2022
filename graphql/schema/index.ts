@@ -6,6 +6,7 @@ import { permissions } from "../permissions";
 
 import * as User from "./types/User";
 import * as Ride from "./types/Ride";
+import * as Pollution from "./types/Pollution";
 import * as Ticket from "./types/Ticket";
 import * as Transaction from "./types/Transaction";
 import * as FavoriteWaypoint from "./types/FavoriteWaypoint";
@@ -21,6 +22,7 @@ export const baseSchema = makeSchema({
     Transaction,
     FavoriteWaypoint,
     TransitInfo,
+    Pollution,
     GQLDate,
   ],
   plugins: [],
