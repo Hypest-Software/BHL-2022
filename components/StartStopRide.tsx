@@ -44,7 +44,7 @@ export default function StartStopRide(props: StartStopRideProps) {
 
     const handleStartStop = () => {
         navigator.geolocation.getCurrentPosition(async (position) => {
-            if (isRideActive) {
+            if (!isRideActive) {
                 await startRide({
                     variables: {
                         userId: props.userId,
