@@ -12,6 +12,7 @@ const navigation = [
   { name: "Transactions", href: "/transactions" },
   { name: "Top up", href: "/top-up" },
   { name: "Buy a ticket", href: "/buy-ticket" },
+  { name: "Rides history", href: "/rides"},
   { name: "Settings", href: "/settings" },
 ];
 const userNavigation = [
