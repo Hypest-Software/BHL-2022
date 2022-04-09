@@ -110,6 +110,7 @@ export const RideMutations = extendType({
       type: 'Ride',
       args: {
         userId: nonNull(stringArg()),
+        ticketId: stringArg(),
         start_lat: nonNull(floatArg()),
         start_lng: nonNull(floatArg()),
         conveyance: nonNull(arg({ type: Conveyance })),

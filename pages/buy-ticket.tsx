@@ -5,9 +5,9 @@ import { useSession } from 'next-auth/react'
 import { User } from '../services/models/User'
 import NotAuthorised from '../components/NotAuthorised'
 import React, { useEffect } from 'react'
-import { BuyTicketMutation } from '../services/graphql/mutations'
 import { TicketsQuery, UserQuery } from '../services/graphql/queries'
 import {router} from "next/client";
+import {BuyTicketMutation} from "../services/graphql/mutations";
 
 const BuyTicket = () => {
   const [ticket, setTicket] = React.useState()
@@ -86,7 +86,7 @@ const BuyTicket = () => {
     e.preventDefault()
     setShowSuccess(true)
     setTimeout(() => {
-      router.push('/')
+      // router.push('/')
     }, 3000)
   }
 

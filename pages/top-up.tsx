@@ -72,7 +72,7 @@ const TopUp = () => {
     e.preventDefault()
     setShowModal(true)
     setTimeout(() => {
-      router.push('/');
+      // router.push('/');
     }, 5000)
   }
 
