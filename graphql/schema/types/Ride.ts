@@ -1,6 +1,5 @@
 import { extendType, nonNull, objectType, stringArg } from "nexus";
 
-
 export const Ride = objectType({
   name: "Ride",
   definition(t) {
@@ -10,6 +9,7 @@ export const Ride = objectType({
     t.float("end_lat");
     t.float("end_lng");
     t.float("distance");
+    // @ts-ignore
     t.date("time");
     t.string("conveyance");
     t.float("points");
@@ -26,30 +26,30 @@ export const Ride = objectType({
 });
 
 export const RideQueries = extendType({
-	type: "Query",
-	definition: (t) => {
-		t.field("ride", {
-			type: "Ride",
-			args: {
-				rideId: nonNull(stringArg()),
-			},
-			resolve: (_, args, ctx) => {
-				return ctx.prisma.ride.findUnique({
-					where: { id: args.rideId },
-				})
-			}
-		})
-		t.list.field("rides", {
-			type: "Ride",
-			args: {
-				userId: nonNull(stringArg()),
-			},
-			resolve: (_, args, ctx) => {
-				return ctx.prisma.ride.findMany({
-					where: { userId: args.userId },
-					orderBy: { time: "asc" }
-				})
-			},
-		})
-	}
-})
+  type: "Query",
+  definition: (t) => {
+    t.field("ride", {
+      type: "Ride",
+      args: {
+        rideId: nonNull(stringArg()),
+      },
+      resolve: (_, args, ctx) => {
+        return ctx.prisma.ride.findUnique({
+          where: { id: args.rideId },
+        });
+      },
+    });
+    t.list.field("rides", {
+      type: "Ride",
+      args: {
+        userId: nonNull(stringArg()),
+      },
+      resolve: (_, args, ctx) => {
+        return ctx.prisma.ride.findMany({
+          where: { userId: args.userId },
+          orderBy: { time: "asc" },
+        });
+      },
+    });
+  },
+});

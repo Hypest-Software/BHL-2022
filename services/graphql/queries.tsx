@@ -130,4 +130,4 @@ export const RidesQuery = gql`
       conveyance
     }
   }
-`
+`;
