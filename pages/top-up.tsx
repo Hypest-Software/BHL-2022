@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import Modal from 'react-modal'
+import {browserHistory } from 'react-router'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { useSession } from 'next-auth/react'
 import { User } from '../services/models/User'
@@ -72,7 +73,7 @@ const TopUp = () => {
     e.preventDefault()
     setShowModal(true)
     setTimeout(() => {
-      router.push('/');
+      browserHistory.push('/')
     }, 5000)
   }
 
