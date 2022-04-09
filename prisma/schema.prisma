@@ -86,12 +86,13 @@ model Ride {
   user       User       @relation(fields: [userId], references: [id])
   start_lat  Float
   start_lng  Float
-  end_lat    Float
-  end_lng    Float
-  time       DateTime   @default(now())
-  distance   Float
-  conveyance Conveyance
-  points     Float
+  end_lat    Float?
+  end_lng    Float?
+  start_time DateTime
+  end_time   DateTime?
+  distance   Float?
+  conveyance Conveyance?
+  points     Float?
 
   air_co    Float
   air_no    Float
