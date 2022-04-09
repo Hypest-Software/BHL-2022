@@ -92,6 +92,7 @@ model Ride {
   distance   Float
   conveyance Conveyance
   points     Float
+  single_ride_ticket Boolean
 
   air_co    Float
   air_no    Float
