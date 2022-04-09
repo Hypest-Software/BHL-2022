@@ -40,7 +40,8 @@ const TopUp = () => {
         return <div>Error! {tError.message}</div>;
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         topUp({
             variables: {
                 amount: Number(value),
