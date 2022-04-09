@@ -71,8 +71,11 @@ const Home = () => {
         </div>
       </header>
       <main className="bg-white">
-        <div className="max-w-7xl mx-4 py-4 sm:px-8 lg:px-8">
+        <div className="max-w-7xl mx-4 py-2 sm:px-8 lg:px-8">
           <AirPollutionCard />
+        </div>
+        <div className="flex py-2 px-4 justify-center">
+          <StartStopRide userId={session.user.id} />
         </div>
         <div className="max-w-7xl mx-4 space-y-4 py-2 sm:px-8 lg:px-8">
           <div className="flex flex-row justify-between items-center">
@@ -91,9 +94,6 @@ const Home = () => {
               waypointsData.data ? waypointsData.data.favoriteWaypoints : []
             }
           />
-        </div>
-        <div className="absolute bottom-0 px-2 pt-2">
-          <StartStopRide userId={session.user.id} />
         </div>
       </main>
     </Layout>
