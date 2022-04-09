@@ -35,7 +35,6 @@ function getNameForAirQuality(quality: PollutionStatus) {
 
 const AirPollutionItem = ( {item, quality, value, unit } ) => {
   let colorName = getColorForAirQuality(quality);
-  console.log(quality);
 
   return (
     <div className={`flex flex-row rounded-lg justify-between text-sm py-1 px-2 bg-${colorName}-200`}>

@@ -186,8 +186,8 @@ export const PollutionQuery = gql`
 
 
 export const StartRideMutation = gql`
-    mutation StartRideMutation($userId: String!, $start_lat: Float!, $start_lng: Float!) {
-        startRide(userId: $userId, start_lat: $start_lat, start_lng: $start_lng) {
+    mutation StartRideMutation($userId: String!, $start_lat: Float!, $start_lng: Float!, $conveyance: Conveyance!) {
+        startRide(userId: $userId, start_lat: $start_lat, start_lng: $start_lng, conveyance: $conveyance) {
             id
             start_lat
             start_lng
@@ -211,8 +211,8 @@ export const StartRideMutation = gql`
 `;
 
 export const EndRideMutation = gql`
-    mutation EndRideMutation($rideId: String!, $userId: String!, $end_lat: Float!, $end_lng: Float!, $conveyance: Conveyance!) {
-        endRide(rideId: $rideId, userId: $userId, end_lat: $end_lat, end_lng: $end_lng, conveyance: $conveyance) {
+    mutation EndRideMutation($rideId: String!, $userId: String!, $end_lat: Float!, $end_lng: Float!) {
+        endRide(rideId: $rideId, userId: $userId, end_lat: $end_lat, end_lng: $end_lng) {
             id
             start_lat
             start_lng

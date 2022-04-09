@@ -36,33 +36,38 @@ export default function StartStopRide(props: StartStopRideProps) {
         ]
     });
 
-    if (activeRide.loading) {
+    if (activeRide.loading || !activeRide.data) {
         return <Loading/>;
     }
 
     const isRideActive = Boolean(activeRide.data.activeRide);
 
+    const START_LAT = 52.184028
+    const START_LNG = 21.025121
+
+    const END_LAT = 52.219795
+    const END_LNG = 21.012449
+
     const handleStartStop = () => {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            if (!isRideActive) {
-                await startRide({
-                    variables: {
-                        userId: props.userId,
-                        start_lat: position.coords.latitude,
-                        start_lng: position.coords.longitude,
-                    },
-                });
-            } else {
-                await endRide({
-                    variables: {
-                        userId: props.userId,
-                        rideId: activeRide.data.activeRide.id,
-                        start_lat: position.coords.latitude,
-                        start_lng: position.coords.longitude,
-                    },
-                })
-            }
-        })
+        if (!isRideActive) {
+            startRide({
+                variables: {
+                    userId: props.userId,
+                    start_lat: START_LAT,
+                    start_lng: START_LNG,
+                    conveyance: "TRANSIT"
+                },
+            });
+        } else {
+            endRide({
+                variables: {
+                    userId: props.userId,
+                    rideId: activeRide.data.activeRide.id,
+                    end_lat: END_LAT,
+                    end_lng: END_LNG,
+                },
+            })
+        }
     };
 
     const getTitle = () => {

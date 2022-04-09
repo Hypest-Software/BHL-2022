@@ -93,11 +93,8 @@ model Ride {
   distance   Float?
   conveyance Conveyance?
   points     Float?
-  single_ride_ticket Boolean
+  ticket_id  String?
 
-  carbonMonoxide      Float
-  nitrogenDioxide     Float
-  ozone               Float
   sulfurDioxide       Float
   particulateMatter25 Float
   particulateMatter10 Float
