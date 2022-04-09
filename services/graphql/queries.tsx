@@ -131,3 +131,14 @@ export const RidesQuery = gql`
     }
   }
 `;
+
+export const TicketsQuery = gql`
+    query TicketsQuery {
+        tickets {
+            id
+            name
+            price
+            duration
+        }
+    }
+    `
