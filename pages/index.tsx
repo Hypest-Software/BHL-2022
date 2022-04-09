@@ -78,7 +78,7 @@ const Home = () => {
           <div className="flex flex-row justify-between items-center">
             <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
             <Link href="/settings">
-              <button hidden={!waypointsData.data} className="btn btn-sm">edytuj</button>
+              <button hidden={!waypointsData.data} className="btn-sm bg-gray-100 rounded-lg uppercase">edytuj</button>
             </Link>
           </div>
           <DestinationWaypointsList

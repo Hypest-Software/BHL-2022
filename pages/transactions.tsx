@@ -40,7 +40,7 @@ const Transactions = () => {
         </div>
       </header>
       <main className="bg-gray-200 shadow">
-        <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
+        <div className="bg-gray-100 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
           <div className="layout">
             {!transactions.data || transactions.loading ? (
               <Loading />
