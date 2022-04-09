@@ -37,7 +37,7 @@ const warsawLngMax = 21.092944;
 const warsawLngMin = 20.906415;
 
 const randomConveyance = (): Conveyance => {
-  const options: Conveyance[] = ["ELECTRIC_CAR", "BUS", "BIKE"];
+  const options: Conveyance[] = ["ELECTRIC_CAR", "TRANSIT", "BIKE"];
   return options[Math.floor(Math.random() * options.length)];
 };
 
