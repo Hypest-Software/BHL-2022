@@ -61,7 +61,7 @@ const Blog = () => {
             <h3 className="text-gray-600">
               Twoje saldo:{' '}
               <span className="font-semibold">
-                {userData.data ? userData.data.user.balance : 0}zł
+                {userData.data ? userData.data.user.balance.toFixed(2) : 0}zł
               </span>
             </h3>
           </div>

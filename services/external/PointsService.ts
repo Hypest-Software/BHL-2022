@@ -23,6 +23,5 @@ export const calculatePoints = (
   particulateMatter10: number
 ): number => {
   const multiplier = getPointsMultiplier(particulateMatter10)
-  console.log(distance)
   return (distance / 1000) * multiplier * 0.05
 }

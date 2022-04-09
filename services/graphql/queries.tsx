@@ -189,8 +189,14 @@ export const StartRideMutation = gql`
     $userId: String!
     $start_lat: Float!
     $start_lng: Float!
+    $conveyance: Conveyance!
   ) {
-    startRide(userId: $userId, start_lat: $start_lat, start_lng: $start_lng) {
+    startRide(
+      userId: $userId
+      start_lat: $start_lat
+      start_lng: $start_lng
+      conveyance: $conveyance
+    ) {
       id
       start_lat
       start_lng
@@ -219,14 +225,12 @@ export const EndRideMutation = gql`
     $userId: String!
     $end_lat: Float!
     $end_lng: Float!
-    $conveyance: Conveyance!
   ) {
     endRide(
       rideId: $rideId
       userId: $userId
       end_lat: $end_lat
       end_lng: $end_lng
-      conveyance: $conveyance
     ) {
       id
       start_lat

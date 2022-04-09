@@ -35,7 +35,6 @@ function getNameForAirQuality(quality: PollutionStatus) {
 
 const AirPollutionItem = ({ item, quality, value, unit }) => {
   let colorName = getColorForAirQuality(quality)
-  console.log(quality)
 
   return (
     <div
@@ -60,7 +59,6 @@ const AirPollutionCard = () => {
     return <></>
   }
 
-  console.log(airData.data)
   let airQualityName = getNameForAirQuality(
     airData.data.pollutionStatus.average
   )

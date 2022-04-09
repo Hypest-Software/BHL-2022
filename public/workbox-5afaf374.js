@@ -936,10 +936,7 @@ define(['exports'], function (t) {
       this.K()
       const n = await e.fetch(t)
       if (!(await e.cachePut(t, n.clone())))
-        throw new s('bad-precaching-response', {
-          url: t.url,
-          status: n.status,
-        })
+        throw new s('bad-precaching-response', { url: t.url, status: n.status })
       return n
     }
     K() {
@@ -1004,9 +1001,7 @@ define(['exports'], function (t) {
           })
         if ('string' != typeof n && n.integrity) {
           if (this.H.has(t) && this.H.get(t) !== n.integrity)
-            throw new s('add-to-cache-list-conflicting-integrities', {
-              url: r,
-            })
+            throw new s('add-to-cache-list-conflicting-integrities', { url: r })
           this.H.set(t, n.integrity)
         }
         if ((this.A.set(r, t), this.F.set(r, i), e.length > 0)) {

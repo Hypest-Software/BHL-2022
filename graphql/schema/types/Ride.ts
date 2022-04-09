@@ -64,11 +64,21 @@ export const RideQueries = extendType({
       args: {
         userId: nonNull(stringArg()),
       },
-      resolve: (_, args, ctx) => {
-        return ctx.prisma.ride.findFirst({
-          where: { id: args.userId },
+      resolve: async (_, args, ctx) => {
+        const latestRide = await ctx.prisma.ride.findFirst({
+          where: { userId: args.userId },
           orderBy: { start_time: 'desc' },
         })
+
+        if (!latestRide) {
+          return null
+        }
+
+        if (!latestRide.end_time) {
+          return latestRide
+        } else {
+          return null
+        }
       },
     })
 
@@ -96,19 +106,17 @@ export const RideMutations = extendType({
         userId: nonNull(stringArg()),
         start_lat: nonNull(floatArg()),
         start_lng: nonNull(floatArg()),
+        conveyance: nonNull(arg({ type: Conveyance })),
       },
-      resolve: async (_, { userId, start_lat, start_lng }, ctx) => {
+      resolve: async (_, { userId, start_lat, start_lng, conveyance }, ctx) => {
         const pollution = await getPollution()
-
         return ctx.prisma.ride.create({
           data: {
             userId,
             start_lat,
             start_lng,
+            conveyance,
             start_time: new Date(),
-            carbonMonoxide: pollution.carbonMonoxide,
-            nitrogenDioxide: pollution.nitrogenDioxide,
-            ozone: pollution.ozone,
             sulfurDioxide: pollution.sulfurDioxide,
             particulateMatter25: pollution.particulateMatter25,
             particulateMatter10: pollution.particulateMatter10,
@@ -124,13 +132,8 @@ export const RideMutations = extendType({
         userId: nonNull(stringArg()),
         end_lat: nonNull(floatArg()),
         end_lng: nonNull(floatArg()),
-        conveyance: nonNull(arg({ type: Conveyance })),
       },
-      resolve: async (
-        _,
-        { rideId, userId, end_lat, end_lng, conveyance },
-        ctx
-      ) => {
+      resolve: async (_, { rideId, userId, end_lat, end_lng }, ctx) => {
         const ride = await ctx.prisma.ride.findUnique({
           where: { id: rideId },
         })
@@ -146,13 +149,26 @@ export const RideMutations = extendType({
           ride.particulateMatter10
         )
 
+        console.log(points)
+
+        await ctx.prisma.user.update({
+          where: { id: userId },
+          data: {
+            balance:
+              (
+                await ctx.prisma.user.findUnique({
+                  where: { id: userId },
+                })
+              ).balance + points,
+          },
+        })
+
         return ctx.prisma.ride.update({
           where: { id: rideId },
           data: {
             end_lat,
             end_lng,
             end_time: new Date(),
-            conveyance,
             distance: transitInfo.distance,
             points,
           },
