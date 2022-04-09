@@ -4,7 +4,6 @@ import Image from 'next/image'
 export default function NotAuthorised(props) {
   return (
     <main className="relative bg-gray-200 min-h-screen">
-
       <div className=" max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
         <div className="layout">
           <div className="flex flex-col justify-center mt-4 text-center z-10">
@@ -12,7 +11,10 @@ export default function NotAuthorised(props) {
               <Image src={'/bus.png'} width={300} height={187} />
             </div>
             <div className="text-xl mb-6">Witaj w naszej aplikacji!</div>
-            <button className="btn btn-green self-center" onClick={() => signIn()}>
+            <button
+              className="btn btn-green self-center"
+              onClick={() => signIn()}
+            >
               Zaloguj się
             </button>
           </div>

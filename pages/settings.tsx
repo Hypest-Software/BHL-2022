@@ -14,16 +14,19 @@ function Settings(props) {
   const loading = status === 'loading'
 
   const [fetchWaypoints, waypoints] = useLazyQuery(WaypointsQuery)
-  const [createWaypoint, createWaypointMutation] = useMutation(CreateWaypointMutation, {
-    refetchQueries: [
-      {
-        query: WaypointsQuery,
-        variables: {
-          userId: session?.user.id,
+  const [createWaypoint, createWaypointMutation] = useMutation(
+    CreateWaypointMutation,
+    {
+      refetchQueries: [
+        {
+          query: WaypointsQuery,
+          variables: {
+            userId: session?.user.id,
+          },
         },
-      },
-    ],
-  });
+      ],
+    }
+  )
 
   useEffect(() => {
     // @ts-ignore
@@ -34,8 +37,14 @@ function Settings(props) {
   }, [fetchWaypoints, session])
 
   const handleAdd = (e) => {
-    e.preventDefault();
-    createWaypoint({variables: {address: "Nowowiejska 40", name: "Polibuda", userId: session.user.id}});
+    e.preventDefault()
+    createWaypoint({
+      variables: {
+        address: 'Nowowiejska 40',
+        name: 'Polibuda',
+        userId: session.user.id,
+      },
+    })
   }
 
   if (loading || waypoints.loading) {
@@ -55,15 +64,20 @@ function Settings(props) {
       </header>
       <main className="bg-gray-200 shadow">
         <div className="flex flex-col bg-gray-100 max-w-7xl space-y-2 mx-auto py-4 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
-            <Link href="/settings">
-              <button onClick={handleAdd} className="btn btn-sm flex-shrink self-center mt-2 mb-4">Dodaj miejsce</button>
-            </Link>
-            {!waypoints.data || waypoints.loading ? (
-              <Loading />
-            ) : (
-              <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
-            )}
-          </div>
+          <Link href="/settings">
+            <button
+              onClick={handleAdd}
+              className="btn btn-sm flex-shrink self-center mt-2 mb-4"
+            >
+              Dodaj miejsce
+            </button>
+          </Link>
+          {!waypoints.data || waypoints.loading ? (
+            <Loading />
+          ) : (
+            <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
+          )}
+        </div>
       </main>
     </Layout>
   )
