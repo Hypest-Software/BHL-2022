@@ -92,7 +92,7 @@ const Home = () => {
             }
           />
         </div>
-        <div className="absolute bottom-0 px-2 pt-2 border-1 border-gray-300 border-solid">
+        <div className="absolute bottom-0 px-2 pt-2">
           <StartStopRide userId={session.user.id} />
         </div>
       </main>
