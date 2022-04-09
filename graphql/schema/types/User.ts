@@ -55,7 +55,7 @@ export const UserMutations = extendType({
         });
       },
     });
-    t.field("topUpBalance", {
+    t.field("updateBalance", {
       type: "User",
       args: {
         id: nonNull(stringArg()),

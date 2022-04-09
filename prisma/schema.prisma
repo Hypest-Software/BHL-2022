@@ -93,6 +93,7 @@ model Ride {
   distance   Float?
   conveyance Conveyance?
   points     Float?
+  single_ride_ticket Boolean
 
   carbonMonoxide      Float
   nitrogenDioxide     Float

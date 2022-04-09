@@ -60,14 +60,15 @@ export const TransitInfoQuery = gql`
 `;
 
 export const WaypointsQuery = gql`
-    query WaypointsQuery($userId: String!) {
-        favoriteWaypoints(userId: $userId) {
-            id
-            name
-            lat
-            lng
-        }
+  query WaypointsQuery($userId: String!) {
+    favoriteWaypoints(userId: $userId) {
+      id
+      name
+      lat
+      lng
+      address
     }
+  }
 `;
 
 export const TransactionQuery = gql`
@@ -157,6 +158,32 @@ export const RidesQuery = gql`
         }
     }
 `;
+
+export const TicketsQuery = gql`
+    query TicketsQuery {
+        tickets {
+            id
+            name
+            price
+            duration
+        }
+    }
+`
+
+export const PollutionQuery = gql`
+  query PollutionQuery {
+    pollutionStatus {
+      average,
+      carbonMonoxide,
+      particulateMatter10,
+    }
+    pollution {
+      carbonMonoxide,
+      particulateMatter10,
+    }
+  }
+`
+
 
 export const StartRideMutation = gql`
     mutation StartRideMutation($userId: String!, $start_lat: Float!, $start_lng: Float!) {

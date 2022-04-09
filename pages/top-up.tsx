@@ -25,12 +25,11 @@ const TopUp = () => {
     }
   }, [fetchUserData, session]);
 
-  const [topUp, { data, loading, error }] = useMutation(TopUpBalanceMutation);
-  const [createTransaction, { data: tData, loading: tLoading, error: tError }] =
-    useMutation(TransactionCreateMutation);
-  if (loading || tLoading) {
-    return <></>;
-  }
+    const [topUp, {data, loading, error}] = useMutation(UpdateBalanceMutation);
+    const [createTransaction, {data: tData, loading: tLoading, error: tError}] = useMutation(TransactionCreateMutation);
+    if (loading || tLoading) {
+        return <></>;
+    }
 
   if (!session) {
     return <NotAuthorised />;

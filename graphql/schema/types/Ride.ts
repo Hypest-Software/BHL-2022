@@ -23,6 +23,7 @@ export const Ride = objectType({
         t.date("end_time");
         t.string("conveyance");
         t.float("points");
+        t.boolean("single_ride_ticket");
 
         t.float("air_co");
         t.float("air_no");
