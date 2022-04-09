@@ -1,10 +1,11 @@
-import { useLazyQuery } from '@apollo/client'
-import { TravelMode } from '@googlemaps/google-maps-services-js'
-import { ArrowRightIcon } from '@heroicons/react/outline'
-import { useEffect } from 'react'
-import { TransitInfoQuery } from '../services/graphql/queries'
-import { TransitInfo } from '../services/models/TransitInfo'
-import { Waypoint } from '../services/models/Waypoint'
+import { useLazyQuery } from "@apollo/client";
+import { TravelMode } from "@googlemaps/google-maps-services-js";
+import { ArrowRightIcon } from "@heroicons/react/outline";
+import Link from "next/link";
+import { useEffect } from "react";
+import { TransitInfoQuery } from "../services/graphql/queries";
+import { TransitInfo } from "../services/models/TransitInfo";
+import { Waypoint } from "../services/models/Waypoint";
 
 interface DestinationWaypointCardProps {
   waypoint: Waypoint
@@ -14,6 +15,11 @@ function genRandomDelayValue(duration: number) {
   const min = Math.floor(duration * 0.15)
   const max = duration * 0.5
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function getLinkForWaypoint(waypoint: Waypoint) {
+  // create a link search for the waypoint on Google Maps
+  return `https://www.google.com/maps/search/?api=1&query=${waypoint.lat},${waypoint.lng}`;
 }
 
 export const DestinationWaypointCard = (
@@ -58,7 +64,8 @@ export const DestinationWaypointCard = (
   }
 
   return (
-    <>
+  <>
+    <Link href={getLinkForWaypoint(props.waypoint)}>
       <div className="bg-gray-100 rounded-lg p-4">
         <div className="flex flex-grow align-center justify-between items-center">
           <div className="flex flex-col">
@@ -66,15 +73,14 @@ export const DestinationWaypointCard = (
             <h4 className="text-gray-600">{props.waypoint.address}</h4>
           </div>
           <div className="flex flex-row items-center">
-            <span className={durationColor + ' font-medium'}>
-              {travelPossible ? `${duration} min.` : 'pieszo!'}
+            <span className={durationColor + " font-medium"}>
+              {travelPossible ? `${duration} min.` : "pieszo!"}
             </span>
-            <ArrowRightIcon
-              className={`ml-2 h-6 w-6 mb-0.5 ${durationColor}`}
-            />
+            <ArrowRightIcon className={`ml-2 h-6 w-6 mb-0.5 ${durationColor}`}/>
           </div>
         </div>
       </div>
-    </>
-  )
-}
+    </Link>
+  </>
+  );
+};
