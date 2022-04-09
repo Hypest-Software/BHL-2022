@@ -1,6 +1,6 @@
 import { particulateMatter10Status, PollutionStatus } from './WaqiApi'
 
-const getPointsMultiplier = (pm10: number): number => {
+export const getPointsMultiplier = (pm10: number): number => {
   const pm10Status = particulateMatter10Status(pm10)
   switch (pm10Status) {
     case PollutionStatus.Good:

@@ -1,5 +1,5 @@
 import { extendType, floatArg, nonNull, objectType, stringArg } from 'nexus'
-import { reverseGeocoding } from '../../../services/external/GoogleMapsAPI'
+import { geocoding, reverseGeocoding } from '../../../services/external/GoogleMapsAPI'
 
 export const FavoriteWaypoint = objectType({
   name: 'FavoriteWaypoint',
@@ -57,17 +57,16 @@ export const FavoriteWaypointMutations = extendType({
       type: 'FavoriteWaypoint',
       args: {
         name: nonNull(stringArg()),
-        lat: nonNull(floatArg()),
-        lng: nonNull(floatArg()),
+        address: nonNull(stringArg()),
         userId: nonNull(stringArg()),
       },
-      resolve: async (_, { name, lat, lng, userId }, ctx) => {
-        const address = await reverseGeocoding(Number(lat), Number(lng))
+      resolve: async (_, { name, address, userId }, ctx) => {
+        const coords: number[] = await geocoding(address);
         return ctx.prisma.favoriteWaypoint.create({
           data: {
             name,
-            lat: Number(lat),
-            lng: Number(lng),
+            lat: coords[0],
+            lng: coords[1],
             address,
             userId,
           },
