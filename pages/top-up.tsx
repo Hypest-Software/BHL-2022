@@ -9,6 +9,7 @@ import {
   UpdateBalanceMutation,
 } from '../services/graphql/mutations'
 import { UserQuery } from '../services/graphql/queries'
+import { useRouter } from 'next/router'
 
 const TopUp = () => {
   const [value, setValue] = React.useState(null)
@@ -16,6 +17,8 @@ const TopUp = () => {
   const { data: session, status } = useSession()
 
   const [fetchUserData, userData] = useLazyQuery(UserQuery)
+
+  const router = useRouter()
 
   useEffect(() => {
     // @ts-ignore
@@ -59,6 +62,7 @@ const TopUp = () => {
           type: 'TOP_UP',
         },
       })
+      router.push('/');
     })
   }
 
@@ -73,7 +77,7 @@ const TopUp = () => {
       </header>
       <main className="bg-gray-200 shadow">
         <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
-          <div>
+          <div className="flex flex-row max-w-lg space-x-4 mx-4">
             <input
               type="number"
               placeholder="Enter top-up amount"
