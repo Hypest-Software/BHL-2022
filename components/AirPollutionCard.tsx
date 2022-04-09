@@ -95,12 +95,12 @@ const AirPollutionCard = () => {
             <div className="flex flex-col justify-around space-y-2">
               <AirPollutionItem
                 item="CO2"
-                quality={polStatus.carbonMonoxide}
+                quality={polStatus.average}
                 value={polValues.carbonMonoxide}
               />
               <AirPollutionItem
                 item="PM10"
-                quality={polStatus.particulateMatter10}
+                quality={polStatus.average}
                 value={polValues.particulateMatter10}
               />
             </div>
