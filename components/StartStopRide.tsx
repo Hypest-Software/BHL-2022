@@ -1,20 +1,15 @@
 import React from 'react'
-import {
-  ActiveRideQuery,
-  BoughtTicketQueries,
-  UserQuery,
-} from '../services/graphql/queries'
+import { ActiveRideQuery, UserQuery } from '../services/graphql/queries'
 import {
   EndRideMutation,
   StartRideMutation,
 } from '../services/graphql/mutations'
 import { useMutation, useQuery } from '@apollo/client'
 import Loading from './Loading'
-import { WifiIcon } from '@heroicons/react/outline'
-import StartStopRideModal from './StartStopRideModal'
+import { IdentificationIcon, WifiIcon } from '@heroicons/react/outline'
 
 interface StartStopRideProps {
-  userId: string
+    userId: string
 }
 
 export default function StartStopRide(props: StartStopRideProps) {
@@ -59,34 +54,34 @@ export default function StartStopRide(props: StartStopRideProps) {
     ],
   })
 
-  const [endRide, endRideMutation] = useMutation(EndRideMutation, {
-    refetchQueries: [
-      {
-        query: ActiveRideQuery,
-        variables: {
-          userId: props.userId,
-        },
-      },
-      {
-        query: UserQuery,
-        variables: {
-          userId: props.userId,
-        },
-      },
-    ],
-  })
+    const [endRide, endRideMutation] = useMutation(EndRideMutation, {
+        refetchQueries: [
+            {
+                query: ActiveRideQuery,
+                variables: {
+                    userId: props.userId,
+                },
+            },
+            {
+                query: UserQuery,
+                variables: {
+                    userId: props.userId,
+                },
+            },
+        ],
+    })
 
-  if (activeRide.loading || !activeRide.data) {
-    return <Loading />
-  }
+    if (activeRide.loading || !activeRide.data) {
+        return <Loading/>
+    }
 
-  const isRideActive = Boolean(activeRide.data.activeRide)
+    const isRideActive = Boolean(activeRide.data.activeRide)
 
-  const START_LAT = 52.184028
-  const START_LNG = 21.025121
+    const START_LAT = 52.184028
+    const START_LNG = 21.025121
 
-  const END_LAT = 52.219795
-  const END_LNG = 21.012449
+    const END_LAT = 52.219795
+    const END_LNG = 21.012449
 
   const handleStartStop = () => {
     if (!isRideActive) {
@@ -103,10 +98,16 @@ export default function StartStopRide(props: StartStopRideProps) {
     }
   }
 
-  const getTitle = () => {
-    return isRideActive
-      ? 'Zakończ przejazd'
-      : 'Zbliż do czytnika, aby rozpocząć przejazd'
+  const getContent = () => {
+    let mainText = isRideActive ? 'Zakończ przejazd' : 'Zbliż do czytnika, aby rozpocząć przejazd'
+    let helperText = isRideActive ? 'Czas: ' + durationString : null;
+
+    return (
+      <>
+        <div>{mainText}</div>
+        {helperText && <div>{helperText}</div>}
+      </>
+    )
   }
 
   return (
@@ -117,7 +118,7 @@ export default function StartStopRide(props: StartStopRideProps) {
         onClick={() => handleStartStop()}
       >
         <WifiIcon className="w-12 h-12 text-gray-400 rotate-90 mb-2" />
-        <div className="text-gray-400">{getTitle()}</div>
+        <div className="text-gray-400">{getContent()}</div>
       </button>
       <StartStopRideModal
         showModal={isRideModalOpen}
