@@ -81,8 +81,8 @@ export const TransactionQuery = gql`
   }
 `;
 export const TransactionsListQuery = gql`
-  query TransactionsListQuery {
-    transactions {
+  query TransactionsListQuery($userId: String!) {
+    transactions(userId: $userId) {
       id
       type
       amount
@@ -130,4 +130,4 @@ export const RidesQuery = gql`
       conveyance
     }
   }
-`
+`;

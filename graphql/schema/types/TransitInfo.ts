@@ -4,7 +4,9 @@ import { getTransitInfo } from "../../../services/external/GoogleMapsAPI";
 export const TransitInfo = objectType({
   name: "TransitInfo",
   definition(t) {
+    // @ts-ignore
     t.date("arrivalTime");
+    // @ts-ignore
     t.date("departureTime");
     t.int("distance");
     t.int("duration");
