@@ -7,6 +7,7 @@ import { useLazyQuery } from '@apollo/client'
 import { WaypointsQuery } from '../services/graphql/queries'
 import Loading from '../components/Loading'
 import WaypointsList from '../components/WaypointsList'
+import Link from 'next/link'
 function Settings(props) {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
@@ -33,23 +34,20 @@ function Settings(props) {
     <Layout user={session.user as User}>
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Zapisane miejsca</h1>
         </div>
       </header>
       <main className="bg-gray-200 shadow">
-        <div className="bg-gray-100 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 border-t border-gray-200">
-          <div className="layout">
-            <h2 className="text-3xl font-bold text-gray-900">
-              Favorite waypoints
-            </h2>
-            <div>add waypoint</div>
+        <div className="flex flex-col bg-gray-100 max-w-7xl space-y-2 mx-auto py-4 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
+            <Link href="/settings">
+              <button className="btn btn-sm flex-shrink self-center mt-2 mb-4">Dodaj miejsce</button>
+            </Link>
             {!waypoints.data || waypoints.loading ? (
               <Loading />
             ) : (
               <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
             )}
           </div>
-        </div>
       </main>
     </Layout>
   )

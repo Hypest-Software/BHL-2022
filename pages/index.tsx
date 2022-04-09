@@ -10,7 +10,7 @@ import AirPollutionCard from '../components/AirPollutionCard'
 import StartStopRide from '../components/StartStopRide'
 import Link from 'next/link'
 
-const Blog = () => {
+const Home = () => {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
 
@@ -43,10 +43,6 @@ const Blog = () => {
 
   const handleRideModalSubmit = () => {
     setIsRideModalOpen(false)
-  }
-
-  const handleEdit = (e) => {
-    e.preventDefault()
   }
 
   // @ts-ignore
@@ -82,7 +78,7 @@ const Blog = () => {
           <div className="flex flex-row justify-between items-center">
             <h1 className="text-xl font-semibold -mb-2">Ulubione miejsca</h1>
             <Link href="/settings">
-              <button className="btn btn-sm">edytuj</button>
+              <button hidden={!waypointsData.data} className="btn-sm bg-gray-100 rounded-lg uppercase">edytuj</button>
             </Link>
           </div>
           <DestinationWaypointsList
@@ -97,4 +93,4 @@ const Blog = () => {
   )
 }
 
-export default Blog
+export default Home

@@ -65,18 +65,22 @@ export const RideQueries = extendType({
         userId: nonNull(stringArg()),
       },
       resolve: async (_, args, ctx) => {
-        const latestRide = await ctx.prisma.ride.findFirst({
-          where: { userId: args.userId },
-          orderBy: { start_time: 'desc' },
-        })
+        try {
+          const latestRide = await ctx.prisma.ride.findFirst({
+            where: { userId: args.userId },
+            orderBy: { start_time: 'desc' },
+          })
 
-        if (!latestRide) {
-          return null
-        }
+          if (!latestRide) {
+            return null
+          }
 
-        if (!latestRide.end_time) {
-          return latestRide
-        } else {
+          if (!latestRide.end_time) {
+            return latestRide
+          } else {
+            return null
+          }
+        } catch(e) {
           return null
         }
       },
@@ -87,11 +91,13 @@ export const RideQueries = extendType({
       args: {
         userId: nonNull(stringArg()),
       },
-      resolve: (_, args, ctx) => {
-        return ctx.prisma.ride.findMany({
-          where: { userId: args.userId },
-          orderBy: { start_time: 'asc' },
+      resolve: async (_, args, ctx) => {
+        const rides = await ctx.prisma.ride.findMany({
+          where: {userId: args.userId},
+          orderBy: {start_time: 'asc'},
         })
+
+        return rides.filter(ride => Boolean(ride.end_time))
       },
     })
   },
@@ -149,8 +155,6 @@ export const RideMutations = extendType({
           ride.particulateMatter10
         )
 
-        console.log(points)
-
         await ctx.prisma.user.update({
           where: { id: userId },
           data: {
@@ -160,6 +164,15 @@ export const RideMutations = extendType({
                   where: { id: userId },
                 })
               ).balance + points,
+          },
+        })
+
+        await ctx.prisma.transaction.create({
+          data: {
+            type: "REFUND",
+            user: { connect: { id: userId } },
+            amount: points,
+            createdAt: new Date(),
           },
         })
 

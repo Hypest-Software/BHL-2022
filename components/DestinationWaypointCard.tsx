@@ -73,11 +73,18 @@ export const DestinationWaypointCard = (
               <h4 className="text-gray-600">{props.waypoint.address}</h4>
             </div>
             <div className="flex flex-row items-center">
-              <span className={durationColor + ' font-medium'}>
-                {travelPossible ? `${duration} min.` : 'pieszo!'}
-              </span>
+              <div className={durationColor + ' flex flex-col items-center'}>
+                {travelPossible ? (
+                <>
+                  <div className="text-3xl font-medium">{duration}</div>
+                  <div className="text-sm -mt-1">min</div>
+                </>)
+                :(
+                  <div>pieszo!</div>
+                )}
+              </div>
               <ArrowRightIcon
-                className={`ml-2 h-6 w-6 mb-0.5 ${durationColor}`}
+                className={`ml-3 h-6 w-6 mb-0.5 ${durationColor}`}
               />
             </div>
           </div>
