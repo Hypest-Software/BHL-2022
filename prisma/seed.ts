@@ -112,6 +112,34 @@ const userData: Prisma.UserCreateInput[] = [
   },
 ];
 
+const tickets: Prisma.TicketCreateInput[] = [
+  {
+    name: "30-minute ticket",
+    price: 5.0,
+    duration: 30,
+  },
+  {
+    name: "60-minute ticket",
+    price: 9.0,
+    duration: 60,
+  },
+  {
+    name: "90-minute ticket",
+    price: 12.0,
+    duration: 90,
+  },
+  {
+    name: "Daily ticket",
+    price: 20.0,
+    duration: 24 * 60 ,
+  },
+  {
+    name: "Monthly ticket",
+    price: 110.0,
+    duration: 31 * 24 * 60,
+  }
+];
+
 export async function main() {
   try {
     console.log(`Start seeding ...`);
@@ -122,18 +150,25 @@ export async function main() {
     //   console.log(`Created user with id: ${user.id}`);
     // }
 
-    [
-      "6250823f2fcd1a1aae0c2a1a",
-      "62507aa7d4106d32d5da9e1f",
-      "62507a030172e7cfa18ebfd2",
-    ].forEach(async (userId) => {
-      for (let i = 0; i < 10; i++) {
-        const ride = await prisma.ride.create({
-          data: randomRide(userId),
-        });
-        console.log(`Created ride with id: ${ride.id}`);
-      }
-    });
+    // [
+    //   "6250823f2fcd1a1aae0c2a1a",
+    //   "62507aa7d4106d32d5da9e1f",
+    //   "62507a030172e7cfa18ebfd2",
+    // ].forEach(async (userId) => {
+    //   for (let i = 0; i < 10; i++) {
+    //     const ride = await prisma.ride.create({
+    //       data: randomRide(userId),
+    //     });
+    //     console.log(`Created ride with id: ${ride.id}`);
+    //   }
+    // });
+
+    for (const t of tickets) {
+      const ticket = await prisma.ticket.create({
+        data: t,
+      });
+      console.log(`Created ticket with id: ${ticket.id}`);
+    }
 
     console.log(`Seeding finished.`);
   } catch (err) {
