@@ -86,7 +86,7 @@ export const RideQueries = extendType({
             resolve: async (_, args, ctx) => {
                 const rides = await ctx.prisma.ride.findMany({
                     where: {userId: args.userId},
-                    orderBy: {start_time: 'asc'},
+                    orderBy: {start_time: 'desc'},
                 })
 
                 return rides.filter((ride) => Boolean(ride.end_time))
@@ -96,56 +96,56 @@ export const RideQueries = extendType({
 })
 
 export const RideMutations = extendType({
-  type: 'Mutation',
-  definition: (t) => {
-    t.field('startRide', {
-      type: 'Ride',
-      args: {
-        userId: nonNull(stringArg()),
-        ticketId: stringArg(),
-        start_lat: nonNull(floatArg()),
-        start_lng: nonNull(floatArg()),
-        conveyance: nonNull(arg({ type: Conveyance })),
-      },
-      resolve: async (
-        _,
-        { userId, ticketId, start_lat, start_lng, conveyance },
-        ctx
-      ) => {
-        const pollution = await getPollution()
-
-        const boughtTicket = await ctx.prisma.boughtTicket.findFirst({
-          where: {
-            userId: userId,
-            ticketId: ticketId,
-          },
-        })
-
-        if (boughtTicket) {
-          await ctx.prisma.boughtTicket.update({
-            where: {
-              id: boughtTicket.id,
+    type: 'Mutation',
+    definition: (t) => {
+        t.field('startRide', {
+            type: 'Ride',
+            args: {
+                userId: nonNull(stringArg()),
+                ticketId: stringArg(),
+                start_lat: nonNull(floatArg()),
+                start_lng: nonNull(floatArg()),
+                conveyance: nonNull(arg({type: Conveyance})),
             },
-            data: {
-              ticketCount: boughtTicket.ticketCount - 1,
-            },
-          })
-        }
+            resolve: async (
+                _,
+                {userId, ticketId, start_lat, start_lng, conveyance},
+                ctx
+            ) => {
+                const pollution = await getPollution()
 
-        return ctx.prisma.ride.create({
-          data: {
-            userId,
-            start_lat,
-            start_lng,
-            conveyance,
-            start_time: new Date(),
-            sulfurDioxide: pollution.sulfurDioxide,
-            particulateMatter25: pollution.particulateMatter25,
-            particulateMatter10: pollution.particulateMatter10,
-          },
+                const boughtTicket = await ctx.prisma.boughtTicket.findFirst({
+                    where: {
+                        userId: userId,
+                        ticketId: ticketId,
+                    },
+                })
+
+                if (boughtTicket) {
+                    await ctx.prisma.boughtTicket.update({
+                        where: {
+                            id: boughtTicket.id,
+                        },
+                        data: {
+                            ticketCount: boughtTicket.ticketCount - 1,
+                        },
+                    })
+                }
+
+                return ctx.prisma.ride.create({
+                    data: {
+                        userId,
+                        start_lat,
+                        start_lng,
+                        conveyance,
+                        start_time: new Date(),
+                        sulfurDioxide: pollution.sulfurDioxide,
+                        particulateMatter25: pollution.particulateMatter25,
+                        particulateMatter10: pollution.particulateMatter10,
+                    },
+                })
+            },
         })
-      },
-    })
 
         t.field('endRide', {
             type: 'Ride',
