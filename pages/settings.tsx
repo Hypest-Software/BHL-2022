@@ -13,8 +13,8 @@ function Settings(props) {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
 
-  const [nameValue, setNameValue] = React.useState(null);
-  const [addressValue, setAddressValue] = React.useState(null);
+  const [nameValue, setNameValue] = React.useState(null)
+  const [addressValue, setAddressValue] = React.useState(null)
 
   const [fetchWaypoints, waypoints] = useLazyQuery(WaypointsQuery)
   const [createWaypoint, createWaypointMutation] = useMutation(
@@ -40,8 +40,14 @@ function Settings(props) {
   }, [fetchWaypoints, session])
 
   const handleAdd = (e) => {
-    e.preventDefault();
-    createWaypoint({variables: {address: addressValue, name: nameValue, userId: session.user.id}});
+    e.preventDefault()
+    createWaypoint({
+      variables: {
+        address: addressValue,
+        name: nameValue,
+        userId: session.user.id,
+      },
+    })
   }
 
   if (loading || waypoints.loading) {
@@ -78,14 +84,19 @@ function Settings(props) {
               onChange={(e) => setAddressValue(e.target.value)}
             />
           </div>
-          <button onClick={handleAdd} className="btn btn-sm flex-shrink self-end mt-2">Dodaj miejsce</button>
-            {!waypoints.data || waypoints.loading ? (
-              <Loading />
-            ) : (
-              <div className="mt-6">
-                <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
-              </div>
-            )}
+          <button
+            onClick={handleAdd}
+            className="btn btn-sm flex-shrink self-end mt-2"
+          >
+            Dodaj miejsce
+          </button>
+          {!waypoints.data || waypoints.loading ? (
+            <Loading />
+          ) : (
+            <div className="mt-6">
+              <WaypointsList waypoints={waypoints.data.favoriteWaypoints} />
+            </div>
+          )}
         </div>
       </main>
     </Layout>
