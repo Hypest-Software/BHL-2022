@@ -17,7 +17,6 @@ export const Pollution = objectType({
     t.float('sulfurDioxide')
     t.float('temperature')
     t.float('wind')
-    t.float('windGust')
   },
 })
 

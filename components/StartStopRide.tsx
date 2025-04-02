@@ -44,8 +44,6 @@ export default function StartStopRide(props: StartStopRideProps) {
     const handleRideModalSubmit = (ticketId) => {
         setIsRideModalOpen(false)
 
-        console.log(ticketId)
-
         startRide({
             variables: {
                 userId: props.userId,

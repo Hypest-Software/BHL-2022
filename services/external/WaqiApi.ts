@@ -11,7 +11,6 @@ export interface Pollution {
   sulfurDioxide: number
   temperature: number
   wind: number
-  windGust: number
 }
 
 export const getPollution = async (): Promise<Pollution> => {
@@ -28,7 +27,6 @@ export const getPollution = async (): Promise<Pollution> => {
     sulfurDioxide: raw.data.iaqi.so2.v,
     temperature: raw.data.iaqi.t.v,
     wind: raw.data.iaqi.w.v,
-    windGust: raw.data.iaqi.wg.v,
   }
 }
 
