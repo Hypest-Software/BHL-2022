@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
   content: [
@@ -8,10 +9,5 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('daisyui'),
-  ],
-  safelist: [
-    {
-      pattern: /.*/,
-    },
-  ],
+  ]
 }

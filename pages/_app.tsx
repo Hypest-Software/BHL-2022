@@ -3,12 +3,15 @@ import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { Roboto } from 'next/font/google'
 import '../styles/global.css'
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: '/api',
 })
+
+const roboto = Roboto({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -91,6 +94,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             content="https://yourdomain.com/icons/apple-touch-icon.png"
           />
         </Head>
+        <style jsx global>{`
+          html {
+            font-family: ${roboto.style.fontFamily};
+          }
+        `}</style>
         <Component {...pageProps} />
       </ApolloProvider>
     </SessionProvider>

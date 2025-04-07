@@ -50,6 +50,35 @@ const AirPollutionItem = ({ item, quality, value, unit }) => {
   )
 }
 
+const colorClasses = {
+  green: {
+    bg: 'bg-green-100',
+    text: 'text-green-800',
+    textLight: 'text-green-700',
+  },
+  lime: {
+    bg: 'bg-lime-100',
+    text: 'text-lime-800',
+    textLight: 'text-lime-700',
+  },
+  yellow: {
+    bg: 'bg-yellow-100',
+    text: 'text-yellow-800',
+    textLight: 'text-yellow-700',
+  },
+  orange: {
+    bg: 'bg-orange-100',
+    text: 'text-orange-800',
+    textLight: 'text-orange-700',
+  },
+  red: {
+    bg: 'bg-red-100',
+    text: 'text-red-800',
+    textLight: 'text-red-700',
+  },
+}
+
+
 const AirPollutionCard = () => {
   const [fetchAirData, airData] = useLazyQuery(PollutionQuery)
 
@@ -73,21 +102,21 @@ const AirPollutionCard = () => {
 
   return (
     <>
-      <div className={`bg-${colorName}-100 rounded-lg p-4`}>
+      <div className={`${colorClasses[colorName].bg} rounded-lg p-4`}>
         <div className="flex flex-row justify-between">
           <div className="flex flex-col justify-between">
-            <h2 className={`text-${colorName}-800`}>Jakość powietrza</h2>
+            <h2 className={`${colorClasses[colorName].text}`}>Jakość powietrza</h2>
             <h1 className={`text-3xl font-semibold text-${colorName}-800`}>
               {airQualityName}
             </h1>
           </div>
           <div className="flex flex-row space-x-4 items-center">
             <div className="flex flex-col justify-around items-center">
-              <div className={`text-3xl font-bold text-${colorName}-700`}>
+              <div className={`text-3xl font-bold ${colorClasses[colorName].textLight}`}>
                 {pointsMultiplier}
                 <span className="font-normal text-2xl">x</span>
               </div>
-              <div className={`text-sm text-${colorName}-700 -mt-1`}>
+              <div className={`text-sm ${colorClasses[colorName].textLight} -mt-1`}>
                 mnożnik
               </div>
             </div>
